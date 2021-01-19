@@ -25,7 +25,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 bool Application::HandleKeyboard(MSG msg)
 {
-	XMFLOAT3 cameraPosition = _camera->GetPosition();
+	Vector3D cameraPosition = _camera->GetPosition();
 
 	switch (msg.wParam)
 	{
@@ -106,9 +106,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	//CreateDDSTextureFromFile(_pd3dDevice, L"Resources\\Hercules_COLOR.dds", nullptr, &_pHerculesTextureRV);
 	
     // Setup Camera
-	XMFLOAT3 eye = XMFLOAT3(0.0f, 2.0f, -1.0f);
-	XMFLOAT3 at = XMFLOAT3(0.0f, 2.0f, 0.0f);
-	XMFLOAT3 up = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	Vector3D eye = Vector3D(0.0f, 2.0f, -1.0f);
+	Vector3D at = Vector3D(0.0f, 2.0f, 0.0f);
+	Vector3D up = Vector3D(0.0f, 1.0f, 0.0f);
 
 	_camera = new Camera(eye, at, up, (float)_renderWidth, (float)_renderHeight, 0.01f, 200.0f);
 
@@ -163,9 +163,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 
 	_gameObjects.push_back(gameObject);
 
-	for (auto i = 0; i < 5; i++)
+	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
-		gameObject = new GameObject("Cube " + i, cubeGeometry, shinyMaterial);
+		gameObject = new GameObject("Cube" + i, cubeGeometry, shinyMaterial);
 		gameObject->SetScale(0.5f, 0.5f, 0.5f);
 		gameObject->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->SetTextureRV(_pTextureRV);
@@ -666,14 +666,14 @@ void Application::Cleanup()
 
 void Application::moveForward(int objectNumber)
 {
-	XMFLOAT3 position = _gameObjects[objectNumber]->GetPosition();
+	Vector3D position = _gameObjects[objectNumber]->GetPosition();
 	position.z -= 0.02f;
 	_gameObjects[objectNumber]->SetPosition(position);
 }
 
 void Application::moveBackward(int objectNumber)
 {
-	XMFLOAT3 position = _gameObjects[objectNumber-2]->GetPosition();
+	Vector3D position = _gameObjects[objectNumber-2]->GetPosition();
 	position.z += 0.02f;
 	_gameObjects[objectNumber-2]->SetPosition(position);
 }
@@ -681,7 +681,7 @@ void Application::moveBackward(int objectNumber)
 void Application::Update()
 {
     // Update our time
-    static float timeSinceStart = 0.0f;
+    static float deltaTime = 0.0f;
     static DWORD dwTimeStart = 0;
 
     DWORD dwTimeCur = GetTickCount64();
@@ -689,7 +689,11 @@ void Application::Update()
     if (dwTimeStart == 0)
         dwTimeStart = dwTimeCur;
 
-	timeSinceStart = (dwTimeCur - dwTimeStart) / 1000.0f;
+	deltaTime += (dwTimeCur - dwTimeStart) / 1000.0f;
+	
+	if (deltaTime < FPS) {
+		return; // wait  till 60 frames have passed
+	}
 
 	// Move gameobject
 	if (GetAsyncKeyState('1'))
@@ -715,7 +719,7 @@ void Application::Update()
 	float x = _cameraOrbitRadius * cos(angleAroundZ);
 	float z = _cameraOrbitRadius * sin(angleAroundZ);
 
-	XMFLOAT3 cameraPos = _camera->GetPosition();
+	Vector3D cameraPos = _camera->GetPosition();
 	cameraPos.x = x;
 	cameraPos.z = z;
 
@@ -725,8 +729,10 @@ void Application::Update()
 	// Update objects
 	for (auto gameObject : _gameObjects)
 	{
-		gameObject->Update(timeSinceStart);
+		gameObject->Update(deltaTime);
 	}
+	//resets time since last frame
+	deltaTime -= FPS;
 }
 
 void Application::Draw()
@@ -764,7 +770,7 @@ void Application::Draw()
 	cb.Projection = XMMatrixTranspose(projection);
 	
 	cb.light = basicLight;
-	cb.EyePosW = _camera->GetPosition();
+	cb.EyePosW = XMFLOAT3(_camera->GetPosition().x, _camera->GetPosition().y, _camera->GetPosition().z);
 
 	// Render all scene objects
 	for (auto gameObject : _gameObjects)
