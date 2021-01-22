@@ -42,6 +42,12 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{a484d1d3-e641-4bcc-8d07-3b5bc035cb95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Components">
+      <UniqueIdentifier>{2a31da27-394f-4684-8a4e-520c2d231fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{53800471-df11-4389-9251-bae2ce77d835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -68,6 +74,18 @@
     <ClInclude Include="Vector3D.h">
       <Filter>Headers\Utillity</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Appearance.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModel.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -91,6 +109,15 @@
     </ClCompile>
     <ClCompile Include="Vector3D.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Appearance.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleModel.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

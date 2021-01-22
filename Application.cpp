@@ -153,30 +153,36 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	noSpecMaterial.specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	noSpecMaterial.specularPower = 0.0f;
 
-
-	
-	GameObject * gameObject = new GameObject("Floor", planeGeometry, noSpecMaterial);
-	gameObject->SetPosition(0.0f, 0.0f, 0.0f);
-	gameObject->SetScale(15.0f, 15.0f, 15.0f);
-	gameObject->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
-	gameObject->SetTextureRV(_pGroundTextureRV);
+	//create new apperance instance
+	Appearance* appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
+	Transform*  floorTrans = new Transform(Vector3D(0.0f, 0.0f, 0.0f),
+		Vector3D(XMConvertToRadians(90.0f), 0.0f, 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
+	GameObject * gameObject = new GameObject("Floor", appearance, floorTrans);
 
 	_gameObjects.push_back(gameObject);
-
+	appearance = new Appearance(cubeGeometry, shinyMaterial, _pTextureRV);
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
-		gameObject = new GameObject("Cube" + i, cubeGeometry, shinyMaterial);
-		gameObject->SetScale(0.5f, 0.5f, 0.5f);
-		gameObject->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
-		gameObject->SetTextureRV(_pTextureRV);
+		gameObject = new GameObject("Cube" + i, appearance);
+		
+		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
+		gameObject->SetPosition(Vector3D (-4.0f + (i * 2.0f), 0.5f, 10.0f));
+		DebugHelp().OutPutValue("my x", gameObject->GetTransform()->GetPosition().x);
+		DebugHelp().OutPutValue("my y", gameObject->GetTransform()->GetPosition().y);
+		DebugHelp().OutPutValue("my z", gameObject->GetTransform()->GetPosition().z);
+	
 
 		_gameObjects.push_back(gameObject);
 	}
-	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);
-	gameObject->SetScale(0.5f, 0.5f, 0.5f);
-	gameObject->SetPosition(-4.0f, 0.5f, 10.0f);
-	gameObject->SetTextureRV(_pTextureRV);
+
+	
+	appearance = new Appearance(herculesGeometry, shinyMaterial, _pTextureRV);
+	gameObject = new GameObject("donut", appearance);
+	gameObject->GetTransform()->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
+	gameObject->SetPosition(Vector3D (-4.0f, 0.5f, 10.0f));
+
 	_gameObjects.push_back(gameObject);
+	appearance = nullptr;
 	return S_OK;
 }
 
@@ -664,18 +670,54 @@ void Application::Cleanup()
 	}
 }
 
-void Application::moveForward(int objectNumber)
+void Application::MoveForward()
 {
-	Vector3D position = _gameObjects[objectNumber]->GetPosition();
-	position.z -= 0.02f;
-	_gameObjects[objectNumber]->SetPosition(position);
+
+	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveForward();
+
 }
 
-void Application::moveBackward(int objectNumber)
+void Application::MoveBackward()
 {
-	Vector3D position = _gameObjects[objectNumber-2]->GetPosition();
-	position.z += 0.02f;
-	_gameObjects[objectNumber-2]->SetPosition(position);
+	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveBackwards();
+}
+
+void Application::MoveRight()
+{
+	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveRight();
+}
+
+void Application::MoveLeft()
+{
+	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveLeft();
+}
+
+void Application::CycleBetweenObjectByType(string type)
+{
+	//increment gameobjectIndex
+	_activeGameObjectIndex++;
+	
+	//If index is longer than length of game object list loop back round
+	if (_activeGameObjectIndex > _gameObjects.size() - 1) _activeGameObjectIndex = 0;
+
+
+	if (_gameObjects[_activeGameObjectIndex]->GetType() != type) {
+
+	
+	
+
+		//go through each object starting at the current index
+		for (int i = _activeGameObjectIndex; i < _gameObjects.size(); i++) {
+			//if the current index is the desired object type break
+			if (_gameObjects[i]->GetType() == type) {
+				if (i > _activeGameObjectIndex) {
+					_activeGameObjectIndex = i;
+					break;
+				}
+				
+			}
+		}
+	}
 }
 
 void Application::Update()
@@ -696,22 +738,26 @@ void Application::Update()
 	}
 
 	// Move gameobject
-	if (GetAsyncKeyState('1'))
+	if (GetAsyncKeyState('W'))
 	{
-		moveForward(1);
+		MoveForward();
 	}
-	if (GetAsyncKeyState('2'))
+	else if (GetAsyncKeyState('S'))
 	{
-		moveForward(2);
+		MoveBackward();
 	}
 
-	if (GetAsyncKeyState('3'))
+	if (GetAsyncKeyState('D'))
 	{
-		moveBackward(3);
+		MoveRight();
 	}
-	if (GetAsyncKeyState('4'))
+	else if (GetAsyncKeyState('A'))
 	{
-		moveBackward(4);
+		MoveLeft();
+	}
+
+	if (GetAsyncKeyState('C')) {
+		CycleBetweenObjectByType("Cube");
 	}
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
@@ -776,7 +822,7 @@ void Application::Draw()
 	for (auto gameObject : _gameObjects)
 	{
 		// Get render material
-		Material material = gameObject->GetMaterial();
+		Material material = gameObject->GetAppearance()->GetMaterial();
 
 		// Copy material to shader
 		cb.surface.AmbientMtrl = material.ambient;
@@ -787,9 +833,9 @@ void Application::Draw()
 		cb.World = XMMatrixTranspose(gameObject->GetWorldMatrix());
 
 		// Set texture
-		if (gameObject->HasTexture())
+		if (gameObject->GetAppearance()->HasTexture())
 		{
-			ID3D11ShaderResourceView * textureRV = gameObject->GetTextureRV();
+			ID3D11ShaderResourceView * textureRV = gameObject->GetAppearance()->GetTextureRV();
 			_pImmediateContext->PSSetShaderResources(0, 1, &textureRV);
 			cb.HasTexture = 1.0f;
 		}

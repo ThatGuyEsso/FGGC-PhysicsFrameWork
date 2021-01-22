@@ -28,7 +28,7 @@
 #include "GameObject.h"
 
 using namespace DirectX;
-#define NUMBER_OF_CUBES 1
+#define NUMBER_OF_CUBES 5
 
 //struct SimpleVertex
 //{
@@ -119,6 +119,8 @@ private:
 	UINT _WindowHeight;
 	UINT _WindowWidth;
 
+	int _activeGameObjectIndex =0;
+
 	// Render dimensions - Change here to alter screen resolution
 	UINT _renderHeight = 1080;
 	UINT _renderWidth = 1920;
@@ -138,9 +140,12 @@ private:
 	HRESULT InitVertexBuffer();
 	HRESULT InitIndexBuffer();
 
-	void moveForward(int objectNumber);
-	void moveBackward(int objectNumber);
+	void MoveForward();
+	void MoveBackward();
+	void MoveLeft();
+	void MoveRight();
 
+	void CycleBetweenObjectByType(string type);
 public:
 	Application();
 	~Application();
