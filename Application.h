@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "Structures.h"
 #include "OBJLoader.h"
+#include "InputManager.h"
 
 #include <vector>
 /*
@@ -120,7 +121,7 @@ private:
 	UINT _WindowWidth;
 
 	int _activeGameObjectIndex =0;
-
+	InputManager* _input;
 	// Render dimensions - Change here to alter screen resolution
 	UINT _renderHeight = 1080;
 	UINT _renderWidth = 1920;
@@ -144,6 +145,7 @@ private:
 	void MoveBackward();
 	void MoveLeft();
 	void MoveRight();
+
 
 	void CycleBetweenObjectByType(string type);
 public:

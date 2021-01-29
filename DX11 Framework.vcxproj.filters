@@ -48,6 +48,12 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{53800471-df11-4389-9251-bae2ce77d835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Managers">
+      <UniqueIdentifier>{6af79020-3263-4c5b-b981-e3a235430e16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{2ab0962a-22e2-4b61-9f3f-2adfcc0e25a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -86,6 +92,9 @@
     <ClInclude Include="ParticleModel.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Headers\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -118,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="ParticleModel.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

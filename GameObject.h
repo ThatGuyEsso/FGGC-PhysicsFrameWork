@@ -54,7 +54,7 @@ private:
 	
 	Transform* _transform;
 	Appearance* _appearance;
-	ParticleModel _particleModel = ParticleModel(_transform);
+	ParticleModel _particleModel = ParticleModel(_transform,Vector3D(), Vector3D());
 	string _type;
 	XMFLOAT4X4 _world;
 	GameObject * _parent;

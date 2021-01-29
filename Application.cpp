@@ -75,6 +75,8 @@ Application::Application()
 	RSCullNone = nullptr;
 	 _WindowHeight = 0;
 	 _WindowWidth = 0;
+
+	 _input->instance();
 }
 
 Application::~Application()
@@ -167,9 +169,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
 		gameObject->SetPosition(Vector3D (-4.0f + (i * 2.0f), 0.5f, 10.0f));
-		DebugHelp().OutPutValue("my x", gameObject->GetTransform()->GetPosition().x);
-		DebugHelp().OutPutValue("my y", gameObject->GetTransform()->GetPosition().y);
-		DebugHelp().OutPutValue("my z", gameObject->GetTransform()->GetPosition().z);
+
 	
 
 		_gameObjects.push_back(gameObject);
@@ -660,20 +660,20 @@ void Application::Cleanup()
 		_camera = nullptr;
 	}
 
-	for (auto gameObject : _gameObjects)
+for (auto gameObject : _gameObjects)
+{
+	if (gameObject)
 	{
-		if (gameObject)
-		{
-			delete gameObject;
-			gameObject = nullptr;
-		}
+		delete gameObject;
+		gameObject = nullptr;
 	}
+}
 }
 
 void Application::MoveForward()
 {
 
-	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveForward();
+	_gameObjects[_activeGameObjectIndex]->GetParticleModel().SetCurrentVelocity(Vector3D(0, 0, 1));
 
 }
 
@@ -687,6 +687,8 @@ void Application::MoveRight()
 	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveRight();
 }
 
+
+
 void Application::MoveLeft()
 {
 	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveLeft();
@@ -696,68 +698,77 @@ void Application::CycleBetweenObjectByType(string type)
 {
 	//increment gameobjectIndex
 	_activeGameObjectIndex++;
-	
+
 	//If index is longer than length of game object list loop back round
-	if (_activeGameObjectIndex > _gameObjects.size() - 1) _activeGameObjectIndex = 0;
+	if (_activeGameObjectIndex >= _gameObjects.size()) _activeGameObjectIndex = 0;
 
 
-	if (_gameObjects[_activeGameObjectIndex]->GetType() != type) {
+	if (_gameObjects[_activeGameObjectIndex]->GetType() != std::string(type)) {
 
-	
-	
-
-		//go through each object starting at the current index
 		for (int i = _activeGameObjectIndex; i < _gameObjects.size(); i++) {
-			//if the current index is the desired object type break
-			if (_gameObjects[i]->GetType() == type) {
-				if (i > _activeGameObjectIndex) {
-					_activeGameObjectIndex = i;
-					break;
-				}
-				
+			DebugHelp().OutPutValue("Looking",i);
+			if (_gameObjects[i]->GetType() == std::string(type)) {
+				DebugHelp().OutPutText("New type found");
+				_activeGameObjectIndex = i;
+				break;
 			}
 		}
+
+
+
 	}
+	else {
+		DebugHelp().OutPutText("Already has type");
+	}
+
+	DebugHelp().OutPutText(_gameObjects[_activeGameObjectIndex]->GetType().c_str());
 }
 
 void Application::Update()
 {
-    // Update our time
-    static float deltaTime = 0.0f;
-    static DWORD dwTimeStart = 0;
+	_input->Update();
+	// Update our time
+	static float deltaTime = 0.0f;
+	static DWORD dwTimeStart = 0;
 
-    DWORD dwTimeCur = GetTickCount64();
+	DWORD dwTimeCur = GetTickCount64();
 
-    if (dwTimeStart == 0)
-        dwTimeStart = dwTimeCur;
+	if (dwTimeStart == 0)
+		dwTimeStart = dwTimeCur;
 
 	deltaTime += (dwTimeCur - dwTimeStart) / 1000.0f;
-	
+
 	if (deltaTime < FPS) {
 		return; // wait  till 60 frames have passed
 	}
 
 	// Move gameobject
-	if (GetAsyncKeyState('W'))
+	if (_input->GetKey('W'))
 	{
 		MoveForward();
+		DebugHelp().OutPutText("forward");
 	}
-	else if (GetAsyncKeyState('S'))
-	{
-		MoveBackward();
-	}
+	//else if (_input->GetKey('S'))
+	//{
+	//	MoveBackward();
+	//	DebugHelp().OutPutText("back");
+	//}
 
-	if (GetAsyncKeyState('D'))
-	{
-		MoveRight();
-	}
-	else if (GetAsyncKeyState('A'))
-	{
-		MoveLeft();
-	}
+	//if (_input->GetKey('D'))
+	//{
+	//	MoveRight();
+	//	DebugHelp().OutPutText("Right");
+	//}
+	//else if (_input->GetKey('A'))
+	//{
+	//	MoveLeft();
+	//	DebugHelp().OutPutText("Left");
+	//}
 
-	if (GetAsyncKeyState('C')) {
-		CycleBetweenObjectByType("Cube");
+	
+	
+	if (_input->GetKey('C')) {
+		CycleBetweenObjectByType(std::string("Cube"));
 	}
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
