@@ -95,6 +95,9 @@
     <ClInclude Include="InputManager.h">
       <Filter>Headers\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Headers\Utillity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
