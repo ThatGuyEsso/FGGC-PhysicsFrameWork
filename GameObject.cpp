@@ -6,7 +6,7 @@ GameObject::GameObject(string type, Appearance* apperance)
 	//Create a new instance of object transform if none is specified
 	_transform = new Transform();
 	_appearance = apperance;
-	_particleModel = ParticleModel(_transform, Vector3D(0.01f,0,0), Vector3D());
+	_particleModel = new  ParticleModel(_transform, Vector3D(), Vector3D(), false);
 	_type = type;
 
 }
@@ -17,13 +17,14 @@ GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
 	//Initialise object with specific transform
 	_transform = transform;
 	_appearance = apperance;
-	_particleModel = ParticleModel(_transform, Vector3D(), Vector3D());
+	_particleModel = new ParticleModel(_transform, Vector3D(), Vector3D(),false);
 	_type = type;
 }
 
 GameObject::~GameObject()
 {
 	_transform = nullptr;
+	_appearance = nullptr;
 }
 
 void GameObject::Update(float t)
@@ -43,7 +44,7 @@ void GameObject::Update(float t)
 	{
 		XMStoreFloat4x4(&_world, this->GetWorldMatrix() * _parent->GetWorldMatrix());
 	}
-	_particleModel.Update(t);
+	_particleModel->Update(t);
 
 }
 

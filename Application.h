@@ -141,10 +141,8 @@ private:
 	HRESULT InitVertexBuffer();
 	HRESULT InitIndexBuffer();
 
-	void MoveForward();
-	void MoveBackward();
-	void MoveLeft();
-	void MoveRight();
+	void AddThrust(Vector3D force);
+	GameObject* GetSelectedGameObject();
 
 
 	void CycleBetweenObjectByType(string type);

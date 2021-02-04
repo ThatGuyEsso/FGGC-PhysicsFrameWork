@@ -14,6 +14,8 @@ bool InputManager::GetKey(int key)
 bool InputManager::GetKeyIsDown(int key)
 {
 	if(GetAsyncKeyState(key) & 0x8000) {
+
+		
 		return true;
 	}
 	return false;

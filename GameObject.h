@@ -43,7 +43,7 @@ public:
 
 	Appearance* GetAppearance() { return _appearance; }
 
-	ParticleModel GetParticleModel() { return _particleModel; }
+	ParticleModel* GetParticleModel() { return _particleModel; }
 
 	void SetParent(GameObject * parent) { _parent = parent; }
 
@@ -54,7 +54,7 @@ private:
 	
 	Transform* _transform;
 	Appearance* _appearance;
-	ParticleModel _particleModel = ParticleModel(_transform,Vector3D(), Vector3D());
+	ParticleModel* _particleModel;
 	string _type;
 	XMFLOAT4X4 _world;
 	GameObject * _parent;

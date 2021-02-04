@@ -168,9 +168,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject = new GameObject("Cube" + i, appearance);
 		
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		gameObject->SetPosition(Vector3D (-4.0f + (i * 2.0f), 0.5f, 10.0f));
-
-	
+		gameObject->SetPosition(Vector3D (-4.0f + (i * 2.0f), 0.5f, 5.0f));
+		gameObject->GetParticleModel()->SetSurfacePosition(gameObject->GetTransform()->GetPosition());
+		gameObject->GetParticleModel()->ToggleGravity(true);
 
 		_gameObjects.push_back(gameObject);
 	}
@@ -406,6 +406,20 @@ HRESULT Application::InitIndexBuffer()
 		return hr;
 
 	return S_OK;
+}
+
+void Application::AddThrust(Vector3D force)
+{
+	GameObject* object = GetSelectedGameObject();
+
+	if(object->GetParticleModel()->UsesGravity()){
+		object->GetParticleModel()->ApplyForce(force);
+	}
+}
+
+GameObject* Application::GetSelectedGameObject()
+{
+	return _gameObjects[_activeGameObjectIndex];
 }
 
 HRESULT Application::InitWindow(HINSTANCE hInstance, int nCmdShow)
@@ -670,29 +684,7 @@ for (auto gameObject : _gameObjects)
 }
 }
 
-void Application::MoveForward()
-{
 
-	_gameObjects[_activeGameObjectIndex]->GetParticleModel().SetCurrentVelocity(Vector3D(0, 0, 1));
-
-}
-
-void Application::MoveBackward()
-{
-	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveBackwards();
-}
-
-void Application::MoveRight()
-{
-	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveRight();
-}
-
-
-
-void Application::MoveLeft()
-{
-	_gameObjects[_activeGameObjectIndex]->GetParticleModel().MoveLeft();
-}
 
 void Application::CycleBetweenObjectByType(string type)
 {
@@ -743,9 +735,9 @@ void Application::Update()
 	}
 
 	// Move gameobject
-	if (_input->GetKey('W'))
+	if (_input->GetKeyIsDown('W'))
 	{
-		MoveForward();
+		AddThrust(Vector3D(0, 0, 0.00000001));
 		DebugHelp().OutPutText("forward");
 	}
 	//else if (_input->GetKey('S'))

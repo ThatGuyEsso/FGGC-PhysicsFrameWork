@@ -98,6 +98,9 @@
     <ClInclude Include="Quaternion.h">
       <Filter>Headers\Utillity</Filter>
     </ClInclude>
+    <ClInclude Include="Commons.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
