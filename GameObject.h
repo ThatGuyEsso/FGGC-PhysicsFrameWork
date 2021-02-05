@@ -6,7 +6,7 @@
 #include "Transform.h"
 #include "Appearance.h"
 #include "ParticleModel.h"
-
+#include "Graphics.h"
 using namespace DirectX;
 using namespace std;
 
@@ -55,6 +55,7 @@ private:
 	Transform* _transform;
 	Appearance* _appearance;
 	ParticleModel* _particleModel;
+	Graphics* _graphics;
 	string _type;
 	XMFLOAT4X4 _world;
 	GameObject * _parent;

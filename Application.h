@@ -27,7 +27,7 @@
 #include "VertexTypes.h"
 */
 #include "GameObject.h"
-
+#include "Commons.h"
 using namespace DirectX;
 #define NUMBER_OF_CUBES 5
 
@@ -131,7 +131,7 @@ private:
 
 	ID3D11RasterizerState* CCWcullMode;
 	ID3D11RasterizerState* CWcullMode;
-	static constexpr float FPS = 60.0f;
+
 private:
 	HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 	HRESULT InitDevice();

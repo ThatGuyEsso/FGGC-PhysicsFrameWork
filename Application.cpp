@@ -733,7 +733,7 @@ void Application::Update()
 	if (deltaTime < FPS) {
 		return; // wait  till 60 frames have passed
 	}
-
+	
 	// Move gameobject
 	if (_input->GetKeyIsDown('W'))
 	{

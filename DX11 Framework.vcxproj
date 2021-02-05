@@ -375,11 +375,14 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="DebugHelp.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleModel.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
@@ -397,9 +400,12 @@
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="DebugHelp.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="OBJLoader.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleModel.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Quaternion.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="Structs.h" />

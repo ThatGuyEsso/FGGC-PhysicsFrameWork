@@ -8,6 +8,7 @@ GameObject::GameObject(string type, Appearance* apperance)
 	_appearance = apperance;
 	_particleModel = new  ParticleModel(_transform, Vector3D(), Vector3D(), false);
 	_type = type;
+	_graphics = new Graphics(_appearance);
 
 }
 
@@ -19,6 +20,7 @@ GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
 	_appearance = apperance;
 	_particleModel = new ParticleModel(_transform, Vector3D(), Vector3D(),false);
 	_type = type;
+	_graphics = new Graphics(_appearance);
 }
 
 GameObject::~GameObject()
@@ -50,11 +52,6 @@ void GameObject::Update(float t)
 
 void GameObject::Draw(ID3D11DeviceContext * pImmediateContext)
 {
-	// NOTE: We are assuming that the constant buffers and all other draw setup has already taken place
-
-	// Set vertex and index buffers
-	pImmediateContext->IASetVertexBuffers(0, 1, _appearance->GetVertexBuffer(), _appearance->GetVertexStride(), _appearance->GetVertexBufferOffset());
-	pImmediateContext->IASetIndexBuffer(_appearance->GetGeomentry().indexBuffer, DXGI_FORMAT_R16_UINT, 0);
-
-	pImmediateContext->DrawIndexed(_appearance->GetGeomentry().numberOfIndices, 0, 0);
+	//call graphics component
+	_graphics->Draw(pImmediateContext);
 }
