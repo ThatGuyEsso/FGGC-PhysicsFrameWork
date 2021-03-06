@@ -7,6 +7,7 @@
 #include "Appearance.h"
 #include "ParticleModel.h"
 #include "Graphics.h"
+#include "Quaternion.h"
 using namespace DirectX;
 using namespace std;
 
@@ -50,6 +51,9 @@ public:
 	void Update(float t);
 	void Draw(ID3D11DeviceContext * pImmediateContext);
 
+	Quaternion MatrixToQuarternion(XMMATRIX matrix);
+	void CalculateRotationMatrix(Quaternion orientation);
+	void Rotate(Vector3D rotation) { _transform->_rotation += rotation; }
 private:
 	
 	Transform* _transform;
@@ -58,6 +62,9 @@ private:
 	Graphics* _graphics;
 	string _type;
 	XMFLOAT4X4 _world;
-	GameObject * _parent;
+	GameObject* _parent;
+	Quaternion _orientation;
+	XMMATRIX _orientationMatrix;
+	Vector3D centreOfmass;
 };
 

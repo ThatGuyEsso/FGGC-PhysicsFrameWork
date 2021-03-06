@@ -15,4 +15,20 @@ Appearance::~Appearance()
 
 }
 
+void Appearance::CalculateCentreOfMass(SimpleVertex vertices[])
+{
+	Vector3D sum = Vector3D();
+	for (int i = 0; i < sizeof(vertices); i++) {
+
+		Vector3D converstion = Vector3D(vertices[i].Pos.x, vertices[i].Pos.y, vertices[i].Pos.z);
+
+		sum += converstion;
+	}
+
+	_centreOfMass = sum / sizeof(vertices);
+
+}
+
+
+
 

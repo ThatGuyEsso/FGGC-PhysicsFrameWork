@@ -142,6 +142,7 @@ private:
 	HRESULT InitIndexBuffer();
 
 	void AddThrust(Vector3D force);
+	void RotateGameObject(Vector3D rotation);
 	GameObject* GetSelectedGameObject();
 
 

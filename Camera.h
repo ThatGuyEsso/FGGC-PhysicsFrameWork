@@ -5,9 +5,14 @@
 #include <d3dcompiler.h>
 #include <directxmath.h>
 #include "Vector3D.h"
-
+#include "Transform.h"
 using namespace DirectX;
 
+enum CameraMode {
+	Debug,
+	FirstPerson,
+	ThirdPerson
+};
 class Camera
 {
 private:
@@ -23,6 +28,7 @@ private:
 	XMFLOAT4X4 _view;
 	XMFLOAT4X4 _projection;
 
+	CameraMode _mode;
 public:
 	Camera(Vector3D position, Vector3D at, Vector3D up, FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth);
 	~Camera();

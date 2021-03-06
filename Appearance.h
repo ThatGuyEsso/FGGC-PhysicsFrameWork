@@ -1,11 +1,12 @@
 #pragma once
 #include "Structs.h"
+#include "Structures.h"
 class Appearance {
 private:
 	Geometry _geometry;
 	Material _material;
 	ID3D11ShaderResourceView* _textureRV;
-
+	Vector3D _centreOfMass;
 
 public:
 
@@ -26,6 +27,7 @@ public:
 	ID3D11Buffer** GetVertexBuffer() { return &_geometry.vertexBuffer; }
 	UINT* GetVertexStride()  { return &_geometry.vertexBufferStride; }
 	UINT* GetVertexBufferOffset() { return &_geometry.vertexBufferOffset; }
+	void CalculateCentreOfMass(SimpleVertex vertices[]);
 
 
 };

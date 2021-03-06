@@ -413,8 +413,13 @@ void Application::AddThrust(Vector3D force)
 	GameObject* object = GetSelectedGameObject();
 
 	if(object->GetParticleModel()->UsesGravity()){
-		object->GetParticleModel()->ApplyForce(force);
+		object->GetParticleModel()->ApplyForce(force*2.0f);
 	}
+}
+
+void Application::RotateGameObject(Vector3D rotation)
+{
+	GetSelectedGameObject()->Rotate(rotation);
 }
 
 GameObject* Application::GetSelectedGameObject()
@@ -728,34 +733,19 @@ void Application::Update()
 	if (dwTimeStart == 0)
 		dwTimeStart = dwTimeCur;
 
-	deltaTime += (dwTimeCur - dwTimeStart) / 1000.0f;
+	deltaTime += (dwTimeCur - dwTimeStart) / 1000.0f;//milli seconds elapsed
 
 	if (deltaTime < FPS) {
 		return; // wait  till 60 frames have passed
 	}
-	
-	// Move gameobject
-	if (_input->GetKeyIsDown('W'))
-	{
-		AddThrust(Vector3D(0, 0, 0.00000001));
-		DebugHelp().OutPutText("forward");
-	}
-	//else if (_input->GetKey('S'))
-	//{
-	//	MoveBackward();
-	//	DebugHelp().OutPutText("back");
-	//}
+	deltaTime = 1.0f/deltaTime;//frame per second
 
-	//if (_input->GetKey('D'))
-	//{
-	//	MoveRight();
-	//	DebugHelp().OutPutText("Right");
-	//}
-	//else if (_input->GetKey('A'))
-	//{
-	//	MoveLeft();
-	//	DebugHelp().OutPutText("Left");
-	//}
+
+	// Move gameobject
+	if (_input->GetKey('W'))
+	{
+		AddThrust(Vector3D(0.0f, 100.0f, 0.0f));
+	}
 
 	
 	

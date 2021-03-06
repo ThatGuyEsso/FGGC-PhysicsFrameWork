@@ -5,6 +5,7 @@
 #include <directxmath.h>
 using namespace DirectX;
 
+
 //
 //struct Vertex3D
 //{

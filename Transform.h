@@ -29,4 +29,7 @@ public:
 
 
 	Vector3D GetRotation() const { return _rotation; }
+
+
+
 };
