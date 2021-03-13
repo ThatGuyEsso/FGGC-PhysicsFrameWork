@@ -373,6 +373,7 @@
     <ClCompile Include="Appearance.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="DebugHelp.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -383,6 +384,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleModel.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
@@ -396,7 +398,9 @@
     <ClInclude Include="Appearance.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Commons.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="DebugHelp.h" />
     <ClInclude Include="GameObject.h" />
@@ -408,6 +412,8 @@
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Quaternion.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Structs.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Transform.h" />

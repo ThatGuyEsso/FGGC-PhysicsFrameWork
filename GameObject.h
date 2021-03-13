@@ -5,7 +5,7 @@
 #include "DebugHelp.h"
 #include "Transform.h"
 #include "Appearance.h"
-#include "ParticleModel.h"
+#include "RigidBody.h"
 #include "Graphics.h"
 #include "Quaternion.h"
 using namespace DirectX;
@@ -44,27 +44,29 @@ public:
 
 	Appearance* GetAppearance() { return _appearance; }
 
-	ParticleModel* GetParticleModel() { return _particleModel; }
+	RigidBody* GetRigidBody() { return _rigidBody; }
 
 	void SetParent(GameObject * parent) { _parent = parent; }
 
+	void SetCentreOfMass(Vector3D point) { _centreOfMass = point; }
+	Vector3D GetCentreOfMass() { return _centreOfMass; }
 	void Update(float t);
 	void Draw(ID3D11DeviceContext * pImmediateContext);
 
-	Quaternion MatrixToQuarternion(XMMATRIX matrix);
-	void CalculateRotationMatrix(Quaternion orientation);
-	void Rotate(Vector3D rotation) { _transform->_rotation += rotation; }
+	void CalculateCentreOfMass(SimpleVertex vertices[],int vertexCount);
+
+
 private:
 	
 	Transform* _transform;
 	Appearance* _appearance;
-	ParticleModel* _particleModel;
+	RigidBody* _rigidBody;
 	Graphics* _graphics;
 	string _type;
 	XMFLOAT4X4 _world;
 	GameObject* _parent;
 	Quaternion _orientation;
 	XMMATRIX _orientationMatrix;
-	Vector3D centreOfmass;
+	Vector3D _centreOfMass;
 };
 

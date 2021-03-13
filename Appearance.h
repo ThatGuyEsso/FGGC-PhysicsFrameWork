@@ -1,18 +1,22 @@
 #pragma once
 #include "Structs.h"
 #include "Structures.h"
-class Appearance {
+#include "Component.h"
+
+class Appearance: public Component{
 private:
 	Geometry _geometry;
 	Material _material;
 	ID3D11ShaderResourceView* _textureRV;
-	Vector3D _centreOfMass;
+
 
 public:
 
 	Appearance(Geometry geometry, Material material, ID3D11ShaderResourceView* textureRV);
 	~Appearance();
-
+	//Compnonent Interface
+	GameObject* GetOwner() override { return _owner; }
+	void SetOwner(GameObject* newOwner)override { _owner = newOwner; };
 
 
 	ID3D11ShaderResourceView* GetTextureRV() const { return _textureRV; }
@@ -27,7 +31,6 @@ public:
 	ID3D11Buffer** GetVertexBuffer() { return &_geometry.vertexBuffer; }
 	UINT* GetVertexStride()  { return &_geometry.vertexBufferStride; }
 	UINT* GetVertexBufferOffset() { return &_geometry.vertexBufferOffset; }
-	void CalculateCentreOfMass(SimpleVertex vertices[]);
 
 
 };

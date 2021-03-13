@@ -30,6 +30,28 @@ void DebugHelp::OutPutValue(const char* outPutText, static int value)
 
 }
 
+void DebugHelp::OutPutValue(const char* outPutText, Vector3D value)
+{
+	//get value
+	std::string out = outPutText;
+	//set string  
+	out += " ";
+	out += "(";
+	out += value.x;
+	out += ",";
+	out += value.y;
+	out += ",";
+	out += value.z;
+	out += ")";
+	out += "\n";
+
+	//format string
+	char sz[1024] = { 0 };
+	sprintf_s(sz, out.c_str());
+	OutputDebugStringA(sz);
+
+}
+
 void DebugHelp::OutPutText(const char* outPutText)
 {
 	std::string out = outPutText;

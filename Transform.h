@@ -1,13 +1,13 @@
 #pragma once
 #include "Vector3D.h"
-
+#include "Quaternion.h"
 
 class Transform {
 
 public:
 	//Physical properties
 	Vector3D _position;
-	Vector3D _rotation;
+	Quaternion _orientation;
 	Vector3D _scale;
 
 public:
@@ -25,11 +25,17 @@ public:
 
 	Vector3D GetScale() const { return _scale; }
 
-	void SetRotation(Vector3D rotation) { _rotation = rotation; }
+	void SetRotation(Vector3D rotation);
+	void Rotate(Vector3D targetRotation,float scale);
+
+	Quaternion GetOrientation() const { return _orientation; }
+	XMMATRIX GetRotationMatrix();
+	Vector3D GetRotation();
+
+	Quaternion MatrixToQuarternion(XMMATRIX matrix);
 
 
-	Vector3D GetRotation() const { return _rotation; }
-
+	XMMATRIX QuarternionToMatrix(Quaternion quarternion);
 
 
 };

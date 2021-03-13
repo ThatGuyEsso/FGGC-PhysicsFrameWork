@@ -29,7 +29,7 @@
 #include "GameObject.h"
 #include "Commons.h"
 using namespace DirectX;
-#define NUMBER_OF_CUBES 5
+#define NUMBER_OF_CUBES 1
 
 //struct SimpleVertex
 //{
@@ -142,7 +142,7 @@ private:
 	HRESULT InitIndexBuffer();
 
 	void AddThrust(Vector3D force);
-	void RotateGameObject(Vector3D rotation);
+	void RotateGameObject(Vector3D rotation,float scale);
 	GameObject* GetSelectedGameObject();
 
 

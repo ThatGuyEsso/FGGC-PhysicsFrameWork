@@ -1,16 +1,16 @@
 #pragma once
 #include "Transform.h"
-
+#include "Component.h"
 #include <vector>
 
-class ParticleModel {
+class ParticleModel: public Component {
 public:
 	enum class ParticleEquation {
 		ConstantVelocity,
 		ConstantAcceleration
 	};
 
-private:
+protected:
 	float _mass;
 	float _drag;
 	bool _useGravity;
@@ -26,8 +26,8 @@ private:
 	std::vector<Vector3D> _forces; //all forces acting on the objects
 
 
-private:
-	void UpdateNetForce();
+protected:
+	void UpdateNetForce(float deltaTime);
 	void UpdateAccel();
 public:
 	
@@ -38,11 +38,11 @@ public:
 	ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, ParticleEquation equationType, float mass, bool useGravity);
 	~ParticleModel();
 
-	void Update(float t);
-	void MoveRight();
-	void MoveLeft();
-	void MoveForward();
-	void MoveBackwards();
+	virtual void Update(float t);
+	//component Interface
+	void SetOwner(GameObject* newOwner) override { _owner = newOwner; };
+	GameObject* GetOwner()override { return _owner; }
+
 
 	//particle movement functions
 	void MoveWithConstVelocity(float deltaTime);

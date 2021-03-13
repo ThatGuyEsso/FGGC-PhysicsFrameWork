@@ -6,10 +6,12 @@ GameObject::GameObject(string type, Appearance* apperance)
 	//Create a new instance of object transform if none is specified
 	_transform = new Transform();
 	_appearance = apperance;
-	_particleModel = new  ParticleModel(_transform, Vector3D(), Vector3D(), false);
+	_appearance->SetOwner(this);
+	_rigidBody = new  RigidBody(_transform, Vector3D(), Vector3D(), false);
+	_rigidBody->SetOwner(this);
 	_type = type;
 	_graphics = new Graphics(_appearance);
-	
+	_centreOfMass = Vector3D();
 
 }
 
@@ -19,9 +21,12 @@ GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
 	//Initialise object with specific transform
 	_transform = transform;
 	_appearance = apperance;
-	_particleModel = new ParticleModel(_transform, Vector3D(), Vector3D(),false);
+	_appearance->SetOwner(this);
+	_rigidBody = new RigidBody(_transform, Vector3D(), Vector3D(),false);
+	_rigidBody->SetOwner(this);
 	_type = type;
 	_graphics = new Graphics(_appearance);
+	_centreOfMass = Vector3D();
 }
 
 GameObject::~GameObject()
@@ -35,11 +40,8 @@ void GameObject::Update(float t)
 
 	// Calculate world matrix
 	XMMATRIX scale = XMMatrixScaling(_transform->_scale.x, _transform->_scale.y, _transform->_scale.z);
-	XMMATRIX rotation = XMMatrixRotationX(_transform->_rotation.x) * XMMatrixRotationY(_transform->_rotation.y) * XMMatrixRotationZ(_transform->_rotation.z);
+	XMMATRIX rotation = _transform->GetRotationMatrix();
 	XMMATRIX translation = XMMatrixTranslation(_transform->_position.x, _transform->_position.y, _transform->_position.z);
-	_orientation = MatrixToQuarternion(rotation);
-	_orientation.normalise();
-	CalculateRotationMatrix(_orientation);
 
 	XMStoreFloat4x4(&_world, scale * rotation * translation);
 	//if (_type == "Cube") {
@@ -50,9 +52,11 @@ void GameObject::Update(float t)
 	{
 		XMStoreFloat4x4(&_world, this->GetWorldMatrix() * _parent->GetWorldMatrix());
 	}
-	_particleModel->Update(t);
+	_rigidBody->Update(t);
 
 }
+
+
 
 void GameObject::Draw(ID3D11DeviceContext * pImmediateContext)
 {
@@ -60,17 +64,19 @@ void GameObject::Draw(ID3D11DeviceContext * pImmediateContext)
 	_graphics->Draw(pImmediateContext);
 }
 
-Quaternion GameObject::MatrixToQuarternion(XMMATRIX matrix)
+void GameObject::CalculateCentreOfMass(SimpleVertex vertices[], int vertexCount)
 {
-	XMVECTOR conversion = XMQuaternionRotationMatrix(matrix);
-	XMFLOAT4 vector4;
-	XMStoreFloat4(&vector4, conversion);
+	Vector3D sum = Vector3D();
+	for (int i = 0; i < vertexCount; i++) {
 
-	return Quaternion(vector4.x, vector4.y, vector4.z, vector4.w);
+		Vector3D converstion = Vector3D(vertices[i].Pos.x, vertices[i].Pos.y, vertices[i].Pos.z);
+
+		sum += converstion;
+	}
+
+	_centreOfMass = sum / vertexCount;
+	DebugHelp().OutPutValue("Centre Of Mass", _centreOfMass);
+
 }
 
-void GameObject::CalculateRotationMatrix(Quaternion orientation)
-{
-	
-	CalculateTransformMatrixRowMajor(_orientationMatrix, _transform->GetPosition(), orientation);
-}
+

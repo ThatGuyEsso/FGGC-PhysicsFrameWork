@@ -158,19 +158,24 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	//create new apperance instance
 	Appearance* appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
 	Transform*  floorTrans = new Transform(Vector3D(0.0f, 0.0f, 0.0f),
-		Vector3D(XMConvertToRadians(90.0f), 0.0f, 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
+		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
 	GameObject * gameObject = new GameObject("Floor", appearance, floorTrans);
 
 	_gameObjects.push_back(gameObject);
 	appearance = new Appearance(cubeGeometry, shinyMaterial, _pTextureRV);
+	
+ 
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
 		gameObject = new GameObject("Cube" + i, appearance);
 		
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		gameObject->SetPosition(Vector3D (-4.0f + (i * 2.0f), 0.5f, 5.0f));
-		gameObject->GetParticleModel()->SetSurfacePosition(gameObject->GetTransform()->GetPosition());
-		gameObject->GetParticleModel()->ToggleGravity(true);
+		gameObject->SetPosition(Vector3D (0.0f + (i * 2.0f), 0.25f, 0.0f));
+		gameObject->GetRigidBody()->SetSurfacePosition(gameObject->GetTransform()->GetPosition());
+		gameObject->GetRigidBody()->ToggleGravity(true);
+
+
+		gameObject->CalculateCentreOfMass(CubeVertices,24);
 
 		_gameObjects.push_back(gameObject);
 	}
@@ -268,39 +273,7 @@ HRESULT Application::InitVertexBuffer()
 	HRESULT hr;
 
     // Create vertex buffer
-    SimpleVertex vertices[] =
-    {
-		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-
-		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
-
-		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
-
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-
-		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
-    };
-
+  
     D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
     bd.Usage = D3D11_USAGE_DEFAULT;
@@ -310,7 +283,7 @@ HRESULT Application::InitVertexBuffer()
 
     D3D11_SUBRESOURCE_DATA InitData;
 	ZeroMemory(&InitData, sizeof(InitData));
-    InitData.pSysMem = vertices;
+    InitData.pSysMem = CubeVertices;
 
     hr = _pd3dDevice->CreateBuffer(&bd, &InitData, &_pVertexBuffer);
 
@@ -318,13 +291,6 @@ HRESULT Application::InitVertexBuffer()
         return hr;
 
 	// Create vertex buffer
-	SimpleVertex planeVertices[] =
-	{
-		{ XMFLOAT3(-1.0f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(0.0f, 5.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(5.0f, 5.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(5.0f, 0.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-	};
 
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -333,7 +299,7 @@ HRESULT Application::InitVertexBuffer()
 	bd.CPUAccessFlags = 0;
 
 	ZeroMemory(&InitData, sizeof(InitData));
-	InitData.pSysMem = planeVertices;
+	InitData.pSysMem = PlaneVertices;
 
 	hr = _pd3dDevice->CreateBuffer(&bd, &InitData, &_pPlaneVertexBuffer);
 
@@ -348,27 +314,7 @@ HRESULT Application::InitIndexBuffer()
 	HRESULT hr;
 
     // Create index buffer
-    WORD indices[] =
-    {
-		3, 1, 0,
-		2, 1, 3,
-
-		6, 4, 5,
-		7, 4, 6,
-
-		11, 9, 8,
-		10, 9, 11,
-
-		14, 12, 13,
-		15, 12, 14,
-
-		19, 17, 16,
-		18, 17, 19,
-
-		22, 20, 21,
-		23, 20, 22
-    };
-
+   
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 
@@ -379,18 +325,12 @@ HRESULT Application::InitIndexBuffer()
 
 	D3D11_SUBRESOURCE_DATA InitData;
 	ZeroMemory(&InitData, sizeof(InitData));
-    InitData.pSysMem = indices;
+    InitData.pSysMem = CubeIndices;
     hr = _pd3dDevice->CreateBuffer(&bd, &InitData, &_pIndexBuffer);
 
     if (FAILED(hr))
         return hr;
 
-	// Create plane index buffer
-	WORD planeIndices[] =
-	{
-		0, 3, 1,
-		3, 2, 1,
-	};
 
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -399,7 +339,7 @@ HRESULT Application::InitIndexBuffer()
 	bd.CPUAccessFlags = 0;
 
 	ZeroMemory(&InitData, sizeof(InitData));
-	InitData.pSysMem = planeIndices;
+	InitData.pSysMem = PlaneIndices;
 	hr = _pd3dDevice->CreateBuffer(&bd, &InitData, &_pPlaneIndexBuffer);
 
 	if (FAILED(hr))
@@ -412,14 +352,14 @@ void Application::AddThrust(Vector3D force)
 {
 	GameObject* object = GetSelectedGameObject();
 
-	if(object->GetParticleModel()->UsesGravity()){
-		object->GetParticleModel()->ApplyForce(force*2.0f);
+	if(object->GetRigidBody()->UsesGravity()){
+		object->GetRigidBody()->ApplyForce(force*2.0f);
 	}
 }
 
-void Application::RotateGameObject(Vector3D rotation)
+void Application::RotateGameObject(Vector3D rotation, float scale)
 {
-	GetSelectedGameObject()->Rotate(rotation);
+	GetSelectedGameObject()->GetTransform()->Rotate(rotation, scale);
 }
 
 GameObject* Application::GetSelectedGameObject()
@@ -679,14 +619,14 @@ void Application::Cleanup()
 		_camera = nullptr;
 	}
 
-for (auto gameObject : _gameObjects)
-{
-	if (gameObject)
+	for (auto gameObject : _gameObjects)
 	{
-		delete gameObject;
-		gameObject = nullptr;
+		if (gameObject)
+		{
+			delete gameObject;
+			gameObject = nullptr;
+		}
 	}
-}
 }
 
 
@@ -744,10 +684,56 @@ void Application::Update()
 	// Move gameobject
 	if (_input->GetKey('W'))
 	{
-		AddThrust(Vector3D(0.0f, 100.0f, 0.0f));
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
+	
+	}
+	if (_input->GetKey('D'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
+
+	}
+	if (_input->GetKey('A'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
+
+	}
+	if (_input->GetKey('S'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
+
 	}
 
-	
+	if (_input->GetKey('E'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.5f, 0.5f, 0.0f), deltaTime);
+
+	}
+	if (_input->GetKey('Q'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-0.5f, 0.5f, 0.0f), deltaTime);
+
+	}
+
+	if (_input->GetKey('X'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.5f, -0.5f, 0.0f), deltaTime);
+
+	}
+
+	if (_input->GetKey('Z'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-0.5f, -0.5f, 0.0f), deltaTime);
+
+	}
+
 	
 	if (_input->GetKey('C')) {
 		CycleBetweenObjectByType(std::string("Cube"));

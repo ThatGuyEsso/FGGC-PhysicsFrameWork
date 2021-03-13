@@ -1,9 +1,10 @@
 #include "ParticleModel.h"
 #include "DebugHelp.h"
 #include "Commons.h"
-
+#include "GameObject.h"
 ParticleModel::ParticleModel()
 {
+	_useTurbularFlow = false;
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity)
@@ -58,11 +59,11 @@ ParticleModel::~ParticleModel()
 {
 	_transform = nullptr;
 }
-void ParticleModel::UpdateNetForce()
+void ParticleModel::UpdateNetForce(float deltaTime)
 {
 	//add all forces to the net force
 	for (Vector3D force : _forces) {
-		_netForce += force;
+		_netForce += force* deltaTime;
 	}
 
 }
@@ -152,7 +153,7 @@ void ParticleModel::ComputeMotion(float deltaTime)
 
 	}
 	//Update netforces acting on gameobjects
-	UpdateNetForce();
+	UpdateNetForce(deltaTime);
 
 	//recalculate current acceleration
 	UpdateAccel();
@@ -162,9 +163,10 @@ void ParticleModel::ComputeMotion(float deltaTime)
 void ParticleModel::ComputeMotionInFluid(float deltaTime)
 {
 	if (_useGravity) {
+		
 		AddGravity();
 
-		if (_transform->GetPosition().y == _surfacePosition.y) {
+		if (_transform->GetPosition().y <= _surfacePosition.y) {
 			ApplyForce(Vector3D(0.0f, 1, 0) * Gravity * _mass * -1);
 		}
 
@@ -174,7 +176,7 @@ void ParticleModel::ComputeMotionInFluid(float deltaTime)
 	ApplyForce(DragForce(_currentVelocity,_drag));
 
 	//Update netforces acting on gameobjects
-	UpdateNetForce();
+	UpdateNetForce(deltaTime);
 
 	//recalculate current acceleration
 	UpdateAccel();

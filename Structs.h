@@ -51,13 +51,35 @@ using namespace DirectX;
 //	XMFLOAT3 EyePosW;
 //	float gTime;
 //};
+struct MeshData
+{
+	ID3D11Buffer* VertexBuffer;
+	ID3D11Buffer* IndexBuffer;
+	UINT VBStride;
+	UINT VBOffset;
+	UINT IndexCount;
+	Vector3D centreOfMass;
+};
+
+struct SimpleVertex
+{
+	XMFLOAT3 Pos;
+	XMFLOAT3 Normal;
+	XMFLOAT2 TexC;
+
+	bool operator<(const SimpleVertex other) const
+	{
+		return memcmp((void*)this, (void*)&other, sizeof(SimpleVertex)) > 0;
+	};
+};
+
 
 struct Geometry
 {
 	ID3D11Buffer* vertexBuffer;
 	ID3D11Buffer* indexBuffer;
 	int numberOfIndices;
-
+	int numberOfVertices;
 	UINT vertexBufferStride;
 	UINT vertexBufferOffset;
 };
