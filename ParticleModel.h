@@ -2,7 +2,8 @@
 #include "Transform.h"
 #include "Component.h"
 #include <vector>
-
+#include "SphereCollider.h"
+#include "AABoxCollider.h"
 class ParticleModel: public Component {
 public:
 	enum class ParticleEquation {
@@ -25,7 +26,7 @@ protected:
 
 	std::vector<Vector3D> _forces; //all forces acting on the objects
 
-
+	Collider* _collider;
 protected:
 	void UpdateNetForce(float deltaTime);
 	void UpdateAccel();
@@ -39,11 +40,12 @@ public:
 	~ParticleModel();
 
 	virtual void Update(float t);
+	virtual void StopObject();
 	//component Interface
-	void SetOwner(GameObject* newOwner) override { _owner = newOwner; };
+	void SetOwner(GameObject* newOwner);
 	GameObject* GetOwner()override { return _owner; }
 
-
+	Collider* GetCollider() { return _collider; }
 	//particle movement functions
 	void MoveWithConstVelocity(float deltaTime);
 	void MoveWithConstAcceleration(float deltaTime);
@@ -71,6 +73,6 @@ public:
 	void ToggleGravity(bool useGravity) { _useGravity = useGravity; }
 	bool UsesGravity() { return _useGravity; }
 	void SetSurfacePosition(Vector3D position) { _surfacePosition = position; }
-
+	void SetCollider(Collider* coliider);
 
 };

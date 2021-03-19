@@ -120,7 +120,16 @@
       <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="SphereCollider.h">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AABoxCollider.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Staticbody.h">
+      <Filter>Headers\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +180,12 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AABoxCollider.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

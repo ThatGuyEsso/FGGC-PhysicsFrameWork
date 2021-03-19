@@ -8,6 +8,7 @@
 #include "RigidBody.h"
 #include "Graphics.h"
 #include "Quaternion.h"
+
 using namespace DirectX;
 using namespace std;
 
@@ -68,5 +69,6 @@ private:
 	Quaternion _orientation;
 	XMMATRIX _orientationMatrix;
 	Vector3D _centreOfMass;
+
 };
 

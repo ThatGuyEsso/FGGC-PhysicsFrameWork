@@ -27,6 +27,7 @@ GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
 	_type = type;
 	_graphics = new Graphics(_appearance);
 	_centreOfMass = Vector3D();
+
 }
 
 GameObject::~GameObject()

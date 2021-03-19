@@ -135,32 +135,27 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	cubeGeometry.numberOfIndices = 36;
 	cubeGeometry.vertexBufferOffset = 0;
 	cubeGeometry.vertexBufferStride = sizeof(SimpleVertex);
-
+	cubeGeometry.vertices = &CubeVertices[0];
+	cubeGeometry.numberOfVertices = 4;
 	Geometry planeGeometry;
 	planeGeometry.indexBuffer = _pPlaneIndexBuffer;
 	planeGeometry.vertexBuffer = _pPlaneVertexBuffer;
 	planeGeometry.numberOfIndices = 6;
 	planeGeometry.vertexBufferOffset = 0;
 	planeGeometry.vertexBufferStride = sizeof(SimpleVertex);
-
-	Material shinyMaterial;
-	shinyMaterial.ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
-	shinyMaterial.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	shinyMaterial.specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
-	shinyMaterial.specularPower = 10.0f;
-
-	Material noSpecMaterial;
-	noSpecMaterial.ambient = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
-	noSpecMaterial.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	noSpecMaterial.specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
-	noSpecMaterial.specularPower = 0.0f;
+	planeGeometry.vertices = &PlaneVertices[0];
+	planeGeometry.numberOfVertices = 4;
 
 	//create new apperance instance
 	Appearance* appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
-	Transform*  floorTrans = new Transform(Vector3D(0.0f, 0.0f, 0.0f),
+	Transform*  floorTrans = new Transform(Vector3D(0.0f, 0.0, 0.0f),
 		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
 	GameObject * gameObject = new GameObject("Floor", appearance, floorTrans);
+	gameObject->CalculateCentreOfMass(PlaneVertices,4);
 
+	gameObject->GetRigidBody()->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+	AABoxCollider* collider =(AABoxCollider*)gameObject->GetRigidBody()->GetCollider();
+	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
 	_gameObjects.push_back(gameObject);
 	appearance = new Appearance(cubeGeometry, shinyMaterial, _pTextureRV);
 	
@@ -170,7 +165,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject = new GameObject("Cube" + i, appearance);
 		
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		gameObject->SetPosition(Vector3D (0.0f + (i * 2.0f), 0.25f, 0.0f));
+		gameObject->SetPosition(Vector3D (0.0f + (i * 2.0f), 1.0f, 0.0f));
 		gameObject->GetRigidBody()->SetSurfacePosition(gameObject->GetTransform()->GetPosition());
 		gameObject->GetRigidBody()->ToggleGravity(true);
 
@@ -180,13 +175,13 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		_gameObjects.push_back(gameObject);
 	}
 
-	
-	appearance = new Appearance(herculesGeometry, shinyMaterial, _pTextureRV);
-	gameObject = new GameObject("donut", appearance);
-	gameObject->GetTransform()->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-	gameObject->SetPosition(Vector3D (-4.0f, 0.5f, 10.0f));
+	//
+	//appearance = new Appearance(herculesGeometry, shinyMaterial, _pTextureRV);
+	//gameObject = new GameObject("donut", appearance);
+	//gameObject->GetTransform()->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
+	//gameObject->SetPosition(Vector3D (-4.0f, 0.5f, 10.0f));
 
-	_gameObjects.push_back(gameObject);
+	//_gameObjects.push_back(gameObject);
 	appearance = nullptr;
 	return S_OK;
 }
@@ -758,6 +753,26 @@ void Application::Update()
 	}
 	//resets time since last frame
 	deltaTime -= FPS;
+
+	for (int i = 0; i < _gameObjects.size(); i++) {
+		Collider* currCollider;
+		if ((currCollider=_gameObjects[i]->GetRigidBody()->GetCollider()) != nullptr) {
+			for (int y = 0; y < _gameObjects.size(); y++) {
+				
+				//Don't check itself
+				if (i != y) {
+					if (currCollider->CollisionCheck(_gameObjects[y]->GetRigidBody()->GetCollider())) {
+						DebugHelp().OutPutText("COLLISION");
+						currCollider->GetOwner()->GetRigidBody()->StopObject();
+						_gameObjects[y]->GetRigidBody()->StopObject();
+					}
+				}
+			
+			}
+		}
+	
+	}
+
 }
 
 void Application::Draw()

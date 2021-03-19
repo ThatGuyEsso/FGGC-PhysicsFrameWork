@@ -91,5 +91,13 @@ void RigidBody::ApplyRotForce(Vector3D force, Vector3D point, float deltaTime)
 
 }
 
+void RigidBody::StopObject()
+{
+	ParticleModel::StopObject();
+	_torgue = Vector3D();
+	_angularVelocity = Vector3D();
+	_angularAcceleration = Vector3D();
+}
+
 
 

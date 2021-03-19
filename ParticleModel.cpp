@@ -5,6 +5,7 @@
 ParticleModel::ParticleModel()
 {
 	_useTurbularFlow = false;
+	_collider = new SphereCollider(_transform, 0.1f);
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity)
@@ -17,11 +18,13 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_useGravity = useGravity;
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
+	_collider = new SphereCollider(_transform, 0.1f);
 }
 
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, ParticleEquation equationType, bool useGravity)
 {
+
 	_transform = transform;
 	_currentVelocity = InitialVelocity;
 	_acceleration = acceleration;
@@ -30,6 +33,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_useGravity = useGravity;
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
+	_collider = new SphereCollider(_transform, 1.0f);
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, float mass, bool useGravity)
@@ -42,6 +46,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_useGravity = useGravity;
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
+	_collider = new SphereCollider(_transform, 1.0f);
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, ParticleEquation equationType, float mass, bool useGravity)
@@ -54,6 +59,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_useGravity = useGravity;
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
+	_collider = new SphereCollider(_transform, 1.0f);
 }
 ParticleModel::~ParticleModel()
 {
@@ -69,6 +75,12 @@ void ParticleModel::UpdateNetForce(float deltaTime)
 }
 void ParticleModel::UpdateAccel() {
 	_acceleration = _netForce / _mass;
+}
+
+void ParticleModel::StopObject()
+{
+	_currentVelocity = Vector3D();
+	_acceleration = Vector3D();
 }
 
 
@@ -91,7 +103,22 @@ void ParticleModel::Update(float t) {
 	ComputeMotionInFluid(t);
 	//ComputeMotion(t);
 	_forces.clear();
+
+	if (_transform->GetPosition().y < 0) {
+		_transform->SetPosition(Vector3D(_transform->GetPosition().x, 0, _transform->GetPosition().z));
+		_currentVelocity = Vector3D(_currentVelocity.x, 0.0f, _currentVelocity.z);
+		_acceleration = Vector3D(_acceleration.x, 0.0f, _acceleration.z);
+	}
 }
+
+void ParticleModel::SetOwner(GameObject* newOwner)
+{
+	_owner = newOwner;
+	if (_collider != nullptr) {
+		_collider->SetOwner(newOwner);
+	}
+}
+
 
 void ParticleModel::MoveWithConstVelocity(float deltaTime) {
 	
@@ -122,6 +149,13 @@ void ParticleModel::SetCurrentVelocity(Vector3D newVelocity)
 	 DebugHelp().OutPutValue("speed =", _currentVelocity.magnitude());
 
 
+}
+
+void ParticleModel::SetCollider(Collider* coliider)
+{
+	delete _collider;
+	_collider = coliider;
+	if (_owner) _collider->SetOwner(_owner);
 }
 
 void ParticleModel::Move(float deltaTime)
@@ -166,9 +200,9 @@ void ParticleModel::ComputeMotionInFluid(float deltaTime)
 		
 		AddGravity();
 
-		if (_transform->GetPosition().y <= _surfacePosition.y) {
+	/*	if (_transform->GetPosition().y <= _surfacePosition.y) {
 			ApplyForce(Vector3D(0.0f, 1, 0) * Gravity * _mass * -1);
-		}
+		}*/
 
 	}
 

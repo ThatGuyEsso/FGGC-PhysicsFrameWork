@@ -80,6 +80,7 @@ struct Geometry
 	ID3D11Buffer* indexBuffer;
 	int numberOfIndices;
 	int numberOfVertices;
+	SimpleVertex* vertices;
 	UINT vertexBufferStride;
 	UINT vertexBufferOffset;
 };
@@ -90,4 +91,19 @@ struct Material
 	XMFLOAT4 ambient;
 	XMFLOAT4 specular;
 	float specularPower;
+
+
+	Material(XMFLOAT4 diffuse, XMFLOAT4 ambient, XMFLOAT4 specular, float specularPower) {
+		this->diffuse = diffuse;
+		this->ambient = ambient;
+		this->specular = specular;
+		this->specularPower = specularPower;
+	}
+
+	Material() = default;
+};
+
+enum ColliderType {
+	Sphere,
+	AABB,
 };

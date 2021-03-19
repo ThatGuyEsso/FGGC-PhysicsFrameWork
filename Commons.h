@@ -1,5 +1,6 @@
 #pragma once
 #include "Structs.h"
+
 static const float defaultMass = 10.0f;
 static const float DefaultDrag = 10.0f;
 static const float Gravity = -9.81f;
@@ -71,3 +72,13 @@ static  WORD PlaneIndices[] =
 	0, 3, 1,
 	3, 2, 1,
 };
+
+static Material shinyMaterial = Material(XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+
+
+
+static Material noSpecMaterial= Material(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f), 0.0f);
+
+
