@@ -6,6 +6,7 @@ ParticleModel::ParticleModel()
 {
 	_useTurbularFlow = false;
 	_collider = new SphereCollider(_transform, 0.1f);
+	_type = ComponentType::PhysicModel;
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity)
@@ -19,6 +20,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
 	_collider = new SphereCollider(_transform, 0.1f);
+	_type = ComponentType::PhysicModel;
 }
 
 
@@ -34,6 +36,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
 	_collider = new SphereCollider(_transform, 1.0f);
+	_type = ComponentType::PhysicModel;
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, float mass, bool useGravity)
@@ -47,6 +50,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
 	_collider = new SphereCollider(_transform, 1.0f);
+	_type = ComponentType::PhysicModel;
 }
 
 ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, ParticleEquation equationType, float mass, bool useGravity)
@@ -60,6 +64,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_drag = DefaultDrag;
 	_useTurbularFlow = false;
 	_collider = new SphereCollider(_transform, 1.0f);
+	_type = ComponentType::PhysicModel;
 }
 ParticleModel::~ParticleModel()
 {
@@ -117,6 +122,11 @@ void ParticleModel::SetOwner(GameObject* newOwner)
 	if (_collider != nullptr) {
 		_collider->SetOwner(newOwner);
 	}
+}
+
+void ParticleModel::UpdateComponent(float deltaTime)
+{
+	Update(deltaTime);
 }
 
 

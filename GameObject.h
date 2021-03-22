@@ -5,10 +5,14 @@
 #include "DebugHelp.h"
 #include "Transform.h"
 #include "Appearance.h"
-#include "RigidBody.h"
+
 #include "Graphics.h"
 #include "Quaternion.h"
 
+#include "StaticBody.h"
+#include "RigidBody.h"
+#include "ParticleModel.h"
+#include "Component.h"
 using namespace DirectX;
 using namespace std;
 
@@ -56,9 +60,15 @@ public:
 
 	void CalculateCentreOfMass(SimpleVertex vertices[],int vertexCount);
 
+	//Component References
+
+	template <typename T> T* GetComponent();
+
+
+	void AddComponent(Component* componentType);
 
 private:
-	
+	std::vector<Component*> _components;
 	Transform* _transform;
 	Appearance* _appearance;
 	RigidBody* _rigidBody;
@@ -66,9 +76,9 @@ private:
 	string _type;
 	XMFLOAT4X4 _world;
 	GameObject* _parent;
-	Quaternion _orientation;
-	XMMATRIX _orientationMatrix;
+
 	Vector3D _centreOfMass;
 
 };
+
 

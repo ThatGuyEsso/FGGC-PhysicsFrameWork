@@ -17,7 +17,8 @@ public:
 	//Compnonent Interface
 	GameObject* GetOwner() override { return _owner; }
 	void SetOwner(GameObject* newOwner)override { _owner = newOwner; };
-
+	Component* GetClassType() { return this; }
+	void UpdateComponent(float deltaTime);
 
 	ID3D11ShaderResourceView* GetTextureRV() const { return _textureRV; }
 	void SetTextureRV(ID3D11ShaderResourceView* textureRV) { _textureRV = textureRV; }
@@ -32,5 +33,5 @@ public:
 	UINT* GetVertexStride()  { return &_geometry.vertexBufferStride; }
 	UINT* GetVertexBufferOffset() { return &_geometry.vertexBufferOffset; }
 
-
+	
 };

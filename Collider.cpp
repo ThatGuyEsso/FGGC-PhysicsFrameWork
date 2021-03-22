@@ -22,3 +22,8 @@ Collider::~Collider()
 	_gameObjectsInCollision.clear();
 
 }
+
+void Collider::UpdateComponent(float deltaTime)
+{	
+	//Needed to interface with components but has no implementation here
+}

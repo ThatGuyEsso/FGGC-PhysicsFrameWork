@@ -11,8 +11,14 @@
 #include "Structures.h"
 #include "OBJLoader.h"
 #include "InputManager.h"
-
+#include "GameObject.h"
+#include "Commons.h"
 #include <vector>
+
+#include "StaticBody.h"
+#include "RigidBody.h"
+#include "ParticleModel.h"
+#include "Component.h"
 /*
 //#include <SpriteFont.h>
 #include "CommonStates.h"
@@ -26,8 +32,7 @@
 #include "SpriteFont.h"
 #include "VertexTypes.h"
 */
-#include "GameObject.h"
-#include "Commons.h"
+
 using namespace DirectX;
 #define NUMBER_OF_CUBES 1
 

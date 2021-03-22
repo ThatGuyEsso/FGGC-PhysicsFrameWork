@@ -1,6 +1,7 @@
 #include "SphereCollider.h"
 #include "GameObject.h"
 #include "AABoxCollider.h"
+#include <algorithm>
 SphereCollider::SphereCollider():Collider::Collider(), Collision::Collision() {
 
 	_radius = 1.0f;

@@ -7,8 +7,7 @@ GameObject::GameObject(string type, Appearance* apperance)
 	_transform = new Transform();
 	_appearance = apperance;
 	_appearance->SetOwner(this);
-	_rigidBody = new  RigidBody(_transform, Vector3D(), Vector3D(), false);
-	_rigidBody->SetOwner(this);
+	_components.push_back(_appearance);
 	_type = type;
 	_graphics = new Graphics(_appearance);
 	_centreOfMass = Vector3D();
@@ -22,8 +21,7 @@ GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
 	_transform = transform;
 	_appearance = apperance;
 	_appearance->SetOwner(this);
-	_rigidBody = new RigidBody(_transform, Vector3D(), Vector3D(),false);
-	_rigidBody->SetOwner(this);
+	_components.push_back(_appearance);
 	_type = type;
 	_graphics = new Graphics(_appearance);
 	_centreOfMass = Vector3D();
@@ -53,7 +51,10 @@ void GameObject::Update(float t)
 	{
 		XMStoreFloat4x4(&_world, this->GetWorldMatrix() * _parent->GetWorldMatrix());
 	}
-	_rigidBody->Update(t);
+	
+	for (Component* comp : _components) {
+		comp->UpdateComponent(t);
+	}
 
 }
 
@@ -81,3 +82,35 @@ void GameObject::CalculateCentreOfMass(SimpleVertex vertices[], int vertexCount)
 }
 
 
+
+template<typename T>
+T* GameObject::GetComponent()
+{
+	T* compClass = new T();
+	for (Component* comp : _components) {
+		//Cast component to target component
+		comp = dynamic_cast<T*>(compClass);
+		
+		//if not false
+		if (comp) {
+			return comp;
+		}
+	}
+
+	//if cast failed or no component found return null
+	return nullptr;
+}
+
+void GameObject::AddComponent(Component* newComp)
+{
+	for (Component* comp : _components) {
+
+		//If game object already has a collider of said type
+		if (comp->GetComponentType() == newComp->GetComponentType()) {
+			comp = newComp;
+			return;
+		}
+	}
+
+	_components.push_back(newComp);
+}

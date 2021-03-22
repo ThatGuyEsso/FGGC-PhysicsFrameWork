@@ -151,10 +151,13 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	Transform*  floorTrans = new Transform(Vector3D(0.0f, 0.0, 0.0f),
 		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
 	GameObject * gameObject = new GameObject("Floor", appearance, floorTrans);
-	gameObject->CalculateCentreOfMass(PlaneVertices,4);
 
-	gameObject->GetRigidBody()->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
-	AABoxCollider* collider =(AABoxCollider*)gameObject->GetRigidBody()->GetCollider();
+	StaticBody* sBody = new StaticBody(floorTrans);
+	gameObject->CalculateCentreOfMass(PlaneVertices,4);
+	gameObject->AddComponent(sBody);
+
+	sBody->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+	AABoxCollider* collider =(AABoxCollider*)sBody->GetCollider();
 	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
 	_gameObjects.push_back(gameObject);
 	appearance = new Appearance(cubeGeometry, shinyMaterial, _pTextureRV);
@@ -163,13 +166,10 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
 		gameObject = new GameObject("Cube" + i, appearance);
-		
+		RigidBody* rb = new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), true);
+		gameObject->AddComponent(rb);
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
 		gameObject->SetPosition(Vector3D (0.0f + (i * 2.0f), 1.0f, 0.0f));
-		gameObject->GetRigidBody()->SetSurfacePosition(gameObject->GetTransform()->GetPosition());
-		gameObject->GetRigidBody()->ToggleGravity(true);
-
-
 		gameObject->CalculateCentreOfMass(CubeVertices,24);
 
 		_gameObjects.push_back(gameObject);
@@ -756,15 +756,16 @@ void Application::Update()
 
 	for (int i = 0; i < _gameObjects.size(); i++) {
 		Collider* currCollider;
-		if ((currCollider=_gameObjects[i]->GetRigidBody()->GetCollider()) != nullptr) {
+	
+		if ((currCollider=_gameObjects[i]->GetComponent<RigidBody>()->GetCollider()) != nullptr) {
 			for (int y = 0; y < _gameObjects.size(); y++) {
 				
 				//Don't check itself
 				if (i != y) {
-					if (currCollider->CollisionCheck(_gameObjects[y]->GetRigidBody()->GetCollider())) {
+					if (currCollider->CollisionCheck(_gameObjects[y]->GetComponent<RigidBody>()->GetCollider())) {
 						DebugHelp().OutPutText("COLLISION");
-						currCollider->GetOwner()->GetRigidBody()->StopObject();
-						_gameObjects[y]->GetRigidBody()->StopObject();
+						currCollider->GetOwner()->GetComponent<RigidBody>()->StopObject();
+						_gameObjects[y]->GetComponent<RigidBody>()->StopObject();
 					}
 				}
 			

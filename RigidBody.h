@@ -14,11 +14,11 @@ public:
 	void CalculateAngularVelocity(float deltaTime);
 	float CalculateDamping(float deltaTime);
 	void SetInertiaTensorBox(float x, float y, float z);
-	void Update(float t);
+	virtual void Update(float t);
 	void ApplyRotForce(Vector3D force, Vector3D point, float deltaTime);
 	void StopObject();
+
 protected:
-private:
 	XMFLOAT3X3 _intertiaTensor;
 	float _angularDamping =0.5f;
 	Vector3D _angularAcceleration;

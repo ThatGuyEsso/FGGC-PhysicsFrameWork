@@ -30,6 +30,7 @@ protected:
 protected:
 	void UpdateNetForce(float deltaTime);
 	void UpdateAccel();
+
 public:
 	
 	ParticleModel();
@@ -44,6 +45,8 @@ public:
 	//component Interface
 	void SetOwner(GameObject* newOwner);
 	GameObject* GetOwner()override { return _owner; }
+	void UpdateComponent(float deltaTime);
+	Component* GetClassType() {return this; }
 
 	Collider* GetCollider() { return _collider; }
 	//particle movement functions

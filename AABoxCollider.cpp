@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Structs.h"
 #include "SphereCollider.h"
+#include <algorithm>
 AABoxCollider::AABoxCollider():Collider::Collider(),Collision::Collision()
 {
 	_halfSize = Vector3D(1.0f, 1.0f, 1.0f);
