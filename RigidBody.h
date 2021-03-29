@@ -23,10 +23,11 @@ public:
 	void ApplyRotForce(Vector3D force, Vector3D point, float deltaTime);
 	void StopObject();
 	void SetRigidBodyMode(BodyMode newMode) { _bodyMode = newMode; }
-
+	Vector3D DragTurbFlow(Vector3D velocity, float dragFactor);
 protected:
 	XMFLOAT3X3 _intertiaTensor;
 	float _angularDamping = 0.5f;
+	float _area;
 	Vector3D _angularAcceleration;
 	Vector3D _torgue;
 	Vector3D _angularVelocity;

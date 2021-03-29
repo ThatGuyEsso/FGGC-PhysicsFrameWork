@@ -13,7 +13,8 @@ public:
 
 protected:
 	float _mass;
-	float _drag;
+	float _dragCoEfficient;
+	float _density;
 	bool _useGravity;
 	bool _useTurbularFlow;
 	Vector3D _netForce;
@@ -21,14 +22,14 @@ protected:
 	Transform* _transform;
 	Vector3D _currentVelocity;
 	//temporary until collison is implemented
-	Vector3D _surfacePosition;
+	
 	ParticleEquation _equationUsed;
 
 	std::vector<Vector3D> _forces; //all forces acting on the objects
 
 	Collider* _collider;
 protected:
-	void UpdateNetForce(float deltaTime);
+	void UpdateNetForce();
 	void UpdateAccel();
 
 public:
@@ -53,14 +54,14 @@ public:
 	void MoveWithConstVelocity(float deltaTime);
 	void MoveWithConstAcceleration(float deltaTime);
 	void StopParticle() { _currentVelocity = Vector3D(), _acceleration = Vector3D(); }
-	void ApplyForce(Vector3D newForce) { _forces.push_back(newForce); }//adds a new force to particle
+	void ApplyForce(Vector3D newForce);//adds a new force to particle
 	void Move(float deltaTime);
 	void ComputeMotion(float deltaTime);
 	void ComputeMotionInFluid(float deltaTime);
 	void AddGravity();
-	Vector3D DragForce(Vector3D velocity, float dragFactor);
-	Vector3D DragLamFlow(Vector3D velocity, float dragFactor);
-	Vector3D DragTurbFlow(Vector3D velocity, float dragFactor);
+	virtual Vector3D DragForce(Vector3D velocity, float dragFactor);
+	virtual Vector3D DragLamFlow(Vector3D velocity, float dragFactor);
+	virtual Vector3D DragTurbFlow(Vector3D velocity, float dragFactor);
 
 	//setters and getters for particle movement equations
 	Vector3D GetCurrentVelocity() { return _currentVelocity; }
@@ -75,7 +76,7 @@ public:
 	void SetMass(float newMass) {  _mass= newMass; }
 	void ToggleGravity(bool useGravity) { _useGravity = useGravity; }
 	bool UsesGravity() { return _useGravity; }
-	void SetSurfacePosition(Vector3D position) { _surfacePosition = position; }
+
 	void SetCollider(Collider* coliider);
 
 };

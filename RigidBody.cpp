@@ -2,13 +2,17 @@
 #include "GameObject.h"
 RigidBody::RigidBody() :ParticleModel::ParticleModel()
 {
+	_area = 2.0f;
+	_dragCoEfficient = 10.5f;
 	SetInertiaTensorBox(1.0f, 1.0, 1.0f);
 	_angularVelocity = Vector3D();
 }
 
 RigidBody::RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity)
 	:ParticleModel(transform,InitialVelocity,acceleration,useGravity)
-{
+{	
+	_area = 2.0f;
+	_dragCoEfficient = 10.5f;
 	SetInertiaTensorBox(1.0f, 1.0, 1.0f);
 	_angularVelocity = Vector3D();
 }
@@ -82,6 +86,7 @@ void RigidBody::Update(float t)
 		CalculateAngularAcceleration();
 		CalculateAngularVelocity(t);
 		ParticleModel::Update(t);
+		DebugHelp().OutPutValue("NetForce After frame", _netForce.magnitude());
 		_torgue = Vector3D();
 		break;
 
@@ -105,6 +110,28 @@ void RigidBody::StopObject()
 	_torgue = Vector3D();
 	_angularVelocity = Vector3D();
 	_angularAcceleration = Vector3D();
+}
+
+Vector3D RigidBody::DragTurbFlow(Vector3D velocity, float dragFactor)
+{
+	float speed = velocity.magnitude();
+
+
+	DebugHelp().OutPutValue("Velcotiy X", velocity.x);
+	DebugHelp().OutPutValue("Velcotiy y", velocity.y);
+	DebugHelp().OutPutValue("Velcotiy z", velocity.z);
+	Vector3D velNorm = velocity.normalization();
+	float dragMag = 0.5f *_area* dragFactor * _density * speed * speed;
+
+	Vector3D drag = velNorm * -dragMag;
+
+	DebugHelp().OutPutValue("Drag Mag", dragMag);
+	DebugHelp().OutPutValue("Drag X", drag.x);
+	DebugHelp().OutPutValue("Drag y", drag.y);
+	DebugHelp().OutPutValue("Drag z", drag.z);
+
+
+	return drag;
 }
 
 

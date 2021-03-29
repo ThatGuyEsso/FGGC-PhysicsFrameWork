@@ -89,7 +89,7 @@ Vector3D Vector3D::operator/(float value)
 
 Vector3D& Vector3D::operator/=(float value)
 {
-	assert(value != 0); //prevent divide by 0
+	if(value != 0); //prevent divide by 0
 	x /= value;
 	y /= value;
 	z /= value;
@@ -126,8 +126,13 @@ Vector3D Vector3D::cross_product(const Vector3D& vec)
 
 Vector3D Vector3D::normalization()
 {
-	
-	return  *this /= magnitude();;
+	if(this->magnitude()!=0){
+		return  *this /= magnitude();
+	}
+	else {
+
+		return  *this;
+	}
 }
 
 float Vector3D::square()

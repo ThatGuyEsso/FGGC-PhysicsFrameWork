@@ -35,32 +35,19 @@ void SphereCollider::AABBReflection(Collider* other)
 	//Calculate Normal to angle of insidence
 	Vector3D vel  = GetOwner()->GetRigidBody()->GetCurrentVelocity();
 
-	Vector3D normal = vel.cross_product(other->GetTransform()->GetRotation());
-	if (normal.magnitude() == 0) {
-		GetOwner()->GetRigidBody()->SetCurrentAcceleration(GetOwner()->GetRigidBody()->GetCurrentAcceleration() * -1.0f);
-		GetOwner()->GetRigidBody()->SetCurrentVelocity(vel*-1.0f);
-		return;
-	}
+	//Currently Use objects position but in future use actual contact point
 
-	Vector3D normalised = normal.normalization();
+	Vector3D point = _transform->GetPosition();
 
-	if (normalised.x != 0) {
-		Vector3D newDir = Vector3D(vel.x* normalised.x, vel.y, vel.z);
-		Vector3D accDir = GetOwner()->GetRigidBody()->GetCurrentAcceleration();
-		GetOwner()->GetRigidBody()->SetCurrentAcceleration(Vector3D(accDir.x *normalised.x, accDir.y, accDir.z ));
-	}
-	else if (normalised.y != 0) {
-		Vector3D newDir = Vector3D(vel.x , vel.y * normalised.y, vel.z);
-		GetOwner()->GetRigidBody()->SetCurrentAcceleration(GetOwner()->GetRigidBody()->GetCurrentAcceleration().cross_product(normalised));
-		Vector3D accDir = GetOwner()->GetRigidBody()->GetCurrentAcceleration();
-		GetOwner()->GetRigidBody()->SetCurrentAcceleration(Vector3D(accDir.x , accDir.y* normalised.y, accDir.z));
-	}
-	else if (normalised.z != 0) {
-		Vector3D newDir = Vector3D(vel.x, vel.y, vel.z *normalised.z);
-		GetOwner()->GetRigidBody()->SetCurrentAcceleration(GetOwner()->GetRigidBody()->GetCurrentAcceleration().cross_product(normalised));
-		Vector3D accDir = GetOwner()->GetRigidBody()->GetCurrentAcceleration();
-		GetOwner()->GetRigidBody()->SetCurrentAcceleration(Vector3D(accDir.x , accDir.y, accDir.z*normalised.z));
-	}
+	Vector3D normalToPoint = vel.cross_product(point);
+
+
+	Vector3D reflection = vel -  normalToPoint.normalization()* (vel.dot_product(point))*2;
+
+	
+	GetOwner()->GetRigidBody()->SetCurrentVelocity(reflection);
+	GetOwner()->GetRigidBody()->SetCurrentAcceleration(reflection.normalization()* GetOwner()->GetRigidBody()->GetCurrentAcceleration().magnitude());
+
 
 
 	
