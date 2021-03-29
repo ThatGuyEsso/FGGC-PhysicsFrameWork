@@ -419,7 +419,6 @@
     <CLInclude Include="resource.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="SphereCollider.h" />
-    <ClInclude Include="Staticbody.h" />
     <ClInclude Include="Structs.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Transform.h" />

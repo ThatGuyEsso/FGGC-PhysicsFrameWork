@@ -148,33 +148,46 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 
 	//create new apperance instance
 	Appearance* appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
-	Transform*  floorTrans = new Transform(Vector3D(0.0f, 0.0, 0.0f),
+	Transform* floorTrans = new Transform(Vector3D(0.0f, 0.15f, 0.0f),
 		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
-	GameObject * gameObject = new GameObject("Floor", appearance, floorTrans);
-
-	StaticBody* sBody = new StaticBody(floorTrans);
-	gameObject->CalculateCentreOfMass(PlaneVertices,4);
-	gameObject->AddComponent(sBody);
-
-	sBody->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
-	AABoxCollider* collider =(AABoxCollider*)sBody->GetCollider();
+	GameObject* gameObject = new GameObject("Floor", appearance, floorTrans);
+	RigidBody* planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
+	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
+	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
+	gameObject->SetRigidBody(planeRB);
+	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+	AABoxCollider* collider = (AABoxCollider*)planeRB->GetCollider();
 	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
 	_gameObjects.push_back(gameObject);
+
+
+	appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
+	floorTrans = new Transform(Vector3D(0.0f, 0.0, 5.0f),
+		Vector3D(0.0f, 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
+	gameObject = new GameObject("Floor", appearance, floorTrans);
+	planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
+	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
+	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
+	gameObject->SetRigidBody(planeRB);
+	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+	collider = (AABoxCollider*)planeRB->GetCollider();
+	collider->SetHalfSize(Vector3D(10.0f, 10.0f, 0.2f));
+	_gameObjects.push_back(gameObject);
+
+
+
 	appearance = new Appearance(cubeGeometry, shinyMaterial, _pTextureRV);
-	
- 
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
 		gameObject = new GameObject("Cube" + i, appearance);
-		RigidBody* rb = new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), true);
-		gameObject->AddComponent(rb);
+		RigidBody* rb = new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false);
+		gameObject->SetRigidBody(rb);
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		gameObject->SetPosition(Vector3D (0.0f + (i * 2.0f), 1.0f, 0.0f));
-		gameObject->CalculateCentreOfMass(CubeVertices,24);
+		gameObject->SetPosition(Vector3D(-2.0f + (i * 2.0f), 1.0f, 0.0f));
+		gameObject->CalculateCentreOfMass(CubeVertices, 24);
 
 		_gameObjects.push_back(gameObject);
 	}
-
 	//
 	//appearance = new Appearance(herculesGeometry, shinyMaterial, _pTextureRV);
 	//gameObject = new GameObject("donut", appearance);
@@ -347,8 +360,8 @@ void Application::AddThrust(Vector3D force)
 {
 	GameObject* object = GetSelectedGameObject();
 
-	if(object->GetRigidBody()->UsesGravity()){
-		object->GetRigidBody()->ApplyForce(force*2.0f);
+	if(object->GetType()== "Cube"){
+		object->GetRigidBody()->ApplyForce(force);
 	}
 }
 
@@ -729,6 +742,47 @@ void Application::Update()
 
 	}
 
+	// Move gameobject
+	if (_input->GetKey('I'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyForce(Vector3D(0.0f, 0.0f, 5000.0f)* deltaTime);
+
+	}
+	if (_input->GetKey('K'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyForce(Vector3D(0.0f, 0.0f, -5000.0f) * deltaTime);
+
+	}
+	if (_input->GetKey('L'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyForce(Vector3D(5000.0f, 0.0f, 0.0f) * deltaTime);
+
+	}
+	if (_input->GetKey('J'))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyForce(Vector3D(-5000.0f, 0.0f, 0.0f) * deltaTime);
+
+	}
+
+	if (_input->GetKey(VK_SHIFT))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyForce(Vector3D(0.0f, -5000.0f, 0.0f) * deltaTime);
+
+	}
+	if (_input->GetKey(VK_SPACE))
+	{
+		GetSelectedGameObject()->GetRigidBody()
+			->ApplyForce(Vector3D(0.0f, 5000.0f, 0.0f) * deltaTime);
+
+	}
+
+
+
 	
 	if (_input->GetKey('C')) {
 		CycleBetweenObjectByType(std::string("Cube"));
@@ -756,22 +810,23 @@ void Application::Update()
 
 	for (int i = 0; i < _gameObjects.size(); i++) {
 		Collider* currCollider;
-	
-		if ((currCollider=_gameObjects[i]->GetComponent<RigidBody>()->GetCollider()) != nullptr) {
+
+		if ((currCollider = _gameObjects[i]->GetRigidBody()->GetCollider()) != nullptr) {
 			for (int y = 0; y < _gameObjects.size(); y++) {
-				
+
 				//Don't check itself
 				if (i != y) {
-					if (currCollider->CollisionCheck(_gameObjects[y]->GetComponent<RigidBody>()->GetCollider())) {
+					if (currCollider->CollisionCheck(_gameObjects[y]->GetRigidBody()->GetCollider())) {
+
 						DebugHelp().OutPutText("COLLISION");
-						currCollider->GetOwner()->GetComponent<RigidBody>()->StopObject();
-						_gameObjects[y]->GetComponent<RigidBody>()->StopObject();
+
+
 					}
 				}
-			
+
 			}
 		}
-	
+
 	}
 
 }

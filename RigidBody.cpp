@@ -73,13 +73,21 @@ float RigidBody::CalculateDamping(float deltaTime)
 
 void RigidBody::Update(float t)
 {
-	ParticleModel::Update(t);
-
-
-	CalculateAngularAcceleration();
-	CalculateAngularVelocity(t);
-	_torgue = Vector3D();
+	switch (_bodyMode)
+	{
+	case RigidBody::BodyMode::Static:
+		break;
+	case RigidBody::BodyMode::Dynamic:
 	
+		CalculateAngularAcceleration();
+		CalculateAngularVelocity(t);
+		ParticleModel::Update(t);
+		_torgue = Vector3D();
+		break;
+
+	}
+
+
 }
 
 void RigidBody::ApplyRotForce(Vector3D force, Vector3D point, float deltaTime)

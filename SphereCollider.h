@@ -10,6 +10,7 @@ public:
 	void SetRadius(float radius) { _radius = radius; }
 	float GetRadius() { return _radius; }
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
+	void AABBReflection(Collider* other);
 private:
 	float _radius;
 

@@ -30,6 +30,42 @@ bool SphereCollider::AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider
 	return distance < sphere->GetRadius();
 }
 
+void SphereCollider::AABBReflection(Collider* other)
+{
+	//Calculate Normal to angle of insidence
+	Vector3D vel  = GetOwner()->GetRigidBody()->GetCurrentVelocity();
+
+	Vector3D normal = vel.cross_product(other->GetTransform()->GetRotation());
+	if (normal.magnitude() == 0) {
+		GetOwner()->GetRigidBody()->SetCurrentAcceleration(GetOwner()->GetRigidBody()->GetCurrentAcceleration() * -1.0f);
+		GetOwner()->GetRigidBody()->SetCurrentVelocity(vel*-1.0f);
+		return;
+	}
+
+	Vector3D normalised = normal.normalization();
+
+	if (normalised.x != 0) {
+		Vector3D newDir = Vector3D(vel.x* normalised.x, vel.y, vel.z);
+		Vector3D accDir = GetOwner()->GetRigidBody()->GetCurrentAcceleration();
+		GetOwner()->GetRigidBody()->SetCurrentAcceleration(Vector3D(accDir.x *normalised.x, accDir.y, accDir.z ));
+	}
+	else if (normalised.y != 0) {
+		Vector3D newDir = Vector3D(vel.x , vel.y * normalised.y, vel.z);
+		GetOwner()->GetRigidBody()->SetCurrentAcceleration(GetOwner()->GetRigidBody()->GetCurrentAcceleration().cross_product(normalised));
+		Vector3D accDir = GetOwner()->GetRigidBody()->GetCurrentAcceleration();
+		GetOwner()->GetRigidBody()->SetCurrentAcceleration(Vector3D(accDir.x , accDir.y* normalised.y, accDir.z));
+	}
+	else if (normalised.z != 0) {
+		Vector3D newDir = Vector3D(vel.x, vel.y, vel.z *normalised.z);
+		GetOwner()->GetRigidBody()->SetCurrentAcceleration(GetOwner()->GetRigidBody()->GetCurrentAcceleration().cross_product(normalised));
+		Vector3D accDir = GetOwner()->GetRigidBody()->GetCurrentAcceleration();
+		GetOwner()->GetRigidBody()->SetCurrentAcceleration(Vector3D(accDir.x , accDir.y, accDir.z*normalised.z));
+	}
+
+
+	
+}
+
 bool SphereCollider::CollisionCheck(Collider* other)
 {
 
@@ -38,7 +74,10 @@ bool SphereCollider::CollisionCheck(Collider* other)
 			return SphereOnSphereCollision((SphereCollider*)other);
 	
 			case ColliderType::AABB:
-			return	AABBvsSphereCollision(this, (AABoxCollider*)other);
+				if (AABBvsSphereCollision(this, (AABoxCollider*)other)) {
+					AABBReflection(other);
+					return true;
+				}
 		
 
 			default:

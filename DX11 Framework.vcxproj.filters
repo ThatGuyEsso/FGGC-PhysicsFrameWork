@@ -128,9 +128,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Staticbody.h">
-      <Filter>Headers\Components</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

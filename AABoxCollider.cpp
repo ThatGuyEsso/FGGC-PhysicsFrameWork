@@ -60,6 +60,10 @@ Vector3D AABoxCollider::GetMinSize()
 	return minVal;
 }
 
+void AABoxCollider::AABBReflection(Collider* other)
+{
+}
+
 void AABoxCollider::DynamicResize()
 {
 	Geometry geometry = _owner->GetAppearance()->GetGeomentry();

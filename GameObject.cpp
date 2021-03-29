@@ -34,6 +34,12 @@ GameObject::~GameObject()
 	_appearance = nullptr;
 }
 
+void GameObject::SetRigidBody(RigidBody* rb)
+{
+	_rigidBody = rb;
+	rb->SetOwner(this);
+}
+
 void GameObject::Update(float t)
 {
 
@@ -55,6 +61,8 @@ void GameObject::Update(float t)
 	for (Component* comp : _components) {
 		comp->UpdateComponent(t);
 	}
+
+	_rigidBody->Update(t);
 
 }
 

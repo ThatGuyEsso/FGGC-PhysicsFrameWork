@@ -107,13 +107,14 @@ void ParticleModel::Update(float t) {
 
 	ComputeMotionInFluid(t);
 	//ComputeMotion(t);
-	_forces.clear();
+	
 
 	if (_transform->GetPosition().y < 0) {
 		_transform->SetPosition(Vector3D(_transform->GetPosition().x, 0, _transform->GetPosition().z));
 		_currentVelocity = Vector3D(_currentVelocity.x, 0.0f, _currentVelocity.z);
 		_acceleration = Vector3D(_acceleration.x, 0.0f, _acceleration.z);
 	}
+	_forces.clear();
 }
 
 void ParticleModel::SetOwner(GameObject* newOwner)

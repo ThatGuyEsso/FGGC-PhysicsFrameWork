@@ -3,15 +3,9 @@
 
 #include <string>
 #include "DebugHelp.h"
-#include "Transform.h"
-#include "Appearance.h"
-
 #include "Graphics.h"
 #include "Quaternion.h"
-
-#include "StaticBody.h"
 #include "RigidBody.h"
-#include "ParticleModel.h"
 #include "Component.h"
 using namespace DirectX;
 using namespace std;
@@ -50,7 +44,7 @@ public:
 	Appearance* GetAppearance() { return _appearance; }
 
 	RigidBody* GetRigidBody() { return _rigidBody; }
-
+	void SetRigidBody(RigidBody* rb);
 	void SetParent(GameObject * parent) { _parent = parent; }
 
 	void SetCentreOfMass(Vector3D point) { _centreOfMass = point; }

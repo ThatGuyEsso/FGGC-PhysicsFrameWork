@@ -14,6 +14,7 @@ public:
 	bool AABoxOnAABoxCollision(AABoxCollider* other);
 	Vector3D GetMaxSize();
 	Vector3D GetMinSize();
+	void AABBReflection(Collider* other);
 private:
 
 private:
