@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include <vector>
 #include "Structs.h"
+
 class Collider:public Component
 {
 public:
@@ -22,6 +23,7 @@ public:
 	void SetTransform(Transform* transform) {  _transform= transform; }
 	ColliderType GetColliderType() { return _colliderType; }
 	virtual bool CollisionCheck(Collider* other) =0;
+
 
 protected:
 	Transform* _transform;
