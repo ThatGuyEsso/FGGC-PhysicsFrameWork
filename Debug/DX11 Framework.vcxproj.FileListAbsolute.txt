@@ -8,3 +8,5 @@ C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semest
 C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Debug\DX11 Framework.pdb
 C:\Users\e010103j\Desktop\FGGC Framework Semester 2\Debug\DX11 Framework.exe
 C:\Users\e010103j\Desktop\FGGC Framework Semester 2\Debug\DX11 Framework.pdb
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.pdb
