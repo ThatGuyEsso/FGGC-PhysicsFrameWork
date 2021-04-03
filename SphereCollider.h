@@ -11,6 +11,8 @@ public:
 	float GetRadius() { return _radius; }
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
 	void AABBReflection(Collider* other);
+	Vector3D GetSupportingPoint(Collider* other, Vector3D collisionAxis);
+	Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis);
 private:
 	float _radius;
 

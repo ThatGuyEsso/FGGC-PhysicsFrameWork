@@ -57,6 +57,19 @@ void SphereCollider::AABBReflection(Collider* other)
 	
 }
 
+Vector3D SphereCollider::GetSupportingPoint(Collider* other, Vector3D collisionAxis)
+{
+	//calculate the farthest point from the orign in the direction of the other collider in collision
+	Vector3D contactPoint = _transform->GetPosition() + collisionAxis * _radius;
+	return contactPoint;
+}
+
+Vector3D SphereCollider::GenerateContacts(Collider* other, Vector3D collisionAxis)
+{
+
+	return Vector3D();
+}
+
 bool SphereCollider::CollisionCheck(Collider* other)
 {
 

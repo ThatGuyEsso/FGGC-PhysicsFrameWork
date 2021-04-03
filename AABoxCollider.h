@@ -15,6 +15,8 @@ public:
 	Vector3D GetMaxSize();
 	Vector3D GetMinSize();
 	void AABBReflection(Collider* other);
+	Vector3D GetSupportingPoint(Collider* other, Vector3D collisionAxis);
+	Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis);
 private:
 
 private:

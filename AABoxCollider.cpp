@@ -64,6 +64,28 @@ void AABoxCollider::AABBReflection(Collider* other)
 {
 }
 
+Vector3D AABoxCollider::GetSupportingPoint(Collider* other, Vector3D collisionAxis)
+{
+	//Get distance to point
+	float distance =_transform->GetPosition().distance(other->GetTransform()->GetPosition());
+	//Project point from origin to fartherst point
+	Vector3D projectedPoint = _transform->GetPosition()+collisionAxis * distance;
+
+	//Clamp point within boundaries
+	Vector3D supportPoint = Vector3D();
+
+	supportPoint.x = std::max<float>(GetMinSize().x, std::min<float>(projectedPoint.x, GetMaxSize().x));
+	supportPoint.y = std::max<float>(GetMinSize().y, std::min<float>(projectedPoint.y, GetMaxSize().y));
+	supportPoint.z = std::max<float>(GetMinSize().z, std::min<float>(projectedPoint.z, GetMaxSize().z));
+
+	return supportPoint;
+}
+
+Vector3D AABoxCollider::GenerateContacts(Collider* other, Vector3D collisionAxis)
+{
+	return Vector3D();
+}
+
 void AABoxCollider::DynamicResize()
 {
 	Geometry geometry = _owner->GetAppearance()->GetGeomentry();

@@ -1,6 +1,61 @@
-﻿  GameObject.cpp
+﻿  AABoxCollider.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.cpp(44,58): warning C4100: 'other': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.cpp(63,46): warning C4100: 'other': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.cpp(84,68): warning C4100: 'collisionAxis': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.cpp(84,52): warning C4100: 'other': unreferenced formal parameter
+  Appearance.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Appearance.cpp(20,40): warning C4100: 'deltaTime': unreferenced formal parameter
+  Application.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(648,29): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(653,42): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(679,18): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(811,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(815,22): warning C4018: '<': signed/unsigned mismatch
+  Collider.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.cpp(26,38): warning C4100: 'deltaTime': unreferenced formal parameter
+  Main.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+  GameObject.cpp
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\GameObject.cpp(82,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Particle.cpp
+  ParticleModel.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\ParticleModel.cpp(185,2): warning C5205: delete of an abstract class 'Collider' that has a non-virtual destructor results in undefined behavior
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
+  ParticleSystem.cpp
+  RigidBody.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.cpp(98,69): warning C4100: 'deltaTime': unreferenced formal parameter
+  SphereCollider.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(33,47): warning C4100: 'other': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(60,55): warning C4100: 'other': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(67,69): warning C4100: 'collisionAxis': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(67,53): warning C4100: 'other': unreferenced formal parameter
+  Staticbody.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Staticbody.cpp(12,31): warning C4100: 't': unreferenced formal parameter
+  Generating Code...
   DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe
