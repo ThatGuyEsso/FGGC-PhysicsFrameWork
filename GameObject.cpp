@@ -34,11 +34,6 @@ GameObject::~GameObject()
 	_appearance = nullptr;
 }
 
-void GameObject::SetRigidBody(RigidBody* rb)
-{
-	_rigidBody = rb;
-	rb->SetOwner(this);
-}
 
 void GameObject::Update(float t)
 {
@@ -62,7 +57,7 @@ void GameObject::Update(float t)
 		comp->UpdateComponent(t);
 	}
 
-	_rigidBody->Update(t);
+
 
 }
 
@@ -91,23 +86,6 @@ void GameObject::CalculateCentreOfMass(SimpleVertex vertices[], int vertexCount)
 
 
 
-template<typename T>
-T* GameObject::GetComponent()
-{
-	T* compClass = new T();
-	for (Component* comp : _components) {
-		//Cast component to target component
-		comp = dynamic_cast<T*>(compClass);
-		
-		//if not false
-		if (comp) {
-			return comp;
-		}
-	}
-
-	//if cast failed or no component found return null
-	return nullptr;
-}
 
 void GameObject::AddComponent(Component* newComp)
 {
@@ -119,6 +97,6 @@ void GameObject::AddComponent(Component* newComp)
 			return;
 		}
 	}
-
+	newComp->SetOwner(this);
 	_components.push_back(newComp);
 }

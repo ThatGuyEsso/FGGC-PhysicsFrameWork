@@ -154,7 +154,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	RigidBody* planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
 	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
 	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
-	gameObject->SetRigidBody(planeRB);
+	gameObject->AddComponent(planeRB);
 	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
 	AABoxCollider* collider = (AABoxCollider*)planeRB->GetCollider();
 	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
@@ -168,7 +168,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
 	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
 	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
-	gameObject->SetRigidBody(planeRB);
+	gameObject->AddComponent(planeRB);
 	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
 	collider = (AABoxCollider*)planeRB->GetCollider();
 	collider->SetHalfSize(Vector3D(10.0f, 10.0f, 0.2f));
@@ -181,7 +181,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	{
 		gameObject = new GameObject("Cube" + i, appearance);
 		RigidBody* rb = new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false);
-		gameObject->SetRigidBody(rb);
+		gameObject->AddComponent(rb);
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
 		gameObject->SetPosition(Vector3D(-2.0f + (i * 2.0f), 1.0f, 0.0f));
 		gameObject->CalculateCentreOfMass(CubeVertices, 24);
@@ -361,7 +361,7 @@ void Application::AddThrust(Vector3D force)
 	GameObject* object = GetSelectedGameObject();
 
 	if(object->GetType()== "Cube"){
-		object->GetRigidBody()->ApplyForce(force);
+		object->GetComponent<RigidBody>()->ApplyForce(force);
 	}
 }
 
@@ -692,52 +692,52 @@ void Application::Update()
 	// Move gameobject
 	if (_input->GetKey('W'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
 	
 	}
 	if (_input->GetKey('D'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('A'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('S'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('E'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.5f, 0.5f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('Q'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-0.5f, 0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('X'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.5f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('Z'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-0.5f, -0.5f, 0.0f), deltaTime);
 
 	}
@@ -745,38 +745,38 @@ void Application::Update()
 	// Move gameobject
 	if (_input->GetKey('I'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyForce(Vector3D(0.0f, 0.0f, 5000.0f)* deltaTime);
 
 	}
 	if (_input->GetKey('K'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyForce(Vector3D(0.0f, 0.0f, -5000.0f) * deltaTime);
 
 	}
 	if (_input->GetKey('L'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyForce(Vector3D(5000.0f, 0.0f, 0.0f) * deltaTime);
 
 	}
 	if (_input->GetKey('J'))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyForce(Vector3D(-5000.0f, 0.0f, 0.0f) * deltaTime);
 
 	}
 
 	if (_input->GetKey(VK_SHIFT))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyForce(Vector3D(0.0f, -5000.0f, 0.0f) * deltaTime);
 
 	}
 	if (_input->GetKey(VK_SPACE))
 	{
-		GetSelectedGameObject()->GetRigidBody()
+		GetSelectedGameObject()->GetComponent<RigidBody>()
 			->ApplyForce(Vector3D(0.0f, 5000.0f, 0.0f) * deltaTime);
 
 	}
@@ -811,12 +811,12 @@ void Application::Update()
 	for (int i = 0; i < _gameObjects.size(); i++) {
 		Collider* currCollider;
 
-		if ((currCollider = _gameObjects[i]->GetRigidBody()->GetCollider()) != nullptr) {
+		if ((currCollider = _gameObjects[i]->GetComponent<RigidBody>()->GetCollider()) != nullptr) {
 			for (int y = 0; y < _gameObjects.size(); y++) {
 
 				//Don't check itself
 				if (i != y) {
-					if (currCollider->CollisionCheck(_gameObjects[y]->GetRigidBody()->GetCollider())) {
+					if (currCollider->CollisionCheck(_gameObjects[y]->GetComponent<RigidBody>()->GetCollider())) {
 
 						DebugHelp().OutPutText("COLLISION");
 

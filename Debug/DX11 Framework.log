@@ -1,6 +1,6 @@
-﻿  SphereCollider.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.cpp(33,47): warning C4100: 'other': unreferenced formal parameter
-  DX11 Framework.vcxproj -> C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Debug\DX11 Framework.exe
+﻿  GameObject.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\GameObject.cpp(82,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe

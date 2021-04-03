@@ -43,8 +43,7 @@ public:
 
 	Appearance* GetAppearance() { return _appearance; }
 
-	RigidBody* GetRigidBody() { return _rigidBody; }
-	void SetRigidBody(RigidBody* rb);
+
 	void SetParent(GameObject * parent) { _parent = parent; }
 
 	void SetCentreOfMass(Vector3D point) { _centreOfMass = point; }
@@ -56,7 +55,24 @@ public:
 
 	//Component References
 
-	template <typename T> T* GetComponent();
+	template<typename T>
+	T* GetComponent()
+	{
+		T* ptr;
+		for (Component* comp : _components) {
+			//Cast component to target component
+			ptr = dynamic_cast<T*>(comp);
+
+			//if not false
+			if (ptr) {
+				return ptr;
+			}
+		}
+
+		//if cast failed or no component found return null
+		return nullptr;
+	}
+
 
 
 	void AddComponent(Component* componentType);
@@ -65,7 +81,7 @@ private:
 	std::vector<Component*> _components;
 	Transform* _transform;
 	Appearance* _appearance;
-	RigidBody* _rigidBody;
+
 	Graphics* _graphics;
 	string _type;
 	XMFLOAT4X4 _world;

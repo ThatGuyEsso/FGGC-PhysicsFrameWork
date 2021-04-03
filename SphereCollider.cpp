@@ -32,22 +32,26 @@ bool SphereCollider::AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider
 
 void SphereCollider::AABBReflection(Collider* other)
 {
-	//Calculate Normal to angle of insidence
-	Vector3D vel  = GetOwner()->GetRigidBody()->GetCurrentVelocity();
+	RigidBody* rb = GetOwner()->GetComponent<RigidBody>();
+	if (rb) {
 
-	//Currently Use objects position but in future use actual contact point
+		//Calculate Normal to angle of insidence
+		Vector3D vel  = rb->GetCurrentVelocity();
+		//Currently Use objects position but in future use actual contact point
 
-	Vector3D point = _transform->GetPosition();
+		Vector3D point = _transform->GetPosition();
 
-	Vector3D normalToPoint = vel.cross_product(point);
+		Vector3D normalToPoint = vel.cross_product(point);
 
 
-	Vector3D reflection = vel -  normalToPoint.normalization()* (vel.dot_product(point))*2;
+		Vector3D reflection = vel -  normalToPoint.normalization()* (vel.dot_product(point))*2;
 
 	
-	GetOwner()->GetRigidBody()->SetCurrentVelocity(reflection);
-	GetOwner()->GetRigidBody()->SetCurrentAcceleration(reflection.normalization()* GetOwner()->GetRigidBody()->GetCurrentAcceleration().magnitude());
+		rb->SetCurrentVelocity(reflection);
+		rb->SetCurrentAcceleration(reflection.normalization()* rb->GetCurrentAcceleration().magnitude());
 
+
+	}
 
 
 	
