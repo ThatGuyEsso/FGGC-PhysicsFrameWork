@@ -7,12 +7,14 @@ AABoxCollider::AABoxCollider():Collider::Collider(),Collision::Collision()
 {
 	_halfSize = Vector3D(1.0f, 1.0f, 1.0f);
     _colliderType = ColliderType::AABB;
+	CaluclateVertices();
 }
 
 AABoxCollider::AABoxCollider(Transform* transform, Vector3D size) : Collider::Collider(transform), Collision::Collision()
 {
 	_halfSize = size;
     _colliderType = ColliderType::AABB;
+	CaluclateVertices();
 }
 
 bool AABoxCollider::CollisionCheck(Collider* other)
@@ -64,12 +66,12 @@ void AABoxCollider::AABBReflection(Collider* other)
 {
 }
 
-Vector3D AABoxCollider::GetSupportingPoint(Collider* other, Vector3D collisionAxis)
+Vector3D AABoxCollider::Support(Collider* other, Vector3D direction)
 {
 	//Get distance to point
 	float distance =_transform->GetPosition().distance(other->GetTransform()->GetPosition());
 	//Project point from origin to fartherst point
-	Vector3D projectedPoint = _transform->GetPosition()+collisionAxis * distance;
+	Vector3D projectedPoint = _transform->GetPosition()+ direction * distance;
 
 	//Clamp point within boundaries
 	Vector3D supportPoint = Vector3D();
@@ -84,6 +86,38 @@ Vector3D AABoxCollider::GetSupportingPoint(Collider* other, Vector3D collisionAx
 Vector3D AABoxCollider::GenerateContacts(Collider* other, Vector3D collisionAxis)
 {
 	return Vector3D();
+}
+
+void AABoxCollider::CaluclateVertices()
+{
+
+	//X max
+	vertices.push_back(GetMaxSize());
+	Vector3D currentVertex = Vector3D(GetMaxSize().x, GetMaxSize().y, GetMaxSize().z - _halfSize.z*2);
+	vertices.push_back(currentVertex);
+	currentVertex = Vector3D(GetMaxSize().x, GetMaxSize().y- _halfSize.y* 2, GetMaxSize().z - _halfSize.z*2);
+	vertices.push_back(currentVertex);
+	currentVertex = Vector3D(GetMaxSize().x, GetMaxSize().y- _halfSize.y* 2, GetMaxSize().z);
+	vertices.push_back(currentVertex);
+
+	//X min
+	vertices.push_back(GetMinSize());
+	currentVertex = Vector3D(GetMinSize().x, GetMinSize().y, GetMinSize().z + _halfSize.z * 2);
+	vertices.push_back(currentVertex);
+	currentVertex = Vector3D(GetMinSize().x, GetMinSize().y + _halfSize.y * 2, GetMinSize().z + _halfSize.z * 2);
+	vertices.push_back(currentVertex);
+	currentVertex = Vector3D(GetMinSize().x, GetMinSize().y + _halfSize.y * 2, GetMinSize().z);
+	vertices.push_back(currentVertex);
+}
+
+Vector3D AABoxCollider::FurthestPoint(Vector3D dir)
+{
+	return Vector3D();
+}
+
+bool AABoxCollider::HandleSimplex(Vector3D dir)
+{
+	return false;
 }
 
 void AABoxCollider::DynamicResize()
@@ -115,7 +149,7 @@ void AABoxCollider::DynamicResize()
 	}
 
 	SetHalfSize(Vector3D(x, y, z));
-
+	CaluclateVertices();
 
 }
 

@@ -160,3 +160,5 @@ Debug/
 Desktop - Release/
 ipch/
 Generated Files/
+*.ipch
+*.ipch

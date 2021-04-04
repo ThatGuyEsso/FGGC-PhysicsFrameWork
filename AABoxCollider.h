@@ -15,12 +15,18 @@ public:
 	Vector3D GetMaxSize();
 	Vector3D GetMinSize();
 	void AABBReflection(Collider* other);
-	Vector3D GetSupportingPoint(Collider* other, Vector3D collisionAxis);
+	Vector3D Support(Collider* other, Vector3D collisionAxis);
 	Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis);
+	bool GJKIntersection(Collider* other, Vector3D initAxis);
+	std::vector<Vector3D> CalculateMinkowskiDifference(Collider* other);
+	void CaluclateVertices();
+	Vector3D FurthestPoint(Vector3D dir);
+	bool HandleSimplex(Vector3D dir);
 private:
 
-private:
+protected:
 	Vector3D _halfSize;
-private:
+	std::vector<Vector3D> vertices;
+protected:
 	bool CollisionCheck(Collider* other);
 };
