@@ -34,7 +34,7 @@ public:
 	float square(); //gives square of the vector
 	float distance(const Vector3D& vec); //distance between two vectors
 	float magnitude();  //magnitude of the vector
-
+	Vector3D TripleProduct(const Vector3D& vec);//Get trhe tripe product of current an another vector
 
 	//Display operations 
 	float show_X(); //return x

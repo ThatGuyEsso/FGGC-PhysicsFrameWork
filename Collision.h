@@ -12,7 +12,9 @@ public:
 	virtual bool GJKIntersection(Collider* other, Vector3D initDir)= 0;
 	virtual std::vector<Vector3D> CalculateMinkowskiDifference(Collider* other) = 0;
 	virtual bool HandleSimplex(Vector3D dir) = 0;
-
+	virtual bool LineCase(Vector3D dir) = 0;
+	virtual bool TriangleCase(Vector3D dir) = 0;
+	virtual bool TetrahedonCase(Vector3D dir) = 0;
 protected:
 	std::vector<Vector3D> _simplex;
 	std::vector<Vector3D> _minKowSkiDifference;

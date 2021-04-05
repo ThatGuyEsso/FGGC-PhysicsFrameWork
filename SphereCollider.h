@@ -17,6 +17,9 @@ public:
 	std::vector<Vector3D> CalculateMinkowskiDifference(Collider* other);
 	Vector3D FurthestPoint(Vector3D dir);
 	bool HandleSimplex(Vector3D dir);
+	bool LineCase(Vector3D dir);
+	bool TriangleCase(Vector3D dir);
+	bool TetrahedonCase(Vector3D dir);
 private:
 	float _radius;
 

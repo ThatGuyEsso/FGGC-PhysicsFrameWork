@@ -81,6 +81,7 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 
 	Vector3D dirToOrigin = (Vector3D() - _simplex[0]).normalization();
 
+
 	while (true){
 		//Second simplex vertex
 		Vector3D A = Support(other, dirToOrigin);
@@ -91,6 +92,9 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 		}
 
 		_simplex.push_back(A);
+		if (HandleSimplex(dirToOrigin)) {
+			return true;
+		}
 	}
 
 
@@ -110,6 +114,28 @@ Vector3D SphereCollider::FurthestPoint(Vector3D dir)
 }
 
 bool SphereCollider::HandleSimplex(Vector3D dir)
+{
+	while (true) {
+		if (_simplex.size() == 2) {
+
+		}
+	}
+
+
+}
+
+bool SphereCollider::LineCase(Vector3D dir)
+{
+
+	return false;
+}
+
+bool SphereCollider::TriangleCase(Vector3D dir)
+{
+	return false;
+}
+
+bool SphereCollider::TetrahedonCase(Vector3D dir)
 {
 	return false;
 }

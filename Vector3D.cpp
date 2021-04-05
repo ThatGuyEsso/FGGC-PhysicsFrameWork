@@ -152,6 +152,12 @@ float Vector3D::magnitude()
 	return sqrt(squaredValue);
 }
 
+Vector3D Vector3D::TripleProduct(const Vector3D& vec)
+{
+	Vector3D trip = (this->cross_product(vec)).cross_product(*this);
+	return trip;
+}
+
 float Vector3D::show_X()
 {
 	return x;
