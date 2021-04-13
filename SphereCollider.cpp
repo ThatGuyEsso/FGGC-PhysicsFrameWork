@@ -115,11 +115,49 @@ Vector3D SphereCollider::FurthestPoint(Vector3D dir)
 
 bool SphereCollider::HandleSimplex(Vector3D dir)
 {
-	while (true) {
+	while (_simplex.size() < 4) {
+
+		//Simplex has 2 points look for the third
 		if (_simplex.size() == 2) {
+			//assuming A is the most recently added point on the simplex
+			//assumption Origin is always a vector position of (0,0,0)
+
+			Vector3D AO = Vector3D() - _simplex[_simplex.size() - 1];
+			//B is the first point in simplex
+			Vector3D AB = _simplex[0] - _simplex[_simplex.size() - 1];
+
+			/// <summary>
+			/// Third point of the simplex is the perpendicular vector towards the orgin
+			/// from point A
+			/// </summary>
+	
+			Vector3D abPerp = AB.TripleProduct(AO);
+			_simplex.push_back(abPerp);
+
+			//origin is not inclosed so continue Loop
+		}
+		//Simplex has 3 points look for the 4th
+		else if (_simplex.size() == 3) {
+
+			std::vector<float> dots;
+			for (int i = 0; i < _simplex.size(); i++) {
+
+				if (i == 0) {
+					Vector3D BA = (_simplex[i + 1] - _simplex[i]).normalization();
+					Vector3D BC = (_simplex[i + 2] - _simplex[i]).normalization();
+					Vector3D BACcross = BA.cross_product(BC);
+					float dot = BACcross.dot_product(Vector3D());
+
+					dots.push_back(dot);
+				}
+			}
+		}
+		else if (_simplex.size() == 4) {
 
 		}
+	
 	}
+	return false;
 
 
 }
