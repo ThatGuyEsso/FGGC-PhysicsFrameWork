@@ -14,9 +14,9 @@ public:
 	virtual void AABBReflection(Collider* other) = 0;
 	virtual bool GJKIntersection(Collider* other, Vector3D initDir)= 0;
 
-	virtual bool HandleSimplex(Vector3D dir);
-	virtual void LineCase(Vector3D dir);
-	virtual bool TriangleCase(Vector3D dir);
+	virtual bool HandleSimplex(Vector3D dir, Collider* a, Collider* b);
+	virtual void LineCase(Vector3D dir,Collider* a , Collider* b);
+	virtual bool TriangleCase(Vector3D dir, Collider* a, Collider* b);
 	virtual bool TetrahedronCase(Vector3D dir, std::vector<Vector3D> tetrahedron);
 	virtual bool SameSide(Vector3D v1, Vector3D v2, Vector3D v3, Vector3D v4, Vector3D point);
 protected:

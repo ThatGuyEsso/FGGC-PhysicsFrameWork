@@ -157,22 +157,22 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->AddComponent(planeRB);
 	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
 	AABoxCollider* collider = (AABoxCollider*)planeRB->GetCollider();
-	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
+	collider->SetHalfSize(Vector3D(10.0f, 0.25f, 10.0f));
 	_gameObjects.push_back(gameObject);
 
 
-	appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
-	floorTrans = new Transform(Vector3D(0.0f, 0.0, 5.0f),
-		Vector3D(0.0f, 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
-	gameObject = new GameObject("Floor", appearance, floorTrans);
-	planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
-	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
-	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
-	gameObject->AddComponent(planeRB);
-	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
-	collider = (AABoxCollider*)planeRB->GetCollider();
-	collider->SetHalfSize(Vector3D(10.0f, 10.0f, 0.2f));
-	_gameObjects.push_back(gameObject);
+	//appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
+	//floorTrans = new Transform(Vector3D(0.0f, 0.0, 5.0f),
+	//	Vector3D(0.0f, 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
+	//gameObject = new GameObject("Floor", appearance, floorTrans);
+	//planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
+	//planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
+	//gameObject->CalculateCentreOfMass(PlaneVertices, 4);
+	//gameObject->AddComponent(planeRB);
+	//planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+	//collider = (AABoxCollider*)planeRB->GetCollider();
+	//collider->SetHalfSize(Vector3D(10.0f, 10.0f, 0.2f));
+	//_gameObjects.push_back(gameObject);
 
 
 

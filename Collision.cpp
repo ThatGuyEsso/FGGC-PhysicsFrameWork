@@ -8,19 +8,19 @@ Collision::Collision()
 
 }
 
-bool Collision::HandleSimplex(Vector3D dir)
+bool Collision::HandleSimplex(Vector3D dir, Collider* a, Collider* b)
 {
 	if (!_simplex.empty()) {
 		while (_simplex.size() <= 4) {
 
 			//Simplex has 2 points look for the third
 			if (_simplex.size() == 2) {
-				LineCase(dir);
+				LineCase(dir,a,b);
 			}
 			//Simplex has 3 points look for the 4th
 			else if (_simplex.size() == 3) {
 
-				if(!TriangleCase(dir)) return false;
+				if(!TriangleCase(dir,a,b)) return false;
 			}
 			else if (_simplex.size() == 4) {
 				return TetrahedronCase(dir,_simplex);
@@ -35,14 +35,14 @@ bool Collision::HandleSimplex(Vector3D dir)
 	return false;
 }
 
-void Collision::LineCase(Vector3D dir)
+void Collision::LineCase(Vector3D dir, Collider* a, Collider* b)
 {
 	//assuming A is the most recently added point on the simplex
 //assumption Origin is always a vector position of (0,0,0)
 
-	Vector3D AO = Vector3D() - _simplex[_simplex.size() - 1];
+	Vector3D AO = (Vector3D() - _simplex[_simplex.size() - 1]).normalization();
 	//B is the first point in simplex
-	Vector3D AB = _simplex[0] - _simplex[_simplex.size() - 1];
+	Vector3D AB = (_simplex[0] - _simplex[_simplex.size() - 1]).normalization();
 
 	/// <summary>
 	/// Third point of the simplex is the perpendicular vector towards the orgin
@@ -50,11 +50,13 @@ void Collision::LineCase(Vector3D dir)
 	/// </summary>
 
 	Vector3D abPerp = AB.TripleProduct(AO);
-	_simplex.push_back(abPerp);
+
+	Vector3D support = a->Support(b, abPerp);
+	_simplex.push_back(support);
 
 }
 
-bool Collision::TriangleCase(Vector3D dir)
+bool Collision::TriangleCase(Vector3D dir, Collider* a, Collider* b)
 {
 	std::vector<float> dots;
 	std::vector<Vector3D> normals;
@@ -105,7 +107,9 @@ bool Collision::TriangleCase(Vector3D dir)
 	}
 
 	if (currBestDot > 0) {
-		_simplex.push_back(normals[closesNormIndex]);
+
+		Vector3D support = a->Support(b, normals[closesNormIndex]);
+		_simplex.push_back(support);
 		return true;
 	}
 	else {
@@ -117,10 +121,11 @@ bool Collision::TetrahedronCase(Vector3D dir, std::vector<Vector3D> tetrahedron)
 {
 	if (tetrahedron.size() != 4)	return false;
 
-	return SameSide(tetrahedron[0], tetrahedron[1], tetrahedron[2], tetrahedron[3], Vector3D()) &&
+	 bool isInclosed =SameSide(tetrahedron[0], tetrahedron[1], tetrahedron[2], tetrahedron[3], Vector3D()) &&
 		SameSide(tetrahedron[1], tetrahedron[2], tetrahedron[3], tetrahedron[0], Vector3D()) &&
 		SameSide(tetrahedron[2], tetrahedron[3], tetrahedron[0], tetrahedron[1], Vector3D()) &&
 		SameSide(tetrahedron[3], tetrahedron[0], tetrahedron[1], tetrahedron[2], Vector3D());
+	 return  isInclosed;
 }
 //Checks if point is on the same side of the fourth vertex
 bool Collision::SameSide(Vector3D v1, Vector3D v2, Vector3D v3, Vector3D v4, Vector3D point)
@@ -128,9 +133,9 @@ bool Collision::SameSide(Vector3D v1, Vector3D v2, Vector3D v3, Vector3D v4, Vec
 	//get the normal of the v1-v3 triangle
 	Vector3D normal = (v2 - v1).normalization().cross_product((v3 - v1).normalization());
 
-	/*float v4Dot = normal.dot_product((v4 - v1).normalization());*/
+	float v4Dot = normal.dot_product((v4 - v1).normalization());
 	float pointDot = normal.dot_product((point - v1).normalization());
-
-	return (pointDot) <0;
+	float dotProductProduct = v4Dot * pointDot;
+	return (dotProductProduct) >0;
 }
 

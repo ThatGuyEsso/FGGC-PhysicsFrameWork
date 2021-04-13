@@ -109,7 +109,17 @@ bool AABoxCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 		}
 
 		_simplex.push_back(A);
-		return HandleSimplex(dirToOrigin);
+		bool isColliding= HandleSimplex(dirToOrigin,this,other);
+
+		if (isColliding) {
+
+			DebugHelp().OutPutText("Cube Collided");
+
+			return true;
+		}
+		else {
+			return false;
+		}
 
 	}
 

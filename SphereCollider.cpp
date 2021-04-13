@@ -92,8 +92,17 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 		}
 
 		_simplex.push_back(A);
-		return HandleSimplex(dirToOrigin);
-		
+		bool isColliding = HandleSimplex(dirToOrigin, this, other);
+
+		if (isColliding) {
+
+			DebugHelp().OutPutText("Sphere Collided");
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
