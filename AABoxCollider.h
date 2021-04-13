@@ -7,7 +7,7 @@ class AABoxCollider : public Collider, public Collision {
 public:
 	AABoxCollider();
 	AABoxCollider(Transform* transform, Vector3D size);
-	void SetHalfSize(Vector3D size) { _halfSize = size; }
+	void SetHalfSize(Vector3D size);
 	void DynamicResize();
 	Vector3D GetHalfSize() { return _halfSize; }
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
@@ -17,16 +17,15 @@ public:
 	void AABBReflection(Collider* other);
 	Vector3D Support(Collider* other, Vector3D collisionAxis);
 	Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis);
-	bool GJKIntersection(Collider* other, Vector3D initAxis);
-	std::vector<Vector3D> CalculateMinkowskiDifference(Collider* other);
-	void CaluclateVertices();
+	void CalculateVertices();
 	Vector3D FurthestPoint(Vector3D dir);
-	bool HandleSimplex(Vector3D dir);
+	bool GJKIntersection(Collider* other, Vector3D initAxis);
+
 private:
 
 protected:
 	Vector3D _halfSize;
-	std::vector<Vector3D> vertices;
+	std::vector<Vector3D> _vertices;
 protected:
 	bool CollisionCheck(Collider* other);
 };

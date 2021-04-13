@@ -1,31 +1,40 @@
 #include "AABoxCollider.h"
 #include "GameObject.h"
-#include "Structs.h"
 #include "SphereCollider.h"
 #include <algorithm>
 AABoxCollider::AABoxCollider():Collider::Collider(),Collision::Collision()
 {
 	_halfSize = Vector3D(1.0f, 1.0f, 1.0f);
     _colliderType = ColliderType::AABB;
-	CaluclateVertices();
+	CalculateVertices();
 }
 
 AABoxCollider::AABoxCollider(Transform* transform, Vector3D size) : Collider::Collider(transform), Collision::Collision()
 {
 	_halfSize = size;
     _colliderType = ColliderType::AABB;
-	CaluclateVertices();
+	CalculateVertices();
+}
+
+void AABoxCollider::SetHalfSize(Vector3D size)
+{
+	_halfSize = size; 
+	CalculateVertices();
 }
 
 bool AABoxCollider::CollisionCheck(Collider* other)
 {
+	Vector3D dirToOrigin = Vector3D();
 	switch (other->GetColliderType()) {
 		case ColliderType::Sphere:
-			return AABBvsSphereCollision((SphereCollider*)other,this);
+			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
+
+			return GJKIntersection(other, dirToOrigin);
 		case ColliderType::AABB:
-			return false;
-		default:
-			return false;
+			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
+
+			return GJKIntersection(other, dirToOrigin);
+		
 	}
 
 }
@@ -68,18 +77,7 @@ void AABoxCollider::AABBReflection(Collider* other)
 
 Vector3D AABoxCollider::Support(Collider* other, Vector3D direction)
 {
-	//Get distance to point
-	float distance =_transform->GetPosition().distance(other->GetTransform()->GetPosition());
-	//Project point from origin to fartherst point
-	Vector3D projectedPoint = _transform->GetPosition()+ direction * distance;
-
-	//Clamp point within boundaries
-	Vector3D supportPoint = Vector3D();
-
-	supportPoint.x = std::max<float>(GetMinSize().x, std::min<float>(projectedPoint.x, GetMaxSize().x));
-	supportPoint.y = std::max<float>(GetMinSize().y, std::min<float>(projectedPoint.y, GetMaxSize().y));
-	supportPoint.z = std::max<float>(GetMinSize().z, std::min<float>(projectedPoint.z, GetMaxSize().z));
-
+	Vector3D supportPoint = FurthestPoint(direction) - other->FurthestPoint(direction * -1);
 	return supportPoint;
 }
 
@@ -88,37 +86,76 @@ Vector3D AABoxCollider::GenerateContacts(Collider* other, Vector3D collisionAxis
 	return Vector3D();
 }
 
-void AABoxCollider::CaluclateVertices()
+bool AABoxCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 {
+	//Create new Simplex
+	_simplex.clear();
 
+	//get first arbitary point
+	Vector3D initSimplex = Support(other, initAxis).normalization();
+	//add startubg point to simplex
+	_simplex.push_back(initSimplex);
+
+	Vector3D dirToOrigin = (Vector3D() - _simplex[0]).normalization();
+
+
+	while (true) {
+		//Second simplex vertex
+		Vector3D A = Support(other, dirToOrigin);
+
+		//checks if new line segmenet passes origin
+		if (A.dot_product(dirToOrigin) < 0) {
+			return false;//Shapes Did not intersect;
+		}
+
+		_simplex.push_back(A);
+		return HandleSimplex(dirToOrigin);
+
+	}
+
+
+	return false;
+}
+
+void AABoxCollider::CalculateVertices()
+{
+	if (!_vertices.empty()) _vertices.clear();
 	//X max
-	vertices.push_back(GetMaxSize());
+	_vertices.push_back(GetMaxSize());
 	Vector3D currentVertex = Vector3D(GetMaxSize().x, GetMaxSize().y, GetMaxSize().z - _halfSize.z*2);
-	vertices.push_back(currentVertex);
+	_vertices.push_back(currentVertex);
 	currentVertex = Vector3D(GetMaxSize().x, GetMaxSize().y- _halfSize.y* 2, GetMaxSize().z - _halfSize.z*2);
-	vertices.push_back(currentVertex);
+	_vertices.push_back(currentVertex);
 	currentVertex = Vector3D(GetMaxSize().x, GetMaxSize().y- _halfSize.y* 2, GetMaxSize().z);
-	vertices.push_back(currentVertex);
+	_vertices.push_back(currentVertex);
 
 	//X min
-	vertices.push_back(GetMinSize());
+	_vertices.push_back(GetMinSize());
 	currentVertex = Vector3D(GetMinSize().x, GetMinSize().y, GetMinSize().z + _halfSize.z * 2);
-	vertices.push_back(currentVertex);
+	_vertices.push_back(currentVertex);
 	currentVertex = Vector3D(GetMinSize().x, GetMinSize().y + _halfSize.y * 2, GetMinSize().z + _halfSize.z * 2);
-	vertices.push_back(currentVertex);
+	_vertices.push_back(currentVertex);
 	currentVertex = Vector3D(GetMinSize().x, GetMinSize().y + _halfSize.y * 2, GetMinSize().z);
-	vertices.push_back(currentVertex);
+	_vertices.push_back(currentVertex);
 }
 
 Vector3D AABoxCollider::FurthestPoint(Vector3D dir)
 {
-	return Vector3D();
+
+	float highestDot = 0;
+	int vertexIndex =0;
+	for (int i = 0; i < _vertices.size(); i++) {
+
+		float currDot = dir.dot_product(_vertices[i]);
+		if (currDot > highestDot) {
+			highestDot = currDot;
+			vertexIndex = i;
+		}
+	}
+
+	return _vertices[vertexIndex];
 }
 
-bool AABoxCollider::HandleSimplex(Vector3D dir)
-{
-	return false;
-}
 
 void AABoxCollider::DynamicResize()
 {
@@ -149,7 +186,7 @@ void AABoxCollider::DynamicResize()
 	}
 
 	SetHalfSize(Vector3D(x, y, z));
-	CaluclateVertices();
+	CalculateVertices();
 
 }
 

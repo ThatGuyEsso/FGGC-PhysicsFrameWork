@@ -386,6 +386,7 @@
     <ClCompile Include="ParticleModel.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Staticbody.cpp" />
     <ClCompile Include="Transform.cpp" />

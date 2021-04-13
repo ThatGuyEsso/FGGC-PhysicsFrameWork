@@ -116,9 +116,6 @@
     <ClInclude Include="DebugHelp.h">
       <Filter>Headers\Utillity</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="SphereCollider.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
       <Filter>Headers\Components</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -186,6 +186,9 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Staticbody.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

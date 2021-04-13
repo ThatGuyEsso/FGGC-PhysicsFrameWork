@@ -85,26 +85,22 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 	while (true){
 		//Second simplex vertex
 		Vector3D A = Support(other, dirToOrigin);
-
+		float dot = A.dot_product(dirToOrigin);
 		//checks if new line segmenet passes origin
-		if (A.dot_product(dirToOrigin) < 0) {
+		if (dot < 0) {
 			return false;//Shapes Did not intersect;
 		}
 
 		_simplex.push_back(A);
-		if (HandleSimplex(dirToOrigin)) {
-			return true;
-		}
+		return HandleSimplex(dirToOrigin);
+		
 	}
 
 
 	return false;
 }
 
-std::vector<Vector3D> SphereCollider::CalculateMinkowskiDifference(Collider* other)
-{
-	return std::vector<Vector3D>();
-}
+
 
 Vector3D SphereCollider::FurthestPoint(Vector3D dir)
 {
@@ -113,92 +109,24 @@ Vector3D SphereCollider::FurthestPoint(Vector3D dir)
 	return furtuestPoint;
 }
 
-bool SphereCollider::HandleSimplex(Vector3D dir)
-{
-	while (_simplex.size() < 4) {
-
-		//Simplex has 2 points look for the third
-		if (_simplex.size() == 2) {
-			//assuming A is the most recently added point on the simplex
-			//assumption Origin is always a vector position of (0,0,0)
-
-			Vector3D AO = Vector3D() - _simplex[_simplex.size() - 1];
-			//B is the first point in simplex
-			Vector3D AB = _simplex[0] - _simplex[_simplex.size() - 1];
-
-			/// <summary>
-			/// Third point of the simplex is the perpendicular vector towards the orgin
-			/// from point A
-			/// </summary>
-	
-			Vector3D abPerp = AB.TripleProduct(AO);
-			_simplex.push_back(abPerp);
-
-			//origin is not inclosed so continue Loop
-		}
-		//Simplex has 3 points look for the 4th
-		else if (_simplex.size() == 3) {
-
-			std::vector<float> dots;
-			for (int i = 0; i < _simplex.size(); i++) {
-
-				if (i == 0) {
-					Vector3D BA = (_simplex[i + 1] - _simplex[i]).normalization();
-					Vector3D BC = (_simplex[i + 2] - _simplex[i]).normalization();
-					Vector3D BACcross = BA.cross_product(BC);
-					float dot = BACcross.dot_product(Vector3D());
-
-					dots.push_back(dot);
-				}
-			}
-		}
-		else if (_simplex.size() == 4) {
-
-		}
-	
-	}
-	return false;
-
-
-}
-
-bool SphereCollider::LineCase(Vector3D dir)
-{
-
-	return false;
-}
-
-bool SphereCollider::TriangleCase(Vector3D dir)
-{
-	return false;
-}
-
-bool SphereCollider::TetrahedonCase(Vector3D dir)
-{
-	return false;
-}
 
 bool SphereCollider::CollisionCheck(Collider* other)
 {
+	Vector3D dirToOrigin = Vector3D();
+	switch (other->GetColliderType()) {
+		case ColliderType::Sphere:
+			 dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 
-		switch (other->GetColliderType()) {
-			case ColliderType::Sphere:
-			return SphereOnSphereCollision((SphereCollider*)other);
+			return GJKIntersection(other, dirToOrigin);
 	
-			case ColliderType::AABB:
-				Vector3D dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
+		case ColliderType::AABB:
+			 dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 
-				bool isIntersecting = GJKIntersection(other, dirToOrigin);
+			return GJKIntersection(other, dirToOrigin);
 		
-
-			default:
-				return false;
-		}
 	
-
+	}
 	
-
-
 
 }
 

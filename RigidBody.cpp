@@ -86,7 +86,7 @@ void RigidBody::Update(float t)
 		CalculateAngularAcceleration();
 		CalculateAngularVelocity(t);
 		ParticleModel::Update(t);
-		DebugHelp().OutPutValue("NetForce After frame", _netForce.magnitude());
+		//DebugHelp().OutPutValue("NetForce After frame", _netForce.magnitude());
 		_torgue = Vector3D();
 		break;
 
@@ -117,18 +117,18 @@ Vector3D RigidBody::DragTurbFlow(Vector3D velocity, float dragFactor)
 	float speed = velocity.magnitude();
 
 
-	DebugHelp().OutPutValue("Velcotiy X", velocity.x);
-	DebugHelp().OutPutValue("Velcotiy y", velocity.y);
-	DebugHelp().OutPutValue("Velcotiy z", velocity.z);
+	//DebugHelp().OutPutValue("Velcotiy X", velocity.x);
+	//DebugHelp().OutPutValue("Velcotiy y", velocity.y);
+	//DebugHelp().OutPutValue("Velcotiy z", velocity.z);
 	Vector3D velNorm = velocity.normalization();
 	float dragMag = 0.5f *_area* dragFactor * _density * speed * speed;
 
 	Vector3D drag = velNorm * -dragMag;
 
-	DebugHelp().OutPutValue("Drag Mag", dragMag);
-	DebugHelp().OutPutValue("Drag X", drag.x);
-	DebugHelp().OutPutValue("Drag y", drag.y);
-	DebugHelp().OutPutValue("Drag z", drag.z);
+	//DebugHelp().OutPutValue("Drag Mag", dragMag);
+	//DebugHelp().OutPutValue("Drag X", drag.x);
+	//DebugHelp().OutPutValue("Drag y", drag.y);
+	//DebugHelp().OutPutValue("Drag z", drag.z);
 
 
 	return drag;
