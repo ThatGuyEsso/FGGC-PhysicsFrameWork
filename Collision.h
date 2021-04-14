@@ -11,7 +11,7 @@ public:
 
 	Collision();
 	virtual bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB) = 0;
-	virtual void AABBReflection(Collider* other) = 0;
+	virtual void AABBReflection(Vector3D contact) = 0;
 	virtual bool GJKIntersection(Collider* other, Vector3D initDir)= 0;
 
 	virtual bool HandleSimplex(Vector3D dir, Collider* a, Collider* b);

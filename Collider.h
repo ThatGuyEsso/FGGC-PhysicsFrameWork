@@ -24,7 +24,7 @@ public:
 	ColliderType GetColliderType() { return _colliderType; }
 	virtual bool CollisionCheck(Collider* other) =0;
 	virtual Vector3D Support(Collider* other,Vector3D direction) = 0;
-	virtual Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis) = 0;
+	virtual Vector3D GetClosesContactPoint(std::vector<Vector3D> collisionSimplex) = 0;
 	virtual Vector3D FurthestPoint(Vector3D dir) = 0;
 
 protected:

@@ -30,21 +30,23 @@ bool SphereCollider::AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider
 	return distance < sphere->GetRadius();
 }
 
-void SphereCollider::AABBReflection(Collider* other)
+void SphereCollider::AABBReflection(Vector3D contact)
 {
 	RigidBody* rb = GetOwner()->GetComponent<RigidBody>();
+
 	if (rb) {
 
+		
 		//Calculate Normal to angle of insidence
 		Vector3D vel  = rb->GetCurrentVelocity();
 		//Currently Use objects position but in future use actual contact point
 
-		Vector3D point = _transform->GetPosition();
+	
 
-		Vector3D normalToPoint = vel.cross_product(point);
+		Vector3D normalToPoint = vel.cross_product(contact);
 
 
-		Vector3D reflection = vel -  normalToPoint.normalization()* (vel.dot_product(point))*2;
+		Vector3D reflection = vel -  normalToPoint.normalization()* (vel.dot_product(contact))*2;
 
 	
 		rb->SetCurrentVelocity(reflection);
@@ -63,10 +65,23 @@ Vector3D SphereCollider::Support(Collider* other, Vector3D direction)
 	return supportPoint;
 }
 
-Vector3D SphereCollider::GenerateContacts(Collider* other, Vector3D collisionAxis)
+Vector3D SphereCollider::GetClosesContactPoint(std::vector<Vector3D> collisionSimplex)
 {
+	//Get initiation contact on sphere
+	Vector3D contact = FurthestPoint((collisionSimplex[0]- _transform->GetPosition()).normalization());
+	float closesDistance = _transform->GetPosition().distance(contact);
 
-	return Vector3D();
+	for (int i = 0; i < collisionSimplex.size(); i++) {
+
+		Vector3D currentContact = FurthestPoint((collisionSimplex[i] - _transform->GetPosition()).normalization());
+		float currentDistance = _transform->GetPosition().distance(collisionSimplex[i]);
+		if (currentDistance < closesDistance) {
+			closesDistance = currentDistance;
+			contact = currentContact;
+		}
+		
+	}
+	return contact;
 }
 
 bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
@@ -97,6 +112,13 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 		if (isColliding) {
 
 			DebugHelp().OutPutText("Sphere Collided");
+			Vector3D contact =GetClosesContactPoint(_simplex);
+
+			DebugHelp().OutPutValue("Contact X", contact.x);
+			DebugHelp().OutPutValue("Contact y", contact.y);
+			DebugHelp().OutPutValue("Contact z", contact.z);
+
+			AABBReflection(contact);
 
 			return true;
 		}

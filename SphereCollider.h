@@ -10,9 +10,9 @@ public:
 	void SetRadius(float radius) { _radius = radius; }
 	float GetRadius() { return _radius; }
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
-	void AABBReflection(Collider* other);
+	void AABBReflection(Vector3D contactr);
 	Vector3D Support(Collider* other, Vector3D direction);
-	Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis);
+	Vector3D GetClosesContactPoint(std::vector<Vector3D> collisionSimplex);
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
 
 	Vector3D FurthestPoint(Vector3D dir);

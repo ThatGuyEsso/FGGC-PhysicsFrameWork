@@ -92,9 +92,9 @@ void ParticleModel::UpdateNetForce()
 void ParticleModel::UpdateAccel() {
 	_acceleration = _netForce / _mass;
 
-	DebugHelp().OutPutValue("acc X", _acceleration.x);
-	DebugHelp().OutPutValue("acc y", _acceleration.y);
-	DebugHelp().OutPutValue("acc z", _acceleration.z);
+	//DebugHelp().OutPutValue("acc X", _acceleration.x);
+	//DebugHelp().OutPutValue("acc y", _acceleration.y);
+	//DebugHelp().OutPutValue("acc z", _acceleration.z);
 
 }
 
@@ -130,7 +130,7 @@ void ParticleModel::Update(float t) {
 		_currentVelocity = Vector3D(_currentVelocity.x, 0.0f, _currentVelocity.z);
 		_acceleration = Vector3D(_acceleration.x, 0.0f, _acceleration.z);
 	}
-	DebugHelp().OutPutValue("NetForce before frame", _netForce.magnitude());
+	//DebugHelp().OutPutValue("NetForce before frame", _netForce.magnitude());
 	_forces.clear();
 	UpdateNetForce();
 }
@@ -173,9 +173,9 @@ void ParticleModel::MoveWithConstAcceleration(float deltaTime)
 
 void ParticleModel::SetCurrentVelocity(Vector3D newVelocity)
 {
-	DebugHelp().OutPutValue("speed =", _currentVelocity.magnitude());
+	//DebugHelp().OutPutValue("speed =", _currentVelocity.magnitude());
 	 _currentVelocity = newVelocity;
-	 DebugHelp().OutPutValue("speed =", _currentVelocity.magnitude());
+	 //DebugHelp().OutPutValue("speed =", _currentVelocity.magnitude());
 
 
 }
@@ -190,8 +190,8 @@ void ParticleModel::SetCollider(Collider* coliider)
 void ParticleModel::ApplyForce(Vector3D newForce)
 {
 	_forces.push_back(newForce);
-	if(newForce.magnitude()>0)
-		DebugHelp().OutPutText("NewForce added");
+	//if(newForce.magnitude()>0)
+	//	DebugHelp().OutPutText("NewForce added");
 }
 
 void ParticleModel::Move(float deltaTime)

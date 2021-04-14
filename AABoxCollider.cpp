@@ -71,7 +71,7 @@ Vector3D AABoxCollider::GetMinSize()
 	return minVal;
 }
 
-void AABoxCollider::AABBReflection(Collider* other)
+void AABoxCollider::AABBReflection(Vector3D contact)
 {
 }
 
@@ -81,7 +81,7 @@ Vector3D AABoxCollider::Support(Collider* other, Vector3D direction)
 	return supportPoint;
 }
 
-Vector3D AABoxCollider::GenerateContacts(Collider* other, Vector3D collisionAxis)
+Vector3D AABoxCollider::GetClosesContactPoint(std::vector<Vector3D> collisionSimplex)
 {
 	return Vector3D();
 }

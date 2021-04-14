@@ -14,9 +14,9 @@ public:
 	bool AABoxOnAABoxCollision(AABoxCollider* other);
 	Vector3D GetMaxSize();
 	Vector3D GetMinSize();
-	void AABBReflection(Collider* other);
+	void AABBReflection(Vector3D contact);
 	Vector3D Support(Collider* other, Vector3D collisionAxis);
-	Vector3D GenerateContacts(Collider* other, Vector3D collisionAxis);
+	Vector3D GetClosesContactPoint(std::vector<Vector3D> collisionSimplex);
 	void CalculateVertices();
 	Vector3D FurthestPoint(Vector3D dir);
 	bool GJKIntersection(Collider* other, Vector3D initAxis);

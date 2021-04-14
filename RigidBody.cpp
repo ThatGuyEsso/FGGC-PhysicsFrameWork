@@ -87,6 +87,11 @@ void RigidBody::Update(float t)
 		CalculateAngularVelocity(t);
 		ParticleModel::Update(t);
 		//DebugHelp().OutPutValue("NetForce After frame", _netForce.magnitude());
+
+		DebugHelp().OutPutValue("vel X", _currentVelocity.x);
+		DebugHelp().OutPutValue("vel y", _currentVelocity.y);
+		DebugHelp().OutPutValue("vel z", _currentVelocity.z);
+
 		_torgue = Vector3D();
 		break;
 
