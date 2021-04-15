@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "KD_Tree.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -200,6 +201,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 
 	//_gameObjects.push_back(gameObject);
 	appearance = nullptr;
+
 	return S_OK;
 }
 
@@ -812,26 +814,38 @@ void Application::Update()
 	//resets time since last frame
 	deltaTime -= FPS;
 
-	for (int i = 0; i < _gameObjects.size(); i++) {
-		Collider* currCollider;
+	
+	KD_Tree* tree = new KD_Tree();
 
-		if ((currCollider = _gameObjects[i]->GetComponent<RigidBody>()->GetCollider()) != nullptr) {
-			for (int y = 0; y < _gameObjects.size(); y++) {
+	tree->AddNodeRecursive(_gameObjects, KD_Tree::Axis::X_axis, nullptr);
 
-				//Don't check itself
-				if (i != y) {
-					if (currCollider->CollisionCheck(_gameObjects[y]->GetComponent<RigidBody>()->GetCollider())) {
+	std::vector<KD_Tree::KD_Node*> leaves = tree->GetLeaves();
 
-						//DebugHelp().OutPutText("COLLISION");
+	for (KD_Tree::KD_Node* node : leaves) {
+		//If object set doesnt have more than 2 objects don't check for collisions
+		if (node->objectSet.size() > 1) {
+			for (int i = 0; i < node->objectSet.size(); i++) {
+				Collider* currCollider;
+
+				if ((currCollider = node->objectSet[i]->GetComponent<RigidBody>()->GetCollider()) != nullptr) {
+					for (int y = 0; y < node->objectSet.size(); y++) {
+
+						//Don't check itself
+						if (i != y) {
+							if (currCollider->CollisionCheck(node->objectSet[y]->GetComponent<RigidBody>()->GetCollider())) {
+
+								DebugHelp().OutPutText("COLLISION");
 
 
+							}
+						}
 					}
 				}
 
 			}
 		}
-
 	}
+
 
 }
 

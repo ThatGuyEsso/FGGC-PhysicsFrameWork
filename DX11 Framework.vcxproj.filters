@@ -131,6 +131,9 @@
     <ClInclude Include="Contact.h">
       <Filter>Headers\Utillity</Filter>
     </ClInclude>
+    <ClInclude Include="KD_Tree.h">
+      <Filter>Headers\Utillity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="KD_Tree.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

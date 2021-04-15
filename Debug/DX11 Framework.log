@@ -2,11 +2,11 @@
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(191,29): warning C4456: declaration of 'collider' hides previous local declaration
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(161,17): message : see declaration of 'collider'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(652,29): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(657,42): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(683,18): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(815,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(819,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(192,29): warning C4456: declaration of 'collider' hides previous local declaration
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(162,17): message : see declaration of 'collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(654,29): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(659,42): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(685,18): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(827,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Application.cpp(831,24): warning C4018: '<': signed/unsigned mismatch
   DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe
