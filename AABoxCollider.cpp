@@ -28,11 +28,11 @@ bool AABoxCollider::CollisionCheck(Collider* other)
 	switch (other->GetColliderType()) {
 		case ColliderType::Sphere:
 			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
-
+			CalculateVertices();//Update current vertex postions
 			return GJKIntersection(other, dirToOrigin);
 		case ColliderType::AABB:
 			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
-
+			CalculateVertices();//Update current vertex postions
 			return GJKIntersection(other, dirToOrigin);
 		
 	}
@@ -81,9 +81,8 @@ Vector3D AABoxCollider::Support(Collider* other, Vector3D direction)
 	return supportPoint;
 }
 
-Vector3D AABoxCollider::GetClosesContactPoint(std::vector<Vector3D> collisionSimplex)
+void AABoxCollider::GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData)
 {
-	return Vector3D();
 }
 
 bool AABoxCollider::GJKIntersection(Collider* other, Vector3D initAxis)

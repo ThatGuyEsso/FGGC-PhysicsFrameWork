@@ -34,7 +34,7 @@
 */
 
 using namespace DirectX;
-#define NUMBER_OF_CUBES 1
+#define NUMBER_OF_CUBES 2
 
 //struct SimpleVertex
 //{

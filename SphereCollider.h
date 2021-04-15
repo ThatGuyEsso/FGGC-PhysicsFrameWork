@@ -12,9 +12,9 @@ public:
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
 	void AABBReflection(Vector3D contactr);
 	Vector3D Support(Collider* other, Vector3D direction);
-	Vector3D GetClosesContactPoint(std::vector<Vector3D> collisionSimplex);
-	bool GJKIntersection(Collider* other, Vector3D initAxis);
 
+	bool GJKIntersection(Collider* other, Vector3D initAxis);
+	void GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData);
 	Vector3D FurthestPoint(Vector3D dir);
 	
 private:

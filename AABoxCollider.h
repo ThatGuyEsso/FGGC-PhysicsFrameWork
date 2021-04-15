@@ -16,7 +16,7 @@ public:
 	Vector3D GetMinSize();
 	void AABBReflection(Vector3D contact);
 	Vector3D Support(Collider* other, Vector3D collisionAxis);
-	Vector3D GetClosesContactPoint(std::vector<Vector3D> collisionSimplex);
+	void GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData);
 	void CalculateVertices();
 	Vector3D FurthestPoint(Vector3D dir);
 	bool GJKIntersection(Collider* other, Vector3D initAxis);

@@ -407,6 +407,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Commons.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Contact.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="DebugHelp.h" />
     <ClInclude Include="GameObject.h" />

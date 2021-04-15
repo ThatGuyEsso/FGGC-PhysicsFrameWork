@@ -147,10 +147,12 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	planeGeometry.numberOfVertices = 4;
 
 	//create new apperance instance
-	Appearance* appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
-	Transform* floorTrans = new Transform(Vector3D(0.0f, 0.15f, 0.0f),
+	GameObject* gameObject;
+	Appearance* appearance;
+	appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
+	Transform* floorTrans = new Transform(Vector3D(0.0f, -0.3f, 0.0f),
 		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
-	GameObject* gameObject = new GameObject("Floor", appearance, floorTrans);
+	gameObject = new GameObject("Floor", appearance, floorTrans);
 	RigidBody* planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
 	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
 	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
@@ -185,7 +187,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
 		gameObject->SetPosition(Vector3D(-2.0f + (i * 2.0f), 1.0f, 0.0f));
 		gameObject->CalculateCentreOfMass(CubeVertices, 24);
-
+		rb->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+		AABoxCollider* collider = (AABoxCollider*)rb->GetCollider();
+		collider->SetHalfSize(Vector3D(0.3f, 0.3f, 0.3f));
 		_gameObjects.push_back(gameObject);
 	}
 	//
@@ -818,7 +822,7 @@ void Application::Update()
 				if (i != y) {
 					if (currCollider->CollisionCheck(_gameObjects[y]->GetComponent<RigidBody>()->GetCollider())) {
 
-						DebugHelp().OutPutText("COLLISION");
+						//DebugHelp().OutPutText("COLLISION");
 
 
 					}

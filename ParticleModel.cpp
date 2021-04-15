@@ -5,7 +5,7 @@
 ParticleModel::ParticleModel()
 {
 	_useTurbularFlow = false;
-	_collider = new SphereCollider(_transform, 0.1f);
+	_collider = new SphereCollider(_transform, 0.3f);
 	_type = ComponentType::PhysicModel;
 }
 
@@ -20,7 +20,7 @@ ParticleModel::ParticleModel(Transform* transform, Vector3D InitialVelocity, Vec
 	_dragCoEfficient = DefaultDrag;
 	_density = 1.225f;
 	_useTurbularFlow = true;
-	_collider = new SphereCollider(_transform, 0.1f);
+	_collider = new SphereCollider(_transform, 0.3f);
 	_type = ComponentType::PhysicModel;
 }
 

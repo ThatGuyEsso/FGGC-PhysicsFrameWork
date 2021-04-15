@@ -65,24 +65,7 @@ Vector3D SphereCollider::Support(Collider* other, Vector3D direction)
 	return supportPoint;
 }
 
-Vector3D SphereCollider::GetClosesContactPoint(std::vector<Vector3D> collisionSimplex)
-{
-	//Get initiation contact on sphere
-	Vector3D contact = FurthestPoint((collisionSimplex[0]- _transform->GetPosition()).normalization());
-	float closesDistance = _transform->GetPosition().distance(contact);
 
-	for (int i = 0; i < collisionSimplex.size(); i++) {
-
-		Vector3D currentContact = FurthestPoint((collisionSimplex[i] - _transform->GetPosition()).normalization());
-		float currentDistance = _transform->GetPosition().distance(collisionSimplex[i]);
-		if (currentDistance < closesDistance) {
-			closesDistance = currentDistance;
-			contact = currentContact;
-		}
-		
-	}
-	return contact;
-}
 
 bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 {
@@ -90,7 +73,7 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 	_simplex.clear();
 
 	//get first arbitary point
-	Vector3D initSimplex = Support(other, initAxis).normalization();
+	Vector3D initSimplex = Support(other, initAxis);
 	//add startubg point to simplex
 	_simplex.push_back(initSimplex);
 
@@ -107,28 +90,17 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 		}
 
 		_simplex.push_back(A);
-		bool isColliding = HandleSimplex(dirToOrigin, this, other);
+		return  HandleSimplex(dirToOrigin, this, other);
 
-		if (isColliding) {
-
-			DebugHelp().OutPutText("Sphere Collided");
-			Vector3D contact =GetClosesContactPoint(_simplex);
-
-			DebugHelp().OutPutValue("Contact X", contact.x);
-			DebugHelp().OutPutValue("Contact y", contact.y);
-			DebugHelp().OutPutValue("Contact z", contact.z);
-
-			AABBReflection(contact);
-
-			return true;
-		}
-		else {
-			return false;
-		}
+		
 	}
 
 
 	return false;
+}
+
+void SphereCollider::GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData)
+{
 }
 
 
@@ -136,24 +108,33 @@ bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 Vector3D SphereCollider::FurthestPoint(Vector3D dir)
 {
 	//calculate the farthest point from the orign in the direction of the other collider in collision
-	Vector3D furtuestPoint = _transform->GetPosition() + dir * _radius;
-	return furtuestPoint;
+	Vector3D pos = _transform->GetPosition();
+	Vector3D furthestPoint = pos + dir * _radius;
+	return furthestPoint;
 }
 
 
 bool SphereCollider::CollisionCheck(Collider* other)
 {
-	Vector3D dirToOrigin = Vector3D();
+	bool isColliding;
+	Vector3D dirToOther = Vector3D();
 	switch (other->GetColliderType()) {
 		case ColliderType::Sphere:
-			 dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
+	//	 dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 
-			return GJKIntersection(other, dirToOrigin);
-	
+	///*		return GJKIntersection(other, dirToOrigin);*/
+			
+
+			isColliding= SphereOnSphereCollision((SphereCollider*)other);
+			if (isColliding) {
+				DebugHelp().OutPutText("S vS col");
+				return true;
+			}
+			return false;
 		case ColliderType::AABB:
-			 dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
+			dirToOther = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 
-			return GJKIntersection(other, dirToOrigin);
+			return GJKIntersection(other, dirToOther);
 		
 	
 	}
@@ -163,10 +144,14 @@ bool SphereCollider::CollisionCheck(Collider* other)
 
 bool SphereCollider::SphereOnSphereCollision(SphereCollider* other)
 {
-	float distance = other->GetTransform()->GetPosition().distance(_transform->_position);
-	float sum = other->GetRadius() + _radius;
-	return distance <= sum;
-	
+	if (other) {
+		float distance = other->GetTransform()->GetPosition().distance(_transform->_position);
+		float sum = other->GetRadius() + _radius;
+
+		return distance <= sum;
+
+	}
+	return false;
 }
 
 
