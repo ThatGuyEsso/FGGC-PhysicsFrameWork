@@ -14,11 +14,12 @@ public:
 	bool AABoxOnAABoxCollision(AABoxCollider* other);
 	Vector3D GetMaxSize();
 	Vector3D GetMinSize();
-	void AABBReflection(Vector3D contact);
+	void Reflection(CollisionData* contactData);
 	Vector3D Support(Collider* other, Vector3D collisionAxis);
 	void GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData);
 	void CalculateVertices();
 	Vector3D FurthestPoint(Vector3D dir);
+	Vector3D ClosesPointToPoint(Vector3D point);
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
 
 private:

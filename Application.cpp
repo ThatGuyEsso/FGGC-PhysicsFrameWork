@@ -188,9 +188,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
 		gameObject->SetPosition(Vector3D(-2.0f + (i * 2.0f), 1.0f, 0.0f));
 		gameObject->CalculateCentreOfMass(CubeVertices, 24);
-		rb->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
+	/*	rb->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
 		AABoxCollider* collider = (AABoxCollider*)rb->GetCollider();
-		collider->SetHalfSize(Vector3D(0.3f, 0.3f, 0.3f));
+		collider->SetHalfSize(Vector3D(0.3f, 0.3f, 0.3f));*/
 		_gameObjects.push_back(gameObject);
 	}
 	//

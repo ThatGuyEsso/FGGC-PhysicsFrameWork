@@ -30,27 +30,28 @@ bool SphereCollider::AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider
 	return distance < sphere->GetRadius();
 }
 
-void SphereCollider::AABBReflection(Vector3D contact)
+void SphereCollider:: Reflection(CollisionData* contactData)
 {
+	if (contactData->totalContacts <= 0) return;
 	RigidBody* rb = GetOwner()->GetComponent<RigidBody>();
 
 	if (rb) {
 
 		
 		//Calculate Normal to angle of insidence
-		Vector3D vel  = rb->GetCurrentVelocity();
+		Vector3D velUnit  = rb->GetCurrentVelocity().normalization();
 		//Currently Use objects position but in future use actual contact point
 
 	
 
-		Vector3D normalToPoint = vel.cross_product(contact);
+		Vector3D normal = contactData->contacts->_contactNormal;
 
 
-		Vector3D reflection = vel -  normalToPoint.normalization()* (vel.dot_product(contact))*2;
+		Vector3D reflection = velUnit - normal.normalization()* (velUnit.dot_product(normal))*2;
 
 	
-		rb->SetCurrentVelocity(reflection);
-		rb->SetCurrentAcceleration(reflection.normalization()* rb->GetCurrentAcceleration().magnitude());
+		rb->SetCurrentVelocity(reflection* rb->GetCurrentVelocity().magnitude());
+		rb->SetCurrentAcceleration(reflection* rb->GetCurrentAcceleration().magnitude());
 
 
 	}
@@ -134,8 +135,14 @@ bool SphereCollider::CollisionCheck(Collider* other)
 		case ColliderType::AABB:
 			dirToOther = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 
-			return GJKIntersection(other, dirToOther);
-		
+			isColliding = GJKIntersection(other, dirToOther);
+			if (isColliding) {
+
+				CollisionData* colliisonData = FindContactsInIntersection(this, other);
+				Reflection(colliisonData);
+				return true;
+			}
+			return false;
 	
 	}
 	

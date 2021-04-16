@@ -139,3 +139,74 @@ bool Collision::SameSide(Vector3D v1, Vector3D v2, Vector3D v3, Vector3D v4, Vec
 	return (dotProductProduct) >0;
 }
 
+Collision::CollisionData* Collision::FindContactsInIntersection(Collider* currCollider, Collider* otherCollider)
+{
+	CollisionData* colData = new CollisionData();
+
+	if (currCollider->GetColliderType() == otherCollider->GetColliderType()) {
+		switch (currCollider->GetColliderType())
+		{
+			case ColliderType::Sphere:
+				SphereVSphereIntersection((SphereCollider*)currCollider, (SphereCollider*)otherCollider, colData);
+				break;
+			case ColliderType::AABB:
+
+				break;
+		}
+	}
+	else {
+		switch (currCollider->GetColliderType())
+		{
+			case ColliderType::Sphere:
+				switch (otherCollider->GetColliderType())
+				{
+			
+				case ColliderType::AABB:
+					SphereVAABBIntersection((AABoxCollider*)otherCollider, (SphereCollider*)currCollider, colData);
+					break;
+				}
+				break;
+			case ColliderType::AABB:
+				switch (otherCollider->GetColliderType())
+				{
+				case ColliderType::Sphere:
+					SphereVAABBIntersection((AABoxCollider*)currCollider, (SphereCollider*)otherCollider, colData);
+					break;
+				}
+		}
+	}
+
+
+	return colData;
+}
+
+void Collision::SphereVSphereIntersection(SphereCollider* currCollider, SphereCollider* otherCollider, Collision::CollisionData* data)
+{
+	Vector3D midLine =currCollider->GetTransform()->GetPosition()- (otherCollider->GetTransform()->GetPosition());
+	Vector3D normal = midLine * (1.0f / midLine.magnitude());
+	Contact* contact = data->contacts;
+	contact->_contactNormal = normal;
+	contact->_contactPoint = currCollider->GetTransform()->GetPosition() + midLine * 0.5f;
+	contact->penetrationDepth = currCollider->GetRadius() + otherCollider->GetRadius() - midLine.magnitude();
+
+	data->totalContacts++;
+
+}
+
+void Collision::SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphere, CollisionData* data)
+{
+	Vector3D closestPoint = box->ClosesPointToPoint(sphere->GetTransform()->GetPosition());
+
+	Contact* contact = data->contacts;
+	
+	float distance = closestPoint.distance(sphere->GetTransform()->GetPosition());
+	contact->_contactNormal = closestPoint - sphere->GetTransform()->GetPosition();
+	contact->_contactNormal.normalization();
+	contact->_contactPoint = closestPoint;
+	contact->penetrationDepth = sphere->GetRadius() - distance;
+	data->totalContacts++;
+	
+}
+
+
+

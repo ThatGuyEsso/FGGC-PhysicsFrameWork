@@ -71,7 +71,7 @@ Vector3D AABoxCollider::GetMinSize()
 	return minVal;
 }
 
-void AABoxCollider::AABBReflection(Vector3D contact)
+void AABoxCollider::Reflection(CollisionData* contactData)
 {
 }
 
@@ -163,6 +163,24 @@ Vector3D AABoxCollider::FurthestPoint(Vector3D dir)
 	}
 
 	return _vertices[vertexIndex];
+}
+
+Vector3D AABoxCollider::ClosesPointToPoint(Vector3D point)
+{
+	//Get Vector to point
+	Vector3D closesPoint = point - _transform->GetPosition();
+
+	//Clamp vector to bounds of cube
+
+	if (closesPoint.x > GetMaxSize().x) closesPoint.x = GetMaxSize().x;
+	if (closesPoint.x < GetMinSize().x) closesPoint.x = GetMinSize().x;
+
+	if (closesPoint.y > GetMaxSize().y) closesPoint.y = GetMaxSize().y;
+	if (closesPoint.y < GetMinSize().y) closesPoint.y = GetMinSize().y;
+
+	if (closesPoint.z > GetMaxSize().z) closesPoint.z = GetMaxSize().z;
+	if (closesPoint.z < GetMinSize().z) closesPoint.z = GetMinSize().z;
+	return closesPoint;
 }
 
 

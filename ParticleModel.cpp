@@ -197,7 +197,7 @@ void ParticleModel::ApplyForce(Vector3D newForce)
 void ParticleModel::Move(float deltaTime)
 {
 	
-	if (_currentVelocity.magnitude() <= 0.08f) _currentVelocity = Vector3D();
+	if (_currentVelocity.magnitude() <= 0.008f) _currentVelocity = Vector3D();
 	// update world position of object by adding displacement to previously calculated position (look up suvat equations) 
 	Vector3D newPosition =_transform->GetPosition()+ _currentVelocity * deltaTime + _acceleration * 0.5f * (deltaTime * deltaTime);
 	_transform->SetPosition(newPosition);

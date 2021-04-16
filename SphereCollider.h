@@ -10,7 +10,7 @@ public:
 	void SetRadius(float radius) { _radius = radius; }
 	float GetRadius() { return _radius; }
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
-	void AABBReflection(Vector3D contactr);
+	void Reflection(CollisionData* contactData);
 	Vector3D Support(Collider* other, Vector3D direction);
 
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
