@@ -180,6 +180,40 @@ Collision::CollisionData* Collision::FindContactsInIntersection(Collider* currCo
 	return colData;
 }
 
+bool Collision::SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider)
+{
+	Vector3D *axes=  GetBoxTestAxes(currCollider, otherCollider);
+	float bestOverlap = 1.0f;
+	unsigned bestCase;
+	for (unsigned  i = 0; i < sizeof(axes); i++) {
+		if(axes[i].square()<0.001) continue;	
+
+		axes[i].normalization();
+		float overlap = PenetrationOnAxis(currCollider, otherCollider, axes[i]);
+		if (overlap < 0) return false;
+		if (overlap < bestOverlap) {
+			bestOverlap = overlap;
+			bestCase = i;
+		}
+		axes++;
+	}
+	 
+	
+	return true;
+}
+
+float Collision::PenetrationOnAxis(AABoxCollider* currCollider, AABoxCollider* otherCollider,Vector3D axis)
+{
+	//Get the closest point in collider to axis
+	float currHalfLength = currCollider->GetTransform()->GetPosition().distance(axis);
+	float otherHalfLength = otherCollider->GetTransform()->GetPosition().distance(axis);
+
+	Vector3D toCenter =  (otherCollider->GetTransform()->GetPosition())- currCollider->GetTransform()->GetPosition();
+
+	float seperatingDistance = std::abs(toCenter.dot_product(axis));
+	return currHalfLength + otherHalfLength - seperatingDistance;
+}
+
 void Collision::SphereVSphereIntersection(SphereCollider* currCollider, SphereCollider* otherCollider, Collision::CollisionData* data)
 {
 	Vector3D midLine =currCollider->GetTransform()->GetPosition()- (otherCollider->GetTransform()->GetPosition());
@@ -206,6 +240,33 @@ void Collision::SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphe
 	contact->penetrationDepth = sphere->GetRadius() - distance;
 	data->totalContacts++;
 	
+}
+
+Vector3D* Collision::GetBoxTestAxes(AABoxCollider* currCollider, AABoxCollider* otherCollider)
+{
+	Vector3D Axes[15];
+
+	//Face axes for current
+	Axes[0] = currCollider->GetAxis(0);
+	Axes[1] = currCollider->GetAxis(1);
+	Axes[2] = currCollider->GetAxis(2);
+
+	//Face axes for other
+	Axes[3] = otherCollider->GetAxis(0);
+	Axes[4] = otherCollider->GetAxis(1);
+	Axes[5] = otherCollider->GetAxis(2);
+
+	//Edge Edge Aes
+	Axes[6] = currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(0));
+	Axes[7] = currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(1));
+	Axes[8] = currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(2));
+	Axes[9] = currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(0));
+	Axes[10] = currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(1));
+	Axes[11] = currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(2));
+	Axes[12] = currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(0));
+	Axes[13] = currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(1));
+	Axes[14] = currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(2));
+	return Axes;
 }
 
 

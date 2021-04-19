@@ -126,6 +126,29 @@ bool AABoxCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 	return false;
 }
 
+Vector3D AABoxCollider::GetAxis(int axis)
+{
+	//Axis bound box so the axis are the axes of the world
+	switch (axis)
+	{
+	case 0:
+		
+		return Vector3D(1, 0, 0);
+	case 1:
+		return Vector3D(0, 1, 0);
+
+	
+	case 2:
+		return Vector3D(0, 0, 1);
+
+	default :
+		DebugHelp().OutPutText("Invalid axis");
+		return Vector3D();
+	}
+}
+
+
+
 void AABoxCollider::CalculateVertices()
 {
 	if (!_vertices.empty()) _vertices.clear();

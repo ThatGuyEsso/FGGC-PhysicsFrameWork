@@ -21,12 +21,14 @@ public:
 	Vector3D FurthestPoint(Vector3D dir);
 	Vector3D ClosesPointToPoint(Vector3D point);
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
-
+	virtual Vector3D GetAxis(int axis);
+	
 private:
 
 protected:
 	Vector3D _halfSize;
 	std::vector<Vector3D> _vertices;
+	
 protected:
 	bool CollisionCheck(Collider* other);
 };

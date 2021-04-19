@@ -31,10 +31,13 @@ public:
 	virtual bool SameSide(Vector3D v1, Vector3D v2, Vector3D v3, Vector3D v4, Vector3D point);
 	virtual void GenerateContacts(Collider* currCollider, Collider* otherCollider, CollisionData* contactData)=0;
 	virtual CollisionData* FindContactsInIntersection(Collider* currCollider, Collider* otherCollider);
+	bool SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider);
+	float PenetrationOnAxis(AABoxCollider* currCollider, AABoxCollider* otherCollider,Vector3D axis);
 	
 protected:
 	void SphereVSphereIntersection(SphereCollider* currCollider, SphereCollider* otherCollider, CollisionData* data);
 	void SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphere, CollisionData* data);
+	virtual Vector3D* GetBoxTestAxes(AABoxCollider* currCollider, AABoxCollider* otherCollider);
 protected:
 	std::vector<Vector3D> _simplex = std::vector<Vector3D>();
 	std::vector<Vector3D> _minKowSkiDifference;
