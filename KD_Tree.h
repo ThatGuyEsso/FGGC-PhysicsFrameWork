@@ -41,6 +41,6 @@ private:
 	KD_Node* _rootNode;
 
 	std::vector<KD_Node*> leaves;
-	int minObjectsToSplit = 3;
+	int minObjectsToSplit = 4;
 	int maxDepth = 6;
 };
