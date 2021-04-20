@@ -4,7 +4,7 @@ Particle::Particle(Transform* transform, Appearance* appearance)
 	: _transform(transform), _appearance(appearance)
 {
 	_particleModel = new ParticleModel(_transform, Vector3D(), Vector3D(), true);
-	_graphics = new Graphics(_appearance);
+
 }
 
 Particle::~Particle()

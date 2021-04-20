@@ -1,29 +1,25 @@
 #include "GameObject.h"
 
-GameObject::GameObject(string type, Appearance* apperance)
+GameObject::GameObject(string type)
 {
 	_parent = nullptr;
 	//Create a new instance of object transform if none is specified
 	_transform = new Transform();
-	_appearance = apperance;
-	_appearance->SetOwner(this);
-	_components.push_back(_appearance);
+
+
 	_type = type;
-	_graphics = new Graphics(_appearance);
+	
 	_centreOfMass = Vector3D();
 
 }
 
-GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
+GameObject::GameObject(string type, Transform* transform)
 {
 	_parent = nullptr;
 	//Initialise object with specific transform
 	_transform = transform;
-	_appearance = apperance;
-	_appearance->SetOwner(this);
-	_components.push_back(_appearance);
 	_type = type;
-	_graphics = new Graphics(_appearance);
+
 	_centreOfMass = Vector3D();
 
 }
@@ -31,9 +27,13 @@ GameObject::GameObject(string type, Appearance* apperance, Transform* transform)
 GameObject::~GameObject()
 {
 	_transform = nullptr;
-	_appearance = nullptr;
 }
 
+
+Vector3D GameObject::GetCentreOfMass()
+{
+	 return _centreOfMass; 
+}
 
 void GameObject::Update(float t)
 {
@@ -63,11 +63,7 @@ void GameObject::Update(float t)
 
 
 
-void GameObject::Draw(ID3D11DeviceContext * pImmediateContext)
-{
-	//call graphics component
-	_graphics->Draw(pImmediateContext);
-}
+
 
 void GameObject::CalculateCentreOfMass(SimpleVertex vertices[], int vertexCount)
 {
@@ -89,14 +85,17 @@ void GameObject::CalculateCentreOfMass(SimpleVertex vertices[], int vertexCount)
 
 void GameObject::AddComponent(Component* newComp)
 {
-	for (Component* comp : _components) {
+	if (!_components.empty()) {
+		for (Component* comp : _components) {
 
-		//If game object already has a collider of said type
-		if (comp->GetComponentType() == newComp->GetComponentType()) {
-			comp = newComp;
-			return;
+			//If game object already has a component of said type
+			if (comp->GetComponentType() == newComp->GetComponentType()) {
+				comp = newComp;
+				return;
+			}
 		}
 	}
+	auto temp =newComp->GetClassType();
 	newComp->SetOwner(this);
 	_components.push_back(newComp);
 }

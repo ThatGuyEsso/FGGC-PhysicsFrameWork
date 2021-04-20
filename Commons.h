@@ -1,7 +1,7 @@
 #pragma once
 #include "Structs.h"
-
-static const float defaultMass = 10.0f;
+#include "OBJLoader.h"
+static const float defaultMass = 2.0f;
 static const float DefaultDrag = 1.05f;
 static const float Gravity = -9.81f;
 
@@ -82,3 +82,51 @@ static Material noSpecMaterial= Material(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f),
 	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f), 0.0f);
 
 
+static Geometry GetDonutMesh(ID3D11Device* _pd3dDevice) {
+	Geometry donut;
+	MeshData objMeshData = OBJLoader::Load("donut.obj", _pd3dDevice);
+	donut.indexBuffer = objMeshData.IndexBuffer;
+	donut.numberOfIndices = objMeshData.IndexCount;
+	donut.vertexBuffer = objMeshData.VertexBuffer;
+	donut.vertexBufferOffset = objMeshData.VBOffset;
+	donut.vertexBufferStride = objMeshData.VBStride;
+	return donut;
+}
+
+
+static Geometry GetSphereMesh(ID3D11Device* _pd3dDevice) {
+	Geometry sphere;
+	MeshData objMeshData = OBJLoader::Load("sphere.obj", _pd3dDevice);
+	sphere.indexBuffer = objMeshData.IndexBuffer;
+	sphere.numberOfIndices = objMeshData.IndexCount;
+	sphere.vertexBuffer = objMeshData.VertexBuffer;
+	sphere.vertexBufferOffset = objMeshData.VBOffset;
+	sphere.vertexBufferStride = objMeshData.VBStride;
+	return sphere;
+}
+
+
+static Geometry GetCubeMesh(ID3D11Buffer* iBuffer, ID3D11Buffer* vBuffer) {
+
+	Geometry cubeGeometry;
+	cubeGeometry.indexBuffer = iBuffer;
+	cubeGeometry.vertexBuffer = vBuffer;
+	cubeGeometry.numberOfIndices = 36;
+	cubeGeometry.vertexBufferOffset = 0;
+	cubeGeometry.vertexBufferStride = sizeof(SimpleVertex);
+	cubeGeometry.vertices = &CubeVertices[0];
+	cubeGeometry.numberOfVertices = 4;
+	return cubeGeometry;
+}
+
+static Geometry GetPlaneMesh(ID3D11Buffer* iBuffer, ID3D11Buffer* vBuffer) {
+	Geometry planeGeometry;
+	planeGeometry.indexBuffer = iBuffer;
+	planeGeometry.vertexBuffer = vBuffer;
+	planeGeometry.numberOfIndices = 6;
+	planeGeometry.vertexBufferOffset = 0;
+	planeGeometry.vertexBufferStride = sizeof(SimpleVertex);
+	planeGeometry.vertices = &PlaneVertices[0];
+	planeGeometry.numberOfVertices = 4;
+	return planeGeometry;
+}

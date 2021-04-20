@@ -6,6 +6,7 @@ RigidBody::RigidBody() :ParticleModel::ParticleModel()
 	_dragCoEfficient = 10.5f;
 	SetInertiaTensorBox(1.0f, 1.0, 1.0f);
 	_angularVelocity = Vector3D();
+	Component::_type = ComponentType::PhysicModel;
 }
 
 RigidBody::RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity)
@@ -15,14 +16,22 @@ RigidBody::RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D ac
 	_dragCoEfficient = 10.5f;
 	SetInertiaTensorBox(1.0f, 1.0, 1.0f);
 	_angularVelocity = Vector3D();
+	Component::_type = ComponentType::PhysicModel;
 }
+
+
 
 void RigidBody::CalulateTorgue(Vector3D force, Vector3D contactPoint)
 {
-	_torgue = (GetOwner()->GetCentreOfMass() +contactPoint).cross_product(force);
-
+	Vector3D centre = GetOwner()->GetCentreOfMass();
+	Vector3D newTorgue = (centre + contactPoint).cross_product(force);
+	
+	_torgue = newTorgue;
 	
 }
+
+
+
 
 void RigidBody::SetInertiaTensorBox(float x, float y, float z)
 {
@@ -41,6 +50,28 @@ void RigidBody::SetInertiaTensorBox(float x, float y, float z)
 
 
 
+}
+
+void RigidBody::SetInertiaTensorSphere(float radius)
+{
+	float tensorVal = ((2.0f / 5.0f) * _mass * radius * radius);
+	//First row
+	_intertiaTensor._11 = tensorVal;
+	_intertiaTensor._12 = 0;
+	_intertiaTensor._13 = 0;
+	//Second Row
+	_intertiaTensor._21 = 0;
+	_intertiaTensor._22 = tensorVal;
+	_intertiaTensor._23 = 0;
+	//THird row
+	_intertiaTensor._31 = 0;
+	_intertiaTensor._32 = 0;
+	_intertiaTensor._33 = tensorVal;
+}
+
+void RigidBody::UpdateComponent(float deltaTime)
+{
+	Update(deltaTime);
 }
 
 void RigidBody::CalculateAngularAcceleration()
@@ -86,12 +117,6 @@ void RigidBody::Update(float t)
 		CalculateAngularAcceleration();
 		CalculateAngularVelocity(t);
 		ParticleModel::Update(t);
-		//DebugHelp().OutPutValue("NetForce After frame", _netForce.magnitude());
-
-		//DebugHelp().OutPutValue("vel X", _currentVelocity.x);
-		//DebugHelp().OutPutValue("vel y", _currentVelocity.y);
-		//DebugHelp().OutPutValue("vel z", _currentVelocity.z);
-
 		_torgue = Vector3D();
 		break;
 
@@ -103,10 +128,6 @@ void RigidBody::Update(float t)
 void RigidBody::ApplyRotForce(Vector3D force, Vector3D point, float deltaTime)
 {
 	CalulateTorgue(force, point);
-
-	
-
-
 }
 
 void RigidBody::StopObject()
@@ -120,20 +141,10 @@ void RigidBody::StopObject()
 Vector3D RigidBody::DragTurbFlow(Vector3D velocity, float dragFactor)
 {
 	float speed = velocity.magnitude();
-
-
-	//DebugHelp().OutPutValue("Velcotiy X", velocity.x);
-	//DebugHelp().OutPutValue("Velcotiy y", velocity.y);
-	//DebugHelp().OutPutValue("Velcotiy z", velocity.z);
 	Vector3D velNorm = velocity.normalization();
 	float dragMag = 0.5f *_area* dragFactor * _density * speed * speed;
 
 	Vector3D drag = velNorm * -dragMag;
-
-	//DebugHelp().OutPutValue("Drag Mag", dragMag);
-	//DebugHelp().OutPutValue("Drag X", drag.x);
-	//DebugHelp().OutPutValue("Drag y", drag.y);
-	//DebugHelp().OutPutValue("Drag z", drag.z);
 
 
 	return drag;

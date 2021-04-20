@@ -122,85 +122,43 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	basicLight.SpecularPower = 20.0f;
 	basicLight.LightVecW = XMFLOAT3(0.0f, 1.0f, -1.0f);
 
-	Geometry herculesGeometry;
-	objMeshData = OBJLoader::Load("donut.obj", _pd3dDevice);
-	herculesGeometry.indexBuffer = objMeshData.IndexBuffer;
-	herculesGeometry.numberOfIndices = objMeshData.IndexCount;
-	herculesGeometry.vertexBuffer = objMeshData.VertexBuffer;
-	herculesGeometry.vertexBufferOffset = objMeshData.VBOffset;
-	herculesGeometry.vertexBufferStride = objMeshData.VBStride;
-	
-	Geometry cubeGeometry;
-	cubeGeometry.indexBuffer = _pIndexBuffer;
-	cubeGeometry.vertexBuffer = _pVertexBuffer;
-	cubeGeometry.numberOfIndices = 36;
-	cubeGeometry.vertexBufferOffset = 0;
-	cubeGeometry.vertexBufferStride = sizeof(SimpleVertex);
-	cubeGeometry.vertices = &CubeVertices[0];
-	cubeGeometry.numberOfVertices = 4;
-	Geometry planeGeometry;
-	planeGeometry.indexBuffer = _pPlaneIndexBuffer;
-	planeGeometry.vertexBuffer = _pPlaneVertexBuffer;
-	planeGeometry.numberOfIndices = 6;
-	planeGeometry.vertexBufferOffset = 0;
-	planeGeometry.vertexBufferStride = sizeof(SimpleVertex);
-	planeGeometry.vertices = &PlaneVertices[0];
-	planeGeometry.numberOfVertices = 4;
-
 	//create new apperance instance
-	GameObject* gameObject;
-	Appearance* appearance;
-	appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
-	Transform* floorTrans = new Transform(Vector3D(0.0f, -0.3f, 0.0f),
-		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
-	gameObject = new GameObject("Floor", appearance, floorTrans);
-	RigidBody* planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
-	planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
+
+	
+
+
+	GameObject* gameObject = new GameObject("Floor", new Transform(Vector3D(0.0f, -0.3f, 0.0f),
+		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f)));
+	gameObject->AddComponent(new Appearance(GetPlaneMesh(_pPlaneIndexBuffer, _pPlaneVertexBuffer), noSpecMaterial, _pGroundTextureRV));
+	gameObject->AddComponent(new Graphics());
+
+
+	gameObject->AddComponent(new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false));
+	gameObject->GetComponent<RigidBody>()->SetRigidBodyMode(RigidBody::BodyMode::Static);
 	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
-	gameObject->AddComponent(planeRB);
-	planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
-	AABoxCollider* collider = (AABoxCollider*)planeRB->GetCollider();
+
+	AABoxCollider* collider = new AABoxCollider(gameObject->GetTransform(), Vector3D());
 	collider->SetHalfSize(Vector3D(10.0f, 0.25f, 10.0f));
+	gameObject->AddComponent((Collider*)collider);
 	_gameObjects.push_back(gameObject);
 
 
-	//appearance = new Appearance(planeGeometry, noSpecMaterial, _pGroundTextureRV);
-	//floorTrans = new Transform(Vector3D(0.0f, 0.0, 5.0f),
-	//	Vector3D(0.0f, 0.0f), Vector3D(15.0f, 15.0f, 15.0f));
-	//gameObject = new GameObject("Floor", appearance, floorTrans);
-	//planeRB = new RigidBody(floorTrans, Vector3D(), Vector3D(), false);
-	//planeRB->SetRigidBodyMode(RigidBody::BodyMode::Static);
-	//gameObject->CalculateCentreOfMass(PlaneVertices, 4);
-	//gameObject->AddComponent(planeRB);
-	//planeRB->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
-	//collider = (AABoxCollider*)planeRB->GetCollider();
-	//collider->SetHalfSize(Vector3D(10.0f, 10.0f, 0.2f));
-	//_gameObjects.push_back(gameObject);
-
-
-
-	appearance = new Appearance(cubeGeometry, shinyMaterial, _pTextureRV);
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
-		gameObject = new GameObject("Cube" + i, appearance);
-		RigidBody* rb = new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false);
-		gameObject->AddComponent(rb);
+		GameObject* gameObject = new GameObject("Moveable" + i);
+		gameObject->AddComponent(new Appearance(GetSphereMesh(_pd3dDevice), shinyMaterial, _pTextureRV));
+		gameObject->AddComponent(new Graphics());
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		gameObject->SetPosition(Vector3D(-2.0f + (i * 2.0f), 1.0f, 0.0f));
-		gameObject->CalculateCentreOfMass(CubeVertices, 24);
-	/*	rb->SetCollider(new AABoxCollider(gameObject->GetTransform(), Vector3D()));
-		AABoxCollider* collider = (AABoxCollider*)rb->GetCollider();
-		collider->SetHalfSize(Vector3D(0.3f, 0.3f, 0.3f));*/
+		gameObject->SetPosition(Vector3D(-1.0f + (i * 2.0f), 1.0f, 0.0f));
+		//gameObject->CalculateCentreOfMass(CubeVertices, 24);
+		
+		gameObject->AddComponent(new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false));
+		SphereCollider* collider = new SphereCollider(gameObject->GetTransform(),0.5f);
+		gameObject->AddComponent((Collider*)collider);
+		gameObject->GetComponent<RigidBody>()->SetInertiaTensorSphere(0.25f);
 		_gameObjects.push_back(gameObject);
+	
 	}
-	//
-	//appearance = new Appearance(herculesGeometry, shinyMaterial, _pTextureRV);
-	//gameObject = new GameObject("donut", appearance);
-	//gameObject->GetTransform()->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-	//gameObject->SetPosition(Vector3D (-4.0f, 0.5f, 10.0f));
-
-	//_gameObjects.push_back(gameObject);
-	appearance = nullptr;
 
 	return S_OK;
 }
@@ -379,6 +337,12 @@ void Application::RotateGameObject(Vector3D rotation, float scale)
 GameObject* Application::GetSelectedGameObject()
 {
 	return _gameObjects[_activeGameObjectIndex];
+}
+
+void Application::ToggleGravity()
+{
+	_gameObjects[_activeGameObjectIndex]->GetComponent<RigidBody>()
+		->ToggleGravity(!_gameObjects[_activeGameObjectIndex]->GetComponent<RigidBody>()->UsesGravity());
 }
 
 HRESULT Application::InitWindow(HINSTANCE hInstance, int nCmdShow)
@@ -699,78 +663,93 @@ void Application::Update()
 	if (_input->GetKey('W'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
 	
 	}
 	if (_input->GetKey('D'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('A'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('S'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('E'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.5f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.5f, 0.5f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('Q'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-0.5f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(-0.5f, 0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('X'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(0.5f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.5f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('Z'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10.0f), Vector3D(-0.5f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(-0.5f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	// Move gameobject
 	if (_input->GetKey('I'))
 	{
-		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyForce(Vector3D(0.0f, 0.0f, 5000.0f)* deltaTime);
+		RigidBody* rb = GetSelectedGameObject()->GetComponent<RigidBody>();
+
+		if (rb) {
+
+			rb->ApplyForce(Vector3D(0.0f, 0.0f, 2000.0f)* deltaTime);
+		}
 
 	}
 	if (_input->GetKey('K'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyForce(Vector3D(0.0f, 0.0f, -5000.0f) * deltaTime);
+			->ApplyForce(Vector3D(0.0f, 0.0f, -2000.0f) * deltaTime);
 
 	}
 	if (_input->GetKey('L'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyForce(Vector3D(5000.0f, 0.0f, 0.0f) * deltaTime);
+			->ApplyForce(Vector3D(2000.0f, 0.0f, 0.0f) * deltaTime);
 
 	}
 	if (_input->GetKey('J'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyForce(Vector3D(-5000.0f, 0.0f, 0.0f) * deltaTime);
+			->ApplyForce(Vector3D(-2000.0f, 0.0f, 0.0f) * deltaTime);
+
+	}
+	if (_input->GetKey('G'))
+	{
+		ToggleGravity();
+
+	}
+	if (_input->GetKey('Y'))
+	{
+
+		_gameObjects[_activeGameObjectIndex]->RemoveComponent<Graphics>();
 
 	}
 
@@ -783,7 +762,7 @@ void Application::Update()
 	if (_input->GetKey(VK_SPACE))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyForce(Vector3D(0.0f, 5000.0f, 0.0f) * deltaTime);
+			->ApplyForce(Vector3D(0.0f, 50000.0f, 0.0f) * deltaTime);
 
 	}
 
@@ -791,7 +770,7 @@ void Application::Update()
 
 	
 	if (_input->GetKey('C')) {
-		CycleBetweenObjectByType(std::string("Cube"));
+		CycleBetweenObjectByType(std::string("Movable"));
 	}
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
@@ -827,12 +806,12 @@ void Application::Update()
 			for (int i = 0; i < node->objectSet.size(); i++) {
 				Collider* currCollider;
 
-				if ((currCollider = node->objectSet[i]->GetComponent<RigidBody>()->GetCollider()) != nullptr) {
+				if ((currCollider = node->objectSet[i]->GetComponent<Collider>()) != nullptr) {
 					for (int y = 0; y < node->objectSet.size(); y++) {
 
 						//Don't check itself
 						if (i != y) {
-							if (currCollider->CollisionCheck(node->objectSet[y]->GetComponent<RigidBody>()->GetCollider())) {
+							if (currCollider->CollisionCheck(node->objectSet[y]->GetComponent<Collider>())) {
 
 								DebugHelp().OutPutText("COLLISION");
 
@@ -890,33 +869,40 @@ void Application::Draw()
 	for (auto gameObject : _gameObjects)
 	{
 		// Get render material
-		Material material = gameObject->GetAppearance()->GetMaterial();
+		Appearance* currAppearance = gameObject->GetComponent<Appearance>();
+		if (currAppearance) {
 
-		// Copy material to shader
-		cb.surface.AmbientMtrl = material.ambient;
-		cb.surface.DiffuseMtrl = material.diffuse;
-		cb.surface.SpecularMtrl = material.specular;
+			Material material = currAppearance->GetMaterial();
+			// Copy material to shader
+			cb.surface.AmbientMtrl = material.ambient;
+			cb.surface.DiffuseMtrl = material.diffuse;
+			cb.surface.SpecularMtrl = material.specular;
 
-		// Set world matrix
-		cb.World = XMMatrixTranspose(gameObject->GetWorldMatrix());
+			// Set world matrix
+			cb.World = XMMatrixTranspose(gameObject->GetWorldMatrix());
 
-		// Set texture
-		if (gameObject->GetAppearance()->HasTexture())
-		{
-			ID3D11ShaderResourceView * textureRV = gameObject->GetAppearance()->GetTextureRV();
-			_pImmediateContext->PSSetShaderResources(0, 1, &textureRV);
-			cb.HasTexture = 1.0f;
+			// Set texture
+			if (currAppearance->HasTexture())
+			{
+				ID3D11ShaderResourceView* textureRV = currAppearance->GetTextureRV();
+				_pImmediateContext->PSSetShaderResources(0, 1, &textureRV);
+				cb.HasTexture = 1.0f;
+			}
+			else
+			{
+				cb.HasTexture = 0.0f;
+			}
+
+			// Update constant buffer
+			_pImmediateContext->UpdateSubresource(_pConstantBuffer, 0, nullptr, &cb, 0, 0);
+
+			// Draw object
+			Graphics* renderer = gameObject->GetComponent<Graphics>();
+			if(renderer)
+				renderer->Draw(_pImmediateContext);
 		}
-		else
-		{
-			cb.HasTexture = 0.0f;
-		}
 
-		// Update constant buffer
-		_pImmediateContext->UpdateSubresource(_pConstantBuffer, 0, nullptr, &cb, 0, 0);
 
-		// Draw object
-		gameObject->Draw(_pImmediateContext);
 	}
 
     //

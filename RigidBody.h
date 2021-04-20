@@ -3,7 +3,7 @@
 
 
 
-class RigidBody :public ParticleModel
+class RigidBody :public ParticleModel, public Component
 {
 public:
 	enum class BodyMode {
@@ -13,12 +13,21 @@ public:
 public:
 	RigidBody();
 	RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity);
+
 	void CalulateTorgue(Vector3D force, Vector3D contactPoint);
+
+
+	//Compnonent Interface
+	GameObject* GetOwner() override { return Component::_owner; }
+	void SetOwner(GameObject* newOwner)override { Component::_owner = newOwner; }
+	Component* GetClassType() { return this; }
+	void UpdateComponent(float deltaTime);
 
 	void CalculateAngularAcceleration();
 	void CalculateAngularVelocity(float deltaTime);
 	float CalculateDamping(float deltaTime);
 	void SetInertiaTensorBox(float x, float y, float z);
+	void SetInertiaTensorSphere(float radius);
 	virtual void Update(float t);
 	void ApplyRotForce(Vector3D force, Vector3D point, float deltaTime);
 	void StopObject();

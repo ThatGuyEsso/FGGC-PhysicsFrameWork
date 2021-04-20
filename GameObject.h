@@ -15,8 +15,8 @@ using namespace std;
 class GameObject
 {
 public:
-	GameObject(string type, Appearance* apperance);
-	GameObject(string type, Appearance* apperance,Transform* transform);
+	GameObject(string type);
+	GameObject(string type,Transform* transform);
 	~GameObject();
 
 	// Setters and Getters for transform
@@ -41,15 +41,12 @@ public:
 
 	XMMATRIX GetWorldMatrix() const { return XMLoadFloat4x4(&_world); }
 
-	Appearance* GetAppearance() { return _appearance; }
-
-
 	void SetParent(GameObject * parent) { _parent = parent; }
 
 	void SetCentreOfMass(Vector3D point) { _centreOfMass = point; }
-	Vector3D GetCentreOfMass() { return _centreOfMass; }
+	Vector3D GetCentreOfMass();
 	void Update(float t);
-	void Draw(ID3D11DeviceContext * pImmediateContext);
+
 
 	void CalculateCentreOfMass(SimpleVertex vertices[],int vertexCount);
 
@@ -73,20 +70,43 @@ public:
 		return nullptr;
 	}
 
+	template<typename T>
+	void RemoveComponent()
+	{
+		T* ptr;
+		int compIndex;
+		bool compExist = false;
+		for (int i = 0; i < _components.size();i++) {
+			//Cast component to target component
+			ptr = dynamic_cast<T*>(_components[i]);
 
+			//if not false
+			if (ptr) {
+				compIndex = i;
+				compExist = true;
+				break;
+			}
+		}
+		if (compExist) {
+			std::vector<Component*> copyList = _components;
+			_components.clear();
+
+			for (int i = 0; i < copyList.size(); i++) {
+				if (i != compIndex)_components.push_back(copyList[i]);
+			}
+		}
+	
+
+	}
 
 	void AddComponent(Component* componentType);
 
 private:
 	std::vector<Component*> _components;
 	Transform* _transform;
-	Appearance* _appearance;
-
-	Graphics* _graphics;
 	string _type;
 	XMFLOAT4X4 _world;
 	GameObject* _parent;
-
 	Vector3D _centreOfMass;
 
 };

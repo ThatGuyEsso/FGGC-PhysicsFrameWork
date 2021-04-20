@@ -180,26 +180,42 @@ Collision::CollisionData* Collision::FindContactsInIntersection(Collider* currCo
 	return colData;
 }
 
-bool Collision::SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider)
+Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider)
 {
 	Vector3D *axes=  GetBoxTestAxes(currCollider, otherCollider);
 	float bestOverlap = 1.0f;
+
 	unsigned bestCase;
 	for (unsigned  i = 0; i < sizeof(axes); i++) {
 		if(axes[i].square()<0.001) continue;	
 
 		axes[i].normalization();
 		float overlap = PenetrationOnAxis(currCollider, otherCollider, axes[i]);
-		if (overlap < 0) return false;
+		if (overlap < 0) return nullptr;
+	
 		if (overlap < bestOverlap) {
 			bestOverlap = overlap;
 			bestCase = i;
+			
 		}
 		axes++;
 	}
-	 
-	
-	return true;
+	Vector3D toCentre = otherCollider->GetTransform()->GetPosition() - currCollider->GetTransform()->GetPosition();
+	Vector3D axis = axes[bestCase];
+	//Face axis test
+	if (bestCase <= 5) {
+		//Get face in contact
+		if (axis.dot_product(toCentre) > 0) axis *= -1.0f;
+
+		
+
+
+	}
+	//Edge axis test
+	else if (bestCase > 5) {
+
+	}
+	return new CollisionData;
 }
 
 float Collision::PenetrationOnAxis(AABoxCollider* currCollider, AABoxCollider* otherCollider,Vector3D axis)

@@ -1,111 +1,33 @@
-﻿  AABoxCollider.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(55,58): warning C4100: 'other': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(74,47): warning C4100: 'contactData': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(84,103): warning C4100: 'contactData': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(84,73): warning C4100: 'otherCollider': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(84,48): warning C4100: 'currtCollider': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(156,20): warning C4018: '<': signed/unsigned mismatch
-  Appearance.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Appearance.cpp(20,40): warning C4100: 'deltaTime': unreferenced formal parameter
-  Application.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(654,29): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(659,42): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(685,18): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(827,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(831,24): warning C4018: '<': signed/unsigned mismatch
-  Camera.cpp
-  Collider.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collider.cpp(26,38): warning C4100: 'deltaTime': unreferenced formal parameter
-  DDSTextureLoader.cpp
-  DebugHelp.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.cpp(3,71): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.cpp(16,69): warning C4042: 'value': has bad storage class
-  Graphics.cpp
-  InputManager.cpp
-  KD_Tree.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(11,66): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(17,66): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(18,68): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(21,71): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(25,73): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(47,70): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(61,86): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(68,88): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(77,86): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(84,88): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(93,86): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(100,88): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(142,44): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  Main.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-  GameObject.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\GameObject.cpp(82,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  OBJLoader.cpp
-  Particle.cpp
-  ParticleModel.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\ParticleModel.cpp(185,2): warning C5205: delete of an abstract class 'Collider' that has a non-virtual destructor results in undefined behavior
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.h(6): message : see declaration of 'Collider'
-  ParticleSystem.cpp
-  RigidBody.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\RigidBody.cpp(103,69): warning C4100: 'deltaTime': unreferenced formal parameter
-  Collision.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(38,35): warning C4100: 'dir': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(101,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(105,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(111,44): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(59,39): warning C4100: 'dir': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(120,42): warning C4100: 'dir': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.cpp(190,2): error C2059: syntax error: 'return'
-  SphereCollider.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.cpp(103,104): warning C4100: 'contactData': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.cpp(103,74): warning C4100: 'otherCollider': unreferenced formal parameter
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.cpp(103,49): warning C4100: 'currtCollider': unreferenced formal parameter
-  Staticbody.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Staticbody.cpp(12,31): warning C4100: 't': unreferenced formal parameter
-  Generating Code...
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.cpp(150): warning C4715: 'SphereCollider::CollisionCheck': not all control paths return a value
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(158): warning C4706: assignment within conditional expression
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(187): warning C4706: assignment within conditional expression
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(218): warning C4706: assignment within conditional expression
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(247): warning C4706: assignment within conditional expression
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(278): warning C4706: assignment within conditional expression
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\KD_Tree.cpp(307): warning C4706: assignment within conditional expression
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.cpp(40): warning C4715: 'AABoxCollider::CollisionCheck': not all control paths return a value
-  Compiling...
-  Transform.cpp
-  Vector3D.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Vector3D.cpp(92,16): warning C4390: ';': empty controlled statement found; is this the intent?
-  Generating Code...
+﻿  KD_Tree.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\ParticleModel.h(7): message : see declaration of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(11,66): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(17,66): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(18,68): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(21,71): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(25,73): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(47,70): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(61,86): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(68,88): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(77,86): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(84,88): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(93,86): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(100,88): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(142,44): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(158): warning C4706: assignment within conditional expression
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(187): warning C4706: assignment within conditional expression
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(218): warning C4706: assignment within conditional expression
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(247): warning C4706: assignment within conditional expression
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(278): warning C4706: assignment within conditional expression
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(307): warning C4706: assignment within conditional expression
+  DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe

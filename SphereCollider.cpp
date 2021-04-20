@@ -6,12 +6,14 @@ SphereCollider::SphereCollider():Collider::Collider(), Collision::Collision() {
 
 	_radius = 1.0f;
 	_colliderType = ColliderType::Sphere;
+	Component::_type = ComponentType::Collider;
 }
 
 SphereCollider::SphereCollider(Transform* transform, float radius): Collider::Collider(transform), Collision::Collision() {
 
 	_radius = radius;
 	_colliderType = ColliderType::Sphere;
+	Component::_type = ComponentType::Collider;
 }
 
 bool SphereCollider::AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB)
@@ -112,6 +114,10 @@ Vector3D SphereCollider::FurthestPoint(Vector3D dir)
 	Vector3D pos = _transform->GetPosition();
 	Vector3D furthestPoint = pos + dir * _radius;
 	return furthestPoint;
+}
+
+void SphereCollider::UpdateComponent(float deltaTime)
+{
 }
 
 

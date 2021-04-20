@@ -4,11 +4,14 @@
 Collider::Collider()
 {
 	_transform = nullptr;
+
+	_type = ComponentType::Collider;
 }
 
 Collider::Collider(Transform* transform)
 {
 	_transform = transform;
+	_type = ComponentType::Collider;
 }
 
 Collider::~Collider()

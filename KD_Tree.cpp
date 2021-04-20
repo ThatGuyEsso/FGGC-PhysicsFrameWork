@@ -155,7 +155,7 @@ std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gam
                 float furhestPoint;
                 Collider* objCollider;
                 //Check Collider exist
-                if ((objCollider = object->GetComponent<RigidBody>()->GetCollider())) {
+                if ((objCollider = object->GetComponent<Collider>())) {
                     switch (objCollider->GetColliderType())
                     {
 
@@ -184,7 +184,7 @@ std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gam
                 float furhestPoint;
                 Collider* objCollider;
                 //Check Collider exist
-                if ((objCollider = object->GetComponent<RigidBody>()->GetCollider())) {
+                if ((objCollider = object->GetComponent<Collider>())) {
                     switch (objCollider->GetColliderType())
                     {
 
@@ -215,7 +215,7 @@ std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gam
                 float furhestPoint;
                 Collider* objCollider;
                 //Check Collider exist
-                if ((objCollider = object->GetComponent<RigidBody>()->GetCollider())) {
+                if ((objCollider = object->GetComponent<Collider>())) {
                     switch (objCollider->GetColliderType())
                     {
 
@@ -244,7 +244,7 @@ std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gam
                 float furhestPoint;
                 Collider* objCollider;
                 //Check Collider exist
-                if ((objCollider = object->GetComponent<RigidBody>()->GetCollider())) {
+                if ((objCollider = object->GetComponent<Collider>())) {
                     switch (objCollider->GetColliderType())
                     {
 
@@ -275,7 +275,7 @@ std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gam
                 float furhestPoint;
                 Collider* objCollider;
                 //Check Collider exist
-                if ((objCollider = object->GetComponent<RigidBody>()->GetCollider())) {
+                if ((objCollider = object->GetComponent<Collider>())) {
                     switch (objCollider->GetColliderType())
                     {
 
@@ -304,7 +304,7 @@ std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gam
                 float furhestPoint;
                 Collider* objCollider;
                 //Check Collider exist
-                if ((objCollider = object->GetComponent<RigidBody>()->GetCollider())) {
+                if ((objCollider = object->GetComponent<Collider>())) {
                     switch (objCollider->GetColliderType())
                     {
 

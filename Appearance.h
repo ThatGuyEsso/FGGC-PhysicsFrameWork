@@ -13,10 +13,12 @@ private:
 public:
 
 	Appearance(Geometry geometry, Material material, ID3D11ShaderResourceView* textureRV);
+	Appearance();
 	~Appearance();
+
 	//Compnonent Interface
 	GameObject* GetOwner() override { return _owner; }
-	void SetOwner(GameObject* newOwner)override { _owner = newOwner; };
+	void SetOwner(GameObject* newOwner)override { _owner = newOwner; }
 	Component* GetClassType() { return this; }
 	void UpdateComponent(float deltaTime);
 

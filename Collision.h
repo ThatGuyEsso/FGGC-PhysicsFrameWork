@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Contact.h"
+
 class SphereCollider;
 class AABoxCollider;
 class Collider;
@@ -31,7 +32,7 @@ public:
 	virtual bool SameSide(Vector3D v1, Vector3D v2, Vector3D v3, Vector3D v4, Vector3D point);
 	virtual void GenerateContacts(Collider* currCollider, Collider* otherCollider, CollisionData* contactData)=0;
 	virtual CollisionData* FindContactsInIntersection(Collider* currCollider, Collider* otherCollider);
-	bool SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider);
+	CollisionData* SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider);
 	float PenetrationOnAxis(AABoxCollider* currCollider, AABoxCollider* otherCollider,Vector3D axis);
 	
 protected:

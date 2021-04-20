@@ -34,7 +34,7 @@
 */
 
 using namespace DirectX;
-#define NUMBER_OF_CUBES 5
+#define NUMBER_OF_CUBES 2
 
 //struct SimpleVertex
 //{
@@ -149,7 +149,7 @@ private:
 	void AddThrust(Vector3D force);
 	void RotateGameObject(Vector3D rotation,float scale);
 	GameObject* GetSelectedGameObject();
-
+	void ToggleGravity();
 
 	void CycleBetweenObjectByType(string type);
 public:

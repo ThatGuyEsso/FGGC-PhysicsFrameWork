@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "Vector3D.h"
 #include "Collision.h"
-class AABoxCollider : public Collider, public Collision {
+class AABoxCollider : public Collider, public Collision,public Component {
 
 public:
 	AABoxCollider();
@@ -23,6 +23,12 @@ public:
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
 	virtual Vector3D GetAxis(int axis);
 	
+	//Compnonent Interface
+	GameObject* GetOwner() override { return Component::_owner; }
+	void SetOwner(GameObject* newOwner)override { Component::_owner = newOwner; }
+	Component* GetClassType() { return this; }
+	void UpdateComponent(float deltaTime);
+
 private:
 
 protected:

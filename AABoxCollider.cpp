@@ -7,6 +7,7 @@ AABoxCollider::AABoxCollider():Collider::Collider(),Collision::Collision()
 	_halfSize = Vector3D(1.0f, 1.0f, 1.0f);
     _colliderType = ColliderType::AABB;
 	CalculateVertices();
+	Component::_type = ComponentType::Collider;
 }
 
 AABoxCollider::AABoxCollider(Transform* transform, Vector3D size) : Collider::Collider(transform), Collision::Collision()
@@ -14,12 +15,14 @@ AABoxCollider::AABoxCollider(Transform* transform, Vector3D size) : Collider::Co
 	_halfSize = size;
     _colliderType = ColliderType::AABB;
 	CalculateVertices();
+	Component::_type = ComponentType::Collider;
 }
 
 void AABoxCollider::SetHalfSize(Vector3D size)
 {
 	_halfSize = size; 
 	CalculateVertices();
+	Component::_type = ComponentType::Collider;
 }
 
 bool AABoxCollider::CollisionCheck(Collider* other)
@@ -147,6 +150,10 @@ Vector3D AABoxCollider::GetAxis(int axis)
 	}
 }
 
+void AABoxCollider::UpdateComponent(float deltaTime)
+{
+}
+
 
 
 void AABoxCollider::CalculateVertices()
@@ -209,34 +216,38 @@ Vector3D AABoxCollider::ClosesPointToPoint(Vector3D point)
 
 void AABoxCollider::DynamicResize()
 {
-	Geometry geometry = _owner->GetAppearance()->GetGeomentry();
-	geometry.numberOfVertices;
+	Appearance* app = Component::_owner->GetComponent<Appearance>();
+	if (app) {
+		Geometry geometry = app->GetGeomentry();
+		geometry.numberOfVertices;
 
-	SimpleVertex* vertices = geometry.vertices;
-	float x =0.0f, y=0.0f, z=0.0f;
-	for (int i = 0; i < geometry.numberOfVertices; i++) {
+		SimpleVertex* vertices = geometry.vertices;
+		float x = 0.0f, y = 0.0f, z = 0.0f;
+		for (int i = 0; i < geometry.numberOfVertices; i++) {
 
-		//If not null
-		if (vertices) {
-			//get the largest abosolute value
-			if ((abs(vertices->Pos.x)>= x)) {
-				x = abs(vertices->Pos.x);
+			//If not null
+			if (vertices) {
+				//get the largest abosolute value
+				if ((abs(vertices->Pos.x) >= x)) {
+					x = abs(vertices->Pos.x);
+				}
+				if ((abs(vertices->Pos.y) >= y)) {
+					y = abs(vertices->Pos.y);
+				}
+
+				if ((abs(vertices->Pos.z) >= z)) {
+					z = abs(vertices->Pos.z);
+				}
+
 			}
-			if ((abs(vertices->Pos.y) >= y)) {
-				y = abs(vertices->Pos.y);
-			}
 
-			if ((abs(vertices->Pos.z) >= z)) {
-				z = abs(vertices->Pos.z);
-			}
-
+			vertices++;
 		}
 
-		vertices++;
-	}
+		SetHalfSize(Vector3D(x, y, z));
+		CalculateVertices();
 
-	SetHalfSize(Vector3D(x, y, z));
-	CalculateVertices();
+	}
 
 }
 

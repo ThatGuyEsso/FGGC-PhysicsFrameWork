@@ -10,7 +10,8 @@ public:
 		PhysicModel,
 		Transform,
 		Appearance,
-		Collider
+		Collider,
+		Renderer
 	};
 
 	virtual GameObject* GetOwner()=0;

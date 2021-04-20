@@ -27,7 +27,7 @@ protected:
 
 	std::vector<Vector3D> _forces; //all forces acting on the objects
 
-	Collider* _collider;
+	
 protected:
 	void UpdateNetForce();
 	void UpdateAccel();
@@ -43,13 +43,21 @@ public:
 
 	virtual void Update(float t);
 	virtual void StopObject();
-	//component Interface
-	void SetOwner(GameObject* newOwner);
-	GameObject* GetOwner()override { return _owner; }
-	void UpdateComponent(float deltaTime);
-	Component* GetClassType() {return this; }
 
-	Collider* GetCollider() { return _collider; }
+
+
+	//Compnonent Interface
+	GameObject* GetOwner() override { return _owner; }
+	void SetOwner(GameObject* newOwner)override { _owner = newOwner; }
+	Component* GetClassType() { return this; }
+	void UpdateComponent(float deltaTime);
+
+
+
+
+
+
+
 	//particle movement functions
 	void MoveWithConstVelocity(float deltaTime);
 	void MoveWithConstAcceleration(float deltaTime);
@@ -77,6 +85,5 @@ public:
 	void ToggleGravity(bool useGravity) { _useGravity = useGravity; }
 	bool UsesGravity() { return _useGravity; }
 
-	void SetCollider(Collider* coliider);
 
 };

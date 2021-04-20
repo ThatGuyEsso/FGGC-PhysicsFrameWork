@@ -4,13 +4,19 @@
 #include "Appearance.h"
 
 
-class Graphics {
+class Graphics: public Component {
 
 private:
 	Appearance* _appearance;
-
 public:
-	Graphics(Appearance* appearance);
-	~Graphics();
+	Graphics();
+	//Compnonent Interface
+	GameObject* GetOwner() override { return _owner; }
+	void SetOwner(GameObject* newOwner)override { _owner = newOwner; }
+	Component* GetClassType() { return this; }
+	void UpdateComponent(float deltaTime);
+
+
+	void SetApperance(Appearance* app) { _appearance = app; }
 	void Draw(ID3D11DeviceContext* pImmediateContext);
 };

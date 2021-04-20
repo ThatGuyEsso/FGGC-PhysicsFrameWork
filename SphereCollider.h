@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "Collision.h"
 
-class SphereCollider: public Collider, public Collision {
+class SphereCollider: public Collider, public Collision, public Component {
 	 
 public:
 	SphereCollider();
@@ -17,6 +17,12 @@ public:
 	void GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData);
 	Vector3D FurthestPoint(Vector3D dir);
 	
+	//Compnonent Interface
+	GameObject* GetOwner() override { return Component::_owner; }
+	void SetOwner(GameObject* newOwner)override { Component::_owner = newOwner; }
+	Component* GetClassType() { return this; }
+	void UpdateComponent(float deltaTime);
+
 private:
 	float _radius;
 
