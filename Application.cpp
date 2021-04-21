@@ -138,7 +138,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
 
 	AABoxCollider* collider = new AABoxCollider(gameObject->GetTransform(), Vector3D());
-	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
+	collider->SetHalfSize(Vector3D(10.0f, 0.1f, 10.0f));
 	gameObject->AddComponent((Collider*)collider);
 	_gameObjects.push_back(gameObject);
 
@@ -168,9 +168,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	//gameObject->CalculateCentreOfMass(CubeVertices, 24);
 
 	gameObject->AddComponent(new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false));
-	collider = new AABoxCollider(gameObject->GetTransform(),Vector3D(0.25f,0.25f,0.25f));
+	collider = new AABoxCollider(gameObject->GetTransform(),Vector3D(0.5f, 0.5f, 0.5f));
 	gameObject->AddComponent((Collider*)collider);
-	gameObject->GetComponent<RigidBody>()->SetInertiaTensorBox(0.5,0.5f,0.5f);
+	gameObject->GetComponent<RigidBody>()->SetInertiaTensorBox(0.6,0.6f,0.6f);
 	_gameObjects.push_back(gameObject);
 
 	return S_OK;

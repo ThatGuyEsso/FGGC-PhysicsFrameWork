@@ -9,7 +9,7 @@ AABoxCollider::AABoxCollider():Collider::Collider(),Collision::Collision()
     _colliderType = ColliderType::AABB;
 	CalculateVertices();
 	Component::_type = ComponentType::Collider;
-	_resititution = 0.25f;
+	_resititution = 0.8f;
 }
 
 AABoxCollider::AABoxCollider(Transform* transform, Vector3D size) : Collider::Collider(transform), Collision::Collision()
@@ -68,14 +68,14 @@ bool AABoxCollider::CollisionCheck(Collider* other)
 						if (rb) {
 							if (rb->GetBodyMode() == RigidBody::BodyMode::Static) {
 								RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
-								ContactResolver* resolver = new ContactResolver(ownerRB, nullptr, _resititution, data->contacts->_contactNormal,
+								ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, data->contacts->_contactNormal,
 									data->contacts->_contactPoint, data->contacts->penetrationDepth);
 								resolver->Resolve(ownerRB->_deltaTime);
 							}
 							else {
 								RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
 								ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, data->contacts->_contactNormal,
-									data->contacts->_contactPoint, data->contacts->penetrationDepth);
+								data->contacts->_contactPoint, data->contacts->penetrationDepth);
 								resolver->Resolve(ownerRB->_deltaTime);
 							}
 						}

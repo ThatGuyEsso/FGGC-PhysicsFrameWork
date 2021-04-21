@@ -311,11 +311,11 @@ void Collision::SphereVSphereIntersection(SphereCollider* currCollider, SphereCo
 
 void Collision::SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphere, CollisionData* data)
 {
-	Vector3D closestPoint = (sphere->GetTransform()->GetPosition())- box->GetTransform()->GetPosition();
+	Vector3D closestPoint = box->ClosesPointToPoint(sphere->GetTransform()->GetPosition());
 
 	Contact* contact = data->contacts;
 	
-	float distance = closestPoint.distance(sphere->GetTransform()->GetPosition());
+	float distance = box->GetTransform()->GetPosition().distance(sphere->GetTransform()->GetPosition());
 	contact->_contactNormal = closestPoint - sphere->GetTransform()->GetPosition();
 	contact->_contactNormal.normalization();
 	contact->_contactPoint = closestPoint;
