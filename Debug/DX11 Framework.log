@@ -1,19 +1,45 @@
-﻿  Collision.cpp
+﻿  RigidBody.cpp
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(38,35): warning C4100: 'dir': unreferenced formal parameter
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(101,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(105,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(111,44): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(59,39): warning C4100: 'dir': unreferenced formal parameter
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(120,42): warning C4100: 'dir': unreferenced formal parameter
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(196,14): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(294,8): warning C4189: 'test': local variable is initialized but not referenced
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(381): warning C4715: 'Collision::GetAxisIndexCurrent': not all control paths return a value
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(397): warning C4715: 'Collision::GetAxisIndexOther': not all control paths return a value
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\ParticleModel.h(7): message : see declaration of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.cpp(150,69): warning C4100: 'deltaTime': unreferenced formal parameter
+  SphereCollider.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\ParticleModel.h(7): message : see declaration of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(108,104): warning C4100: 'contactData': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(108,74): warning C4100: 'otherCollider': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(108,49): warning C4100: 'currtCollider': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(122,44): warning C4100: 'deltaTime': unreferenced formal parameter
+  Staticbody.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\ParticleModel.h(7): message : see declaration of 'ParticleModel'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Staticbody.cpp(12,31): warning C4100: 't': unreferenced formal parameter
+  Generating Code...
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.cpp(195): warning C4715: 'SphereCollider::CollisionCheck': not all control paths return a value
   DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe

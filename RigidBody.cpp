@@ -21,7 +21,7 @@ RigidBody::RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D ac
 
 
 
-void RigidBody::CalulateTorgue(Vector3D force, Vector3D contactPoint)
+void RigidBody::CalculateTorgue(Vector3D force, Vector3D contactPoint)
 {
 	Vector3D centre = GetOwner()->GetCentreOfMass();
 	Vector3D newTorgue = (centre + contactPoint).cross_product(force);
@@ -33,7 +33,7 @@ void RigidBody::CalulateTorgue(Vector3D force, Vector3D contactPoint)
 void RigidBody::ApplyImpulse(Vector3D point, Vector3D force)
 {
 	if (_bodyMode != BodyMode::Static) {
-		_currentVelocity = force;
+		_currentVelocity *= _deltaTime;
 
 		Vector3D resultantToPoint = _transform->GetPosition() + point -force;
 
@@ -149,7 +149,7 @@ void RigidBody::Update(float t)
 
 void RigidBody::ApplyRotForce(Vector3D force, Vector3D point, float deltaTime)
 {
-	CalulateTorgue(force, point);
+	CalculateTorgue(force, point);
 }
 
 void RigidBody::StopObject()

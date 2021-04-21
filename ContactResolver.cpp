@@ -41,7 +41,10 @@ float ContactResolver::CalculateSeparatingVelocity() const
 void ContactResolver::ResolveVelocity(float duration)
 {
 	if (_penetration <= 0) return;
-	float separatingVel = CalculateSeparatingVelocity();
+
+
+
+	/*float separatingVel = CalculateSeparatingVelocity();
 
 	if (separatingVel > 0) {
 		return;
@@ -73,7 +76,7 @@ void ContactResolver::ResolveVelocity(float duration)
 		if (_bodies[1]) {
 			_bodies[1]->ApplyImpulse(_bodies[1]->GetCurrentVelocity() + impulsePerunitMass * -_bodies[1]->GetMass());
 		}
-	}
+	}*/
 	
 }
 

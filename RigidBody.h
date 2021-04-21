@@ -14,7 +14,7 @@ public:
 	RigidBody();
 	RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity);
 
-	void CalulateTorgue(Vector3D force, Vector3D contactPoint);
+	void CalculateTorgue(Vector3D force, Vector3D contactPoint);
 	void ApplyImpulse(Vector3D point, Vector3D force);
 	void ApplySeparation(Vector3D Separation);
 	//Compnonent Interface
