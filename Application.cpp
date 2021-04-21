@@ -138,7 +138,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->CalculateCentreOfMass(PlaneVertices, 4);
 
 	AABoxCollider* collider = new AABoxCollider(gameObject->GetTransform(), Vector3D());
-	collider->SetHalfSize(Vector3D(10.0f, 0.25f, 10.0f));
+	collider->SetHalfSize(Vector3D(10.0f, 0.2f, 10.0f));
 	gameObject->AddComponent((Collider*)collider);
 	_gameObjects.push_back(gameObject);
 
@@ -149,11 +149,11 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->AddComponent(new Appearance(GetSphereMesh(_pd3dDevice), shinyMaterial, _pTextureRV));
 		gameObject->AddComponent(new Graphics());
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		gameObject->SetPosition(Vector3D(-1.0f + (i * 2.0f), 1.0f, 0.0f));
+		gameObject->SetPosition(Vector3D(0.0f + (i * 1.5f), 1.0f, 0.0f));
 		//gameObject->CalculateCentreOfMass(CubeVertices, 24);
 		
 		gameObject->AddComponent(new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false));
-		SphereCollider* collider = new SphereCollider(gameObject->GetTransform(),0.5f);
+		SphereCollider* collider = new SphereCollider(gameObject->GetTransform(),0.25f);
 		gameObject->AddComponent((Collider*)collider);
 		gameObject->GetComponent<RigidBody>()->SetInertiaTensorSphere(0.25f);
 		_gameObjects.push_back(gameObject);
@@ -164,7 +164,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->AddComponent(new Appearance(GetCubeMesh(_pIndexBuffer,_pVertexBuffer), shinyMaterial, _pTextureRV));
 	gameObject->AddComponent(new Graphics());
 	gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-	gameObject->SetPosition(Vector3D(0.0f, 1.0f, 0.0f));
+	gameObject->SetPosition(Vector3D(-1.5f, 1.0f, -0.2f));
 	//gameObject->CalculateCentreOfMass(CubeVertices, 24);
 
 	gameObject->AddComponent(new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false));
@@ -676,52 +676,52 @@ void Application::Update()
 	if (_input->GetKey('W'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
 	
 	}
 	if (_input->GetKey('D'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('A'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('S'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('E'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.5f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(0.5f, 0.5f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('Q'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(-0.5f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(-0.5f, 0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('X'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.5f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(0.5f, -0.5f, 0.0f), deltaTime);
 
 	}
 
 	if (_input->GetKey('Z'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(-0.5f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 10000.0f), Vector3D(-0.5f, -0.5f, 0.0f), deltaTime);
 
 	}
 

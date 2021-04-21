@@ -15,8 +15,8 @@ public:
 	RigidBody(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity);
 
 	void CalulateTorgue(Vector3D force, Vector3D contactPoint);
-
-
+	void ApplyImpulse(Vector3D point, Vector3D force);
+	void ApplySeparation(Vector3D Separation);
 	//Compnonent Interface
 	GameObject* GetOwner() override { return Component::_owner; }
 	void SetOwner(GameObject* newOwner)override { Component::_owner = newOwner; }
@@ -28,10 +28,11 @@ public:
 	float CalculateDamping(float deltaTime);
 	void SetInertiaTensorBox(float x, float y, float z);
 	void SetInertiaTensorSphere(float radius);
-	virtual void Update(float t);
+	void Update(float t);
 	void ApplyRotForce(Vector3D force, Vector3D point, float deltaTime);
 	void StopObject();
 	void SetRigidBodyMode(BodyMode newMode) { _bodyMode = newMode; }
+	BodyMode GetBodyMode() { return _bodyMode; }
 	Vector3D DragTurbFlow(Vector3D velocity, float dragFactor);
 protected:
 	XMFLOAT3X3 _intertiaTensor;

@@ -134,6 +134,9 @@
     <ClInclude Include="KD_Tree.h">
       <Filter>Headers\Utillity</Filter>
     </ClInclude>
+    <ClInclude Include="ContactResolver.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -200,6 +203,7 @@
     <ClCompile Include="KD_Tree.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="ContactResolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

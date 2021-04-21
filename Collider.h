@@ -25,11 +25,11 @@ public:
 	virtual bool CollisionCheck(Collider* other) =0;
 	virtual Vector3D Support(Collider* other,Vector3D direction) = 0;
 	virtual Vector3D FurthestPoint(Vector3D dir) = 0;
-
+	void SetRestitution(float contactRestitution) { _resititution = contactRestitution; }
 protected:
 	Transform* _transform;
 	std::vector<GameObject*> _gameObjectsInCollision;
-
+	float _resititution;
 	ColliderType _colliderType = ColliderType::Sphere;
 
 protected:

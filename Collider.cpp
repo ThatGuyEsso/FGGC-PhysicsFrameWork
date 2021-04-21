@@ -6,6 +6,7 @@ Collider::Collider()
 	_transform = nullptr;
 
 	_type = ComponentType::Collider;
+	_resititution = 0.75f;
 }
 
 Collider::Collider(Transform* transform)

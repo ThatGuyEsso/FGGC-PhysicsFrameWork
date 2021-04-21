@@ -1,46 +1,19 @@
-﻿  Application.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Component.h(5): message : see declaration of 'Component'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.h(7): message : see declaration of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Component.h(5): message : see declaration of 'Component'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.h(7): message : see declaration of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Component.h(5): message : see declaration of 'Component'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\ParticleModel.h(7): message : see declaration of 'ParticleModel'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(148,28): warning C4456: declaration of 'gameObject' hides previous local declaration
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(130,14): message : see declaration of 'gameObject'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(156,30): warning C4456: declaration of 'collider' hides previous local declaration
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(140,17): message : see declaration of 'collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(631,29): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(636,42): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(662,18): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(819,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(823,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\GameObject.h(79,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Application.cpp(765): message : see reference to function template instantiation 'void GameObject::RemoveComponent<Graphics>(void)' being compiled
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\GameObject.h(94,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Commons.h(85,17): warning C4505: 'GetDonutMesh': unreferenced local function has been removed
-  Main.cpp
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Component.h(5): message : see declaration of 'Component'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.h(7): message : see declaration of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Component.h(5): message : see declaration of 'Component'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Collision.h(7): message : see declaration of 'Collider'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Component.h(5): message : see declaration of 'Component'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\ParticleModel.h(7): message : see declaration of 'ParticleModel'
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Commons.h(85,17): warning C4505: 'GetDonutMesh': unreferenced local function has been removed
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Commons.h(97,17): warning C4505: 'GetSphereMesh': unreferenced local function has been removed
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Commons.h(109,17): warning C4505: 'GetCubeMesh': unreferenced local function has been removed
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Commons.h(122,17): warning C4505: 'GetPlaneMesh': unreferenced local function has been removed
-  Generating Code...
-C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\GameObject.h(95): warning C4701: potentially uninitialized local variable 'compIndex' used
-  DX11 Framework.vcxproj -> C:\Users\esewi\Documents\Staffs Year 2\Games and Further Graphic Concepts\Semester 2\FGGC Framework Semester 2\Debug\DX11 Framework.exe
+﻿  Collision.cpp
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(38,35): warning C4100: 'dir': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(101,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(105,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(111,44): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(59,39): warning C4100: 'dir': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(120,42): warning C4100: 'dir': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(196,14): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(294,8): warning C4189: 'test': local variable is initialized but not referenced
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(381): warning C4715: 'Collision::GetAxisIndexCurrent': not all control paths return a value
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(397): warning C4715: 'Collision::GetAxisIndexOther': not all control paths return a value
+  DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe

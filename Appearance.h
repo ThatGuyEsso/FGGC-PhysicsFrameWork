@@ -35,5 +35,5 @@ public:
 	UINT* GetVertexStride()  { return &_geometry.vertexBufferStride; }
 	UINT* GetVertexBufferOffset() { return &_geometry.vertexBufferOffset; }
 
-	
+	void SetMaterial(Material mat) { _material = mat; }
 };

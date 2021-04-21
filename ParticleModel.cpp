@@ -99,6 +99,31 @@ void ParticleModel::StopObject()
 	_acceleration = Vector3D();
 }
 
+void ParticleModel::ApplyImpulse(Vector3D point, Vector3D force)
+{
+	_currentVelocity = force;
+}
+
+void ParticleModel::ApplyImpulse(Vector3D force)
+{
+	_currentVelocity = force;
+}
+
+void ParticleModel::ApplySeparation(Vector3D Separation)
+{
+	_transform->SetPosition(Separation);
+}
+
+Vector3D ParticleModel::ResolveImpulse(float thisMass, float otherMass, Vector3D thisVel, Vector3D otherVel, float restitution)
+{
+
+
+	Vector3D impulse = (thisVel * thisMass + otherVel * otherMass) * restitution;
+
+	return impulse;
+
+}
+
 
 void ParticleModel::Update(float t) {
 
@@ -115,7 +140,7 @@ void ParticleModel::Update(float t) {
 	//}
 
 	//after each frame all forces applied to object are removed
-
+	_deltaTime = t;
 	ComputeMotionInFluid(t);
 	//ComputeMotion(t);
 	
@@ -189,9 +214,9 @@ void ParticleModel::Move(float deltaTime)
 
 }
 
-void ParticleModel::AddGravity()
+void ParticleModel::AddGravity(float deltaTime)
 {
-	Vector3D gravity = Vector3D(0, 1, 0) * Gravity * _mass;
+	Vector3D gravity = Vector3D(0, 1, 0) * Gravity * _mass* deltaTime;
 
 	ApplyForce(gravity);
 
@@ -200,7 +225,7 @@ void ParticleModel::AddGravity()
 void ParticleModel::ComputeMotion(float deltaTime)
 {
 	if (_useGravity) {
-		AddGravity();
+		AddGravity(deltaTime);
 
 	
 
@@ -217,7 +242,7 @@ void ParticleModel::ComputeMotionInFluid(float deltaTime)
 {
 	if (_useGravity) {
 		
-		AddGravity();
+		AddGravity(deltaTime);
 
 	/*	if (_transform->GetPosition().y <= _surfacePosition.y) {
 			ApplyForce(Vector3D(0.0f, 1, 0) * Gravity * _mass * -1);

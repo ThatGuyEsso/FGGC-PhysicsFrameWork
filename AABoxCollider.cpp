@@ -2,12 +2,14 @@
 #include "GameObject.h"
 #include "SphereCollider.h"
 #include <algorithm>
+#include "ContactResolver.h"
 AABoxCollider::AABoxCollider():Collider::Collider(),Collision::Collision()
 {
 	_halfSize = Vector3D(1.0f, 1.0f, 1.0f);
     _colliderType = ColliderType::AABB;
 	CalculateVertices();
 	Component::_type = ComponentType::Collider;
+	_resititution = 0.25f;
 }
 
 AABoxCollider::AABoxCollider(Transform* transform, Vector3D size) : Collider::Collider(transform), Collision::Collision()
@@ -32,15 +34,52 @@ bool AABoxCollider::CollisionCheck(Collider* other)
 		case ColliderType::Sphere:
 			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 			CalculateVertices();//Update current vertex postions
-			return GJKIntersection(other, dirToOrigin);
+			if (GJKIntersection(other, dirToOrigin))
+			{
+				CollisionData* data = FindContactsInIntersection(this, other);
+				if (other->GetOwner()) {
+					RigidBody* rb = other->GetOwner()->GetComponent<RigidBody>();
+					if (rb) {
+						if (rb->GetBodyMode() == RigidBody::BodyMode::Static) {
+							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+							ContactResolver* resolver = new ContactResolver(ownerRB, nullptr, _resititution, data->contacts->_contactNormal,
+								data->contacts->_contactPoint, data->contacts->penetrationDepth);
+							resolver->Resolve(ownerRB->_deltaTime);
+						}
+						else {
+							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+							ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, data->contacts->_contactNormal,
+								data->contacts->_contactPoint, data->contacts->penetrationDepth);
+							resolver->Resolve(ownerRB->_deltaTime);
+						}
+					}
+				}
+				return true;
+			}
+			return false;
 		case ColliderType::AABB:
 			CollisionData* data = SATBoxCollision(this, (AABoxCollider*)other);
 			if (data!=nullptr) {
 				bool isCollided = data->totalContacts > 0;
 				if (isCollided) {
 
-					DebugHelp().OutPutText("SAT Collision Detected");
-					return true;
+					if (other->GetOwner()) {
+						RigidBody* rb = other->GetOwner()->GetComponent<RigidBody>();
+						if (rb) {
+							if (rb->GetBodyMode() == RigidBody::BodyMode::Static) {
+								RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+								ContactResolver* resolver = new ContactResolver(ownerRB, nullptr, _resititution, data->contacts->_contactNormal,
+									data->contacts->_contactPoint, data->contacts->penetrationDepth);
+								resolver->Resolve(ownerRB->_deltaTime);
+							}
+							else {
+								RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+								ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, data->contacts->_contactNormal,
+									data->contacts->_contactPoint, data->contacts->penetrationDepth);
+								resolver->Resolve(ownerRB->_deltaTime);
+							}
+						}
+					}
 				}
 				else {
 					return false;

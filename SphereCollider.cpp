@@ -2,11 +2,13 @@
 #include "GameObject.h"
 #include "AABoxCollider.h"
 #include <algorithm>
+#include "ContactResolver.h"
 SphereCollider::SphereCollider():Collider::Collider(), Collision::Collision() {
 
 	_radius = 1.0f;
 	_colliderType = ColliderType::Sphere;
 	Component::_type = ComponentType::Collider;
+	_resititution = 0.8f;
 }
 
 SphereCollider::SphereCollider(Transform* transform, float radius): Collider::Collider(transform), Collision::Collision() {
@@ -14,6 +16,7 @@ SphereCollider::SphereCollider(Transform* transform, float radius): Collider::Co
 	_radius = radius;
 	_colliderType = ColliderType::Sphere;
 	Component::_type = ComponentType::Collider;
+	_resititution = 0.8f;
 }
 
 bool SphereCollider::AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB)
@@ -135,6 +138,25 @@ bool SphereCollider::CollisionCheck(Collider* other)
 			isColliding= SphereOnSphereCollision((SphereCollider*)other);
 			if (isColliding) {
 				DebugHelp().OutPutText("S vS col");
+				CollisionData* colliisonData = FindContactsInIntersection(this, other);
+				if (other->GetOwner()) {
+					RigidBody* rb = other->GetOwner()->GetComponent<RigidBody>();
+					if (rb) {
+						if (rb->GetBodyMode() == RigidBody::BodyMode::Static) {
+							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+							ContactResolver* resolver = new ContactResolver(ownerRB, nullptr, _resititution, colliisonData->contacts->_contactNormal,
+							colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
+							resolver->Resolve(ownerRB->_deltaTime);
+						}
+						else {
+							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+							ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, colliisonData->contacts->_contactNormal, 
+								colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
+							resolver->Resolve(ownerRB->_deltaTime);
+						}
+					}
+				}
+
 				return true;
 			}
 			return false;
@@ -145,7 +167,24 @@ bool SphereCollider::CollisionCheck(Collider* other)
 			if (isColliding) {
 
 				CollisionData* colliisonData = FindContactsInIntersection(this, other);
-				Reflection(colliisonData);
+				if (other->GetOwner()) {
+					RigidBody* rb = other->GetOwner()->GetComponent<RigidBody>();
+					if (rb) {
+						if (rb->GetBodyMode() == RigidBody::BodyMode::Static) {
+							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+							ContactResolver* resolver = new ContactResolver(ownerRB, nullptr, _resititution, colliisonData->contacts->_contactNormal,
+							colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
+							resolver->Resolve(ownerRB->_deltaTime);
+						}
+						else {
+							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
+							ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, colliisonData->contacts->_contactNormal, 
+								colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
+							resolver->Resolve(ownerRB->_deltaTime);
+						}
+					}
+				}
+			
 				return true;
 			}
 			return false;

@@ -1,5 +1,15 @@
 #include "KD_Tree.h"
 
+KD_Tree::KD_Tree()
+{
+    _rootNode = nullptr;
+}
+
+KD_Tree::~KD_Tree()
+{
+    if (!leaves.empty()) leaves.clear();
+}
+
 void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis axis, KD_Node* parent)
 {
     if (!_rootNode) {
@@ -7,13 +17,15 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
         _rootNode->objectSet = gameObjectsInSet;
         _rootNode->point = GetMedianPositionFormSet(gameObjectsInSet);
         axis = Axis::X_axis;
-
+        _rootNode->ApplyDepthMat();
         if (_rootNode->depth < maxDepth&& gameObjectsInSet.size()>=minObjectsToSplit) {
             KD_Node* left = _rootNode->left = new KD_Node(_rootNode->depth++);
             KD_Node* right = _rootNode->left = new KD_Node(_rootNode->depth++);
        
             left->objectSet = GetObjectsInSplit(_rootNode->objectSet, false, axis, _rootNode->point.x);
+            left->ApplyDepthMat();
             right->objectSet = GetObjectsInSplit(_rootNode->objectSet, true, axis, _rootNode->point.x);
+            right->ApplyDepthMat();
             if (left->depth > maxDepth || left->objectSet.size() < minObjectsToSplit&&
                 right->depth > maxDepth || right->objectSet.size() < minObjectsToSplit) {
                 leaves.push_back(_rootNode);
@@ -57,6 +69,7 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
                 parent->left = new KD_Node(currentNode->depth);
                 parent->left->point = currentNode->point;
                 parent->left->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.x);
+                parent->left->ApplyDepthMat();
                 AddNodeRecursive(parent->left->objectSet, Axis::Y_axis, parent->left);
                 if (parent->left->depth < maxDepth || parent->left->objectSet.size() >= minObjectsToSplit) {
 
@@ -65,6 +78,7 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
                 parent->right = new KD_Node(currentNode->depth);
                 parent->right->point = currentNode->point;
                 parent->right->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.x);
+                parent->right->ApplyDepthMat();
                 if (parent->right->depth < maxDepth || parent->right->objectSet.size() >= minObjectsToSplit) {
 
                     AddNodeRecursive(parent->right->objectSet, Axis::Y_axis, parent->right);
@@ -74,6 +88,7 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
                 parent->left = new KD_Node(currentNode->depth);
                 parent->left->point = currentNode->point;
                 parent->left->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.y);
+                parent->left->ApplyDepthMat();
                 if (parent->left->depth < maxDepth || parent->left->objectSet.size() >= minObjectsToSplit) {
 
                     AddNodeRecursive(parent->left->objectSet, Axis::Z_axis, parent->left);
@@ -81,6 +96,7 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
                 parent->right = new KD_Node(currentNode->depth);
                 parent->right->point = currentNode->point;
                 parent->right->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.y);
+                parent->right->ApplyDepthMat();
                 if (parent->right->depth < maxDepth || parent->right->objectSet.size() >= minObjectsToSplit) {
 
                     AddNodeRecursive(parent->right->objectSet, Axis::Z_axis, parent->right);
@@ -90,6 +106,7 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
                 parent->left = new KD_Node(currentNode->depth);
                 parent->left->point = currentNode->point;
                 parent->left->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.z);
+                parent->left->ApplyDepthMat();
                 if (parent->left->depth < maxDepth || parent->left->objectSet.size() >= minObjectsToSplit) {
 
                     AddNodeRecursive(parent->left->objectSet, Axis::X_axis, parent->left);
@@ -97,6 +114,7 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
                 parent->right = new KD_Node(currentNode->depth);
                 parent->right->point = currentNode->point;
                 parent->right->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.z);
+                parent->right->ApplyDepthMat();
                 if (parent->right->depth < maxDepth || parent->right->objectSet.size() >= minObjectsToSplit) {
 
                     AddNodeRecursive(parent->right->objectSet, Axis::X_axis, parent->right);
@@ -144,6 +162,7 @@ Vector3D KD_Tree::GetMedianPositionFormSet(std::vector<GameObject*> gameObjectsI
 
 std::vector<GameObject*> KD_Tree::GetObjectsInSplit(std::vector<GameObject*> gameObjectsInSet, bool isGreater, Axis axis, float conditionVal)
 {
+
     std::vector<GameObject*> newSet;
     SphereCollider* sphereCol;
     AABoxCollider* AABB;

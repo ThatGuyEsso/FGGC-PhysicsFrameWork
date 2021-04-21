@@ -3,7 +3,7 @@
 #include "OBJLoader.h"
 static const float defaultMass = 2.0f;
 static const float DefaultDrag = 1.05f;
-static const float Gravity = -9.81f;
+static const float Gravity = -98.1f;
 
 static constexpr float FPS = 60.0f;
 
@@ -80,6 +80,15 @@ static Material shinyMaterial = Material(XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f),
 
 static Material noSpecMaterial= Material(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f),
 	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f), 0.0f);
+
+
+
+static Material depth1Mat = Material(XMFLOAT4(1.0f, 0.3f, 0.3f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+static Material depth2Mat = Material(XMFLOAT4(0.3f, 0.3f, 1.0f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+static Material depth3Mat = Material(XMFLOAT4(0.3f, 1.0f, 0.3f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
 
 
 static Geometry GetDonutMesh(ID3D11Device* _pd3dDevice) {

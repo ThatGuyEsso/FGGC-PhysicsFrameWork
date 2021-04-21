@@ -13,6 +13,7 @@ public:
 
 protected:
 	float _mass;
+
 	float _dragCoEfficient;
 	float _density;
 	bool _useGravity;
@@ -33,7 +34,7 @@ protected:
 	void UpdateAccel();
 
 public:
-	
+	float _deltaTime;
 	ParticleModel();
 	ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, bool useGravity);
 	ParticleModel(Transform* transform, Vector3D InitialVelocity, Vector3D acceleration, float mass, bool useGravity);
@@ -43,8 +44,10 @@ public:
 
 	virtual void Update(float t);
 	virtual void StopObject();
-
-
+	virtual void ApplyImpulse(Vector3D point, Vector3D force);
+	virtual void ApplyImpulse(Vector3D force);
+	virtual void ApplySeparation(Vector3D Separation);
+	Vector3D ResolveImpulse(float thisMass, float otherMass, Vector3D thisVel, Vector3D otherVel, float restitution);
 
 	//Compnonent Interface
 	GameObject* GetOwner() override { return _owner; }
@@ -66,7 +69,7 @@ public:
 	void Move(float deltaTime);
 	void ComputeMotion(float deltaTime);
 	void ComputeMotionInFluid(float deltaTime);
-	void AddGravity();
+	void AddGravity(float deltaTime);
 	virtual Vector3D DragForce(Vector3D velocity, float dragFactor);
 	virtual Vector3D DragLamFlow(Vector3D velocity, float dragFactor);
 	virtual Vector3D DragTurbFlow(Vector3D velocity, float dragFactor);
@@ -84,6 +87,6 @@ public:
 	void SetMass(float newMass) {  _mass= newMass; }
 	void ToggleGravity(bool useGravity) { _useGravity = useGravity; }
 	bool UsesGravity() { return _useGravity; }
-
+	Transform* GetTransform() { return _transform; }
 
 };

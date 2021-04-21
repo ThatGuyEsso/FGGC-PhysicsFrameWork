@@ -166,6 +166,7 @@ Collision::CollisionData* Collision::FindContactsInIntersection(Collider* currCo
 					break;
 				}
 				break;
+
 			case ColliderType::AABB:
 				switch (otherCollider->GetColliderType())
 				{
@@ -310,7 +311,7 @@ void Collision::SphereVSphereIntersection(SphereCollider* currCollider, SphereCo
 
 void Collision::SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphere, CollisionData* data)
 {
-	Vector3D closestPoint = box->ClosesPointToPoint(sphere->GetTransform()->GetPosition());
+	Vector3D closestPoint = (sphere->GetTransform()->GetPosition())- box->GetTransform()->GetPosition();
 
 	Contact* contact = data->contacts;
 	

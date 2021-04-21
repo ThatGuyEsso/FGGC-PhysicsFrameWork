@@ -30,6 +30,28 @@ void RigidBody::CalulateTorgue(Vector3D force, Vector3D contactPoint)
 	
 }
 
+void RigidBody::ApplyImpulse(Vector3D point, Vector3D force)
+{
+	if (_bodyMode != BodyMode::Static) {
+		_currentVelocity = force;
+
+		Vector3D resultantToPoint = _transform->GetPosition() + point -force;
+
+
+		ApplyRotForce(resultantToPoint, point, _deltaTime);
+	}
+
+}
+
+void RigidBody::ApplySeparation(Vector3D Separation)
+{
+	if (_bodyMode != BodyMode::Static) {
+		_transform->SetPosition(Separation);
+	}
+}
+
+
+
 
 
 
