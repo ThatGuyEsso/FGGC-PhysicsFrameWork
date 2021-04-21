@@ -676,25 +676,25 @@ void Application::Update()
 	if (_input->GetKey('W'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(0.0f, 0.5f, 0.0f), deltaTime);
 	
 	}
 	if (_input->GetKey('D'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('A'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(-5.0f, 0.0f, 0.0f), deltaTime);
 
 	}
 	if (_input->GetKey('S'))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyRotForce(Vector3D(0.0f, 0.0f, 100.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
+			->ApplyRotForce(Vector3D(0.0f, 0.0f, 1000.0f), Vector3D(0.0f, -0.5f, 0.0f), deltaTime);
 
 	}
 
