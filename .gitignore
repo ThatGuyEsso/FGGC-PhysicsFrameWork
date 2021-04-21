@@ -176,3 +176,4 @@ Generated Files/
 .vs/DX11 Framework/v16/Browse.VC.db
 *.ipch
 *.ipch
+Debug/DX11 Framework.tlog/rc.write.1.tlog
