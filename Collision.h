@@ -38,7 +38,11 @@ public:
 protected:
 	void SphereVSphereIntersection(SphereCollider* currCollider, SphereCollider* otherCollider, CollisionData* data);
 	void SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphere, CollisionData* data);
-	virtual Vector3D* GetBoxTestAxes(AABoxCollider* currCollider, AABoxCollider* otherCollider);
+	virtual Vector3D GetBoxTestAxes(AABoxCollider* currCollider, AABoxCollider* otherCollider,int index);
+	unsigned GetAxisIndexCurrent(unsigned bestIndex);
+	unsigned GetAxisIndexOther(unsigned bestIndex);
+	Vector3D SATGetContactPoint(Vector3D currAxis, Vector3D otherAxis, Vector3D ptOnCurrEdge, Vector3D ptOnOtherEdge);
+	//CollisionData* SATGetContacts(AABoxCollider* currCollider, AABoxCollider* otherCollider);
 protected:
 	std::vector<Vector3D> _simplex = std::vector<Vector3D>();
 	std::vector<Vector3D> _minKowSkiDifference;

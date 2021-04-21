@@ -182,52 +182,117 @@ Collision::CollisionData* Collision::FindContactsInIntersection(Collider* currCo
 
 Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider, AABoxCollider* otherCollider)
 {
-	Vector3D *axes=  GetBoxTestAxes(currCollider, otherCollider);
+
 	float bestOverlap = 1.0f;
+	bool hasCollied = false;
+	int bestCase =-1;
+	for (unsigned  i = 0; i < 15; i++) {
 
-	unsigned bestCase;
-	for (unsigned  i = 0; i < sizeof(axes); i++) {
-		if(axes[i].square()<0.001) continue;	
+		Vector3D axis = GetBoxTestAxes(currCollider, otherCollider,i);
+		if(axis.square()<0.001) continue;
 
-		axes[i].normalization();
-		float overlap = PenetrationOnAxis(currCollider, otherCollider, axes[i]);
+		axis.normalization();
+		if (i == 8);
+		float overlap = PenetrationOnAxis(currCollider, otherCollider, axis);
 		if (overlap < 0) return nullptr;
 	
 		if (overlap < bestOverlap) {
 			bestOverlap = overlap;
 			bestCase = i;
-			
+			hasCollied = true;
 		}
-		axes++;
-	}
-	Vector3D toCentre = otherCollider->GetTransform()->GetPosition() - currCollider->GetTransform()->GetPosition();
-	Vector3D axis = axes[bestCase];
-	//Face axis test
-	if (bestCase <= 5) {
-		//Get face in contact
-		if (axis.dot_product(toCentre) > 0) axis *= -1.0f;
-
 		
-
-
 	}
-	//Edge axis test
-	else if (bestCase > 5) {
+	if (hasCollied) {
 
+		Vector3D toCentre = otherCollider->GetTransform()->GetPosition() - currCollider->GetTransform()->GetPosition();
+
+		Vector3D axis;
+		if (bestCase != -1)
+			axis = GetBoxTestAxes(currCollider,otherCollider,bestCase);
+		//Face axis test
+		if (bestCase <= 5) {
+			//Get face in contact
+			if (axis.dot_product(toCentre) > 0) axis *= -1.0f;
+			Vector3D vertex = otherCollider->GetHalfSize();
+			//Needs to check if it's AABB or non AABB
+			switch (otherCollider ->GetColliderType())
+			{
+			case ColliderType::AABB:
+				Vector3D AABBnormal = Vector3D(0.0f, 1.0f, 0.0f);//AXis al gned to oritation normal is always up normlised
+				if (otherCollider->GetAxis(0).dot_product(AABBnormal) < 0) vertex.x = -vertex.x;
+				if (otherCollider->GetAxis(1).dot_product(AABBnormal) < 0) vertex.y = -vertex.y;
+				if (otherCollider->GetAxis(2).dot_product(AABBnormal) < 0) vertex.z = -vertex.z;
+				//convert vertex to box space
+				vertex = otherCollider->GetTransform()->GetPosition() + vertex;
+
+				//generate compile and return collision data
+				CollisionData* data = new CollisionData();
+				Contact* contact = data->contacts;
+				contact->_contactNormal = axis,
+				contact->penetrationDepth = bestOverlap;
+				contact->_contactPoint = vertex;
+				data->totalContacts++;
+				return data;
+			}
+
+		}
+		//Edge axis test
+		else if (bestCase > 5) {
+			Vector3D ptCurrEdge = currCollider->GetHalfSize();
+			Vector3D ptOtherEdge = otherCollider->GetHalfSize();
+			unsigned currAxisIndex = GetAxisIndexCurrent(bestCase);
+			unsigned otherAxisIndex = GetAxisIndexOther(bestCase);
+			//Getting Point data on current edge
+			if (0 == currAxisIndex) ptCurrEdge.x = 0;
+			else if (currCollider->GetAxis(0).dot_product(axis) > 0) ptCurrEdge.x = -ptCurrEdge.x;
+			if (1 == currAxisIndex) ptCurrEdge.y = 0;
+			else if (currCollider->GetAxis(1).dot_product(axis) > 0) ptCurrEdge.y = -ptCurrEdge.y;
+			if (2 == currAxisIndex) ptCurrEdge.z = 0;
+			else if (currCollider->GetAxis(2).dot_product(axis) > 0) ptCurrEdge.z = -ptCurrEdge.z;
+
+			//Getting Point data on other box edge
+			if (0 == otherAxisIndex) ptOtherEdge.x = 0;
+			else if (otherCollider->GetAxis(0).dot_product(axis) > 0) ptOtherEdge.x = -ptOtherEdge.x;
+			if (1 == otherAxisIndex) ptOtherEdge.y = 0;
+			else if (otherCollider->GetAxis(1).dot_product(axis) > 0) ptOtherEdge.y = -ptOtherEdge.y;
+			if (2 == otherAxisIndex) ptOtherEdge.z = 0;
+			else if (otherCollider->GetAxis(2).dot_product(axis) > 0) ptOtherEdge.z = -ptOtherEdge.z;
+
+			//Convert to world points on box
+
+			ptCurrEdge = currCollider->GetTransform()->GetPosition() + ptCurrEdge;
+			ptOtherEdge = otherCollider->GetTransform()->GetPosition() + ptOtherEdge;
+			//generate compile and return collision data
+			CollisionData* data = new CollisionData();
+			Contact* contact = data->contacts;
+			contact->_contactNormal = axis,
+			contact->penetrationDepth = bestOverlap;
+			contact->_contactPoint = SATGetContactPoint(currCollider->GetAxis(currAxisIndex),otherCollider->GetAxis(otherAxisIndex),
+				ptCurrEdge, ptOtherEdge);
+			data->totalContacts++;
+			return data;
+		}
 	}
-	return new CollisionData;
+	return nullptr;
 }
 
-float Collision::PenetrationOnAxis(AABoxCollider* currCollider, AABoxCollider* otherCollider,Vector3D axis)
+float Collision::PenetrationOnAxis(AABoxCollider* currCollider, AABoxCollider* otherCollider, Vector3D axis)
 {
 	//Get the closest point in collider to axis
-	float currHalfLength = currCollider->GetTransform()->GetPosition().distance(axis);
-	float otherHalfLength = otherCollider->GetTransform()->GetPosition().distance(axis);
+	float currHalfLength = currCollider->ClosesPointToPoint(axis).distance(currCollider->GetTransform()->GetPosition());
+	float otherHalfLength = otherCollider->ClosesPointToPoint(axis).distance(otherCollider->GetTransform()->GetPosition());
 
-	Vector3D toCenter =  (otherCollider->GetTransform()->GetPosition())- currCollider->GetTransform()->GetPosition();
+	Vector3D currPosition = currCollider->GetTransform()->GetPosition();
+	Vector3D otherPosition = otherCollider->GetTransform()->GetPosition();
+	Vector3D toCenter = currPosition - otherPosition;
 
 	float seperatingDistance = std::abs(toCenter.dot_product(axis));
-	return currHalfLength + otherHalfLength - seperatingDistance;
+	float overlap = currHalfLength + otherHalfLength - seperatingDistance;
+	if (overlap == 0) {
+		bool test = true;
+	}
+	return overlap;
 }
 
 void Collision::SphereVSphereIntersection(SphereCollider* currCollider, SphereCollider* otherCollider, Collision::CollisionData* data)
@@ -258,31 +323,103 @@ void Collision::SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphe
 	
 }
 
-Vector3D* Collision::GetBoxTestAxes(AABoxCollider* currCollider, AABoxCollider* otherCollider)
+Vector3D Collision::GetBoxTestAxes(AABoxCollider* currCollider, AABoxCollider* otherCollider, int index)
 {
-	Vector3D Axes[15];
+	if (index < 6) {
+	
+		if (index < 3) {
+			return  currCollider->GetAxis(index);
+		}
+		if (index >= 3 && index < 6) {
+			return  otherCollider->GetAxis(index - 3);
+		}
+	}
 
-	//Face axes for current
-	Axes[0] = currCollider->GetAxis(0);
-	Axes[1] = currCollider->GetAxis(1);
-	Axes[2] = currCollider->GetAxis(2);
+	else if (index >= 6 && index < 15) {
+		if (index >= 6 && index < 9) {
+			
+			return currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(index -6));
 
-	//Face axes for other
-	Axes[3] = otherCollider->GetAxis(0);
-	Axes[4] = otherCollider->GetAxis(1);
-	Axes[5] = otherCollider->GetAxis(2);
+			
+		}
+		else if (index >= 9 && index <12) {
+			
+				return currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(index -9));
+
+			
+		}
+		else if (index >= 12 && index < 15) {
+		
+			return currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(index -12));
+
+			
+		}
+	}
+
 
 	//Edge Edge Aes
-	Axes[6] = currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(0));
-	Axes[7] = currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(1));
-	Axes[8] = currCollider->GetAxis(0).cross_product(otherCollider->GetAxis(2));
-	Axes[9] = currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(0));
-	Axes[10] = currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(1));
-	Axes[11] = currCollider->GetAxis(1).cross_product(otherCollider->GetAxis(2));
-	Axes[12] = currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(0));
-	Axes[13] = currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(1));
-	Axes[14] = currCollider->GetAxis(2).cross_product(otherCollider->GetAxis(2));
-	return Axes;
+
+	return Vector3D();
+}
+
+unsigned Collision::GetAxisIndexCurrent(unsigned bestIndex)
+{
+	if (bestIndex < 3) {
+		return bestIndex;
+	}
+	else if (bestIndex > 5 && bestIndex < 9) {
+		return 0;
+	}
+	else if (bestIndex >= 9 && bestIndex < 12) {
+		return 1;
+	}
+	else if (bestIndex >= 12 && bestIndex < 15) {
+		return 2;
+	}
+
+}
+
+unsigned Collision::GetAxisIndexOther(unsigned bestIndex)
+{
+	if (bestIndex >= 3 && bestIndex<6) {
+		return bestIndex-3;
+	}
+	else if (bestIndex >=6 && bestIndex < 9) {
+		return bestIndex - 6;
+	}
+	else if (bestIndex >= 9 && bestIndex < 12) {
+		return bestIndex - 9;
+	}
+	else if (bestIndex >= 12 && bestIndex < 15) {
+		return bestIndex - 12;
+	}
+}
+
+Vector3D Collision::SATGetContactPoint(Vector3D currAxis, Vector3D otherAxis, Vector3D ptOnCurrEdge, Vector3D ptOnOtherEdge)
+{
+	Vector3D pointToPoint = ptOnCurrEdge - ptOnOtherEdge;
+
+	//How much are they in direciton of eachother
+
+	float dotCurrPoint = currAxis.dot_product(pointToPoint);
+	float dotOtherPoint = otherAxis.dot_product(pointToPoint);
+
+	//How far along each edge is the closest point
+	float currSqMagnitude = currAxis.square();
+	float otherSqMagnitude = otherAxis.square();
+
+	float edgeDots = otherAxis.dot_product(currAxis);
+	float denom = currSqMagnitude * otherSqMagnitude - edgeDots * edgeDots;
+
+	float a = (edgeDots * dotOtherPoint - otherSqMagnitude * dotCurrPoint) / denom;
+	float b = (currSqMagnitude * dotOtherPoint - edgeDots * dotCurrPoint) / denom;
+
+
+	//Point midway between nearestPoints
+	Vector3D nearestPtOnOne = ptOnCurrEdge + currAxis * a;
+	Vector3D nearestPtOnTwo = ptOnOtherEdge + otherAxis * b;
+	return nearestPtOnOne * 0.5f + nearestPtOnTwo * 0.5f;
+
 }
 
 

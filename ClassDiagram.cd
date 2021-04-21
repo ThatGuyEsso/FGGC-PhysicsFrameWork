@@ -6,12 +6,12 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>BCyACCJCHBqAAxgEMiEEAwABCAASAIOAkABkAOJAQQI=</HashCode>
+      <HashCode>BCyACGJCHBqAAxgEMiEEAgEBCAACAIOCkABkAOJAQQI=</HashCode>
       <FileName>Application.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_camera" />
       <Field Name="_gameObjects" />
+      <Field Name="_camera" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Camera">
@@ -20,28 +20,176 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>IAQKAQAAACAAQAgAQAAAIAIIgAAAAgQAACABAIIAQQA=</HashCode>
+      <HashCode>IAQKAQAAACAAQAgAQgAAIAIIgAAAAgQAACABAIIAQQA=</HashCode>
       <FileName>Camera.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameObject">
-    <Position X="6.5" Y="0.75" Width="1.5" />
+    <Position X="17" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABQAJEAAECCAAgQQAEAAAAAQAgAQAgkAKEAAggIAAGA=</HashCode>
+      <HashCode>ABQAAAAAECCIIAQIgQBABAAQAAAgAgkEIEAAAgcAAEA=</HashCode>
       <FileName>GameObject.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_geometry" />
+      <Field Name="_components" />
     </ShowAsAssociation>
   </Class>
   <Class Name="std::vector&lt;_Ty, _Alloc&gt;">
-    <Position X="4.5" Y="1" Width="1.5" />
+    <Position X="14" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AWAEk4EqCrBsCEBAAOMIIAAyAAUEQBIghQkwgkAFUko=</HashCode>
-      <FileName>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\vector</FileName>
+      <FileName>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\vector</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Contact" Collapsed="true">
+    <Position X="11.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contact.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DebugHelp" Collapsed="true">
+    <Position X="13.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>DebugHelp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KD_Tree" Collapsed="true">
+    <Position X="15" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAACAoAAABAAAAAEAEAAE=</HashCode>
+      <FileName>KD_Tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Quaternion" Collapsed="true">
+    <Position X="11.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAoAEBAAAQEAI=</HashCode>
+      <FileName>Quaternion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector3D" Collapsed="true">
+    <Position X="13.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAKAAAAAAIAQAAAEgQAAAAAQBgEQAAIAA=</HashCode>
+      <FileName>Vector3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AABoxCollider" Collapsed="true">
+    <Position X="25" Y="7" Width="1.5" />
+    <InheritanceLine Type="Collider" ManuallyRouted="true">
+      <Path>
+        <Point X="23.75" Y="4.941" />
+        <Point X="23.75" Y="6.382" />
+        <Point X="25.75" Y="6.382" />
+        <Point X="25.75" Y="7" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="Component" ManuallyRouted="true">
+      <Path>
+        <Point X="23.75" Y="1.062" />
+        <Point X="23.75" Y="3.5" />
+        <Point X="22.737" Y="3.5" />
+        <Point X="22.737" Y="6.759" />
+        <Point X="25.75" Y="6.759" />
+        <Point X="25.75" Y="7" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAA0AIAKACAQAAiAIAIAAEAAAAIAgAAFkhAABAAAg=</HashCode>
+      <FileName>AABoxCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Appearance" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAJEAIWIIAAAAAAEAAAAAEAgAAAIAACEAAAAAAAAA=</HashCode>
+      <FileName>Appearance.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collider" Collapsed="true">
+    <Position X="23" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAIgAAAAAAQBAAAAEAAAACApQAEEAAARQAAA=</HashCode>
+      <FileName>Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision" Collapsed="true">
+    <Position X="23" Y="8.75" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Collision::CollisionData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Collision.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAAAQAAAKAAAAAAAgMAIAAkAAAgIAEAAAEBEAGAEAg=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Component" Collapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAIAIAAAAQAAAAAAAAFAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphics" Collapsed="true">
+    <Position X="20.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAYAIAAAgAAAAAAAAAECAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Graphics.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleModel" Collapsed="true">
+    <Position X="26.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEQIAIGDEQkDQQAACCBUEAQAQEYBAEAAQQQqAQA=</HashCode>
+      <FileName>ParticleModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RigidBody" Collapsed="true">
+    <Position X="28.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAIAIGKgQAAAAAAgAAEAAEgAAAAAFAAQAAgCAE=</HashCode>
+      <FileName>RigidBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SphereCollider" Collapsed="true">
+    <Position X="21" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="Collider" ManuallyRouted="true">
+      <Path>
+        <Point X="23.75" Y="4.941" />
+        <Point X="23.75" Y="6.366" />
+        <Point X="22.82" Y="6.366" Type="JumpStart" />
+        <Point X="22.654" Y="6.366" Type="JumpEnd" />
+        <Point X="21.75" Y="6.366" />
+        <Point X="21.75" Y="7.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="Component" ManuallyRouted="true">
+      <Path>
+        <Point X="23.75" Y="1.062" />
+        <Point X="23.75" Y="3.135" />
+        <Point X="21.75" Y="3.135" />
+        <Point X="21.75" Y="7.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAIAKAAAAABAAAAIAAEAAAAIAgAAUEBAAjAAAA=</HashCode>
+      <FileName>SphereCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Transform" Collapsed="true">
+    <Position X="31" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACSAIAAAAAAAAAQAEIAQAggAICAAggAAACA=</HashCode>
+      <FileName>Transform.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="DDS_PIXELFORMAT" Collapsed="true">
@@ -89,29 +237,29 @@
   <Struct Name="Geometry">
     <Position X="9" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAABAAIAQAAAAACAAAAAA=</HashCode>
-      <FileName>GameObject.h</FileName>
+      <HashCode>AAAQAAAAAAAAAAAACAAAAAAAABAQIAQAAAAACAAAAAA=</HashCode>
+      <FileName>Structs.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Material" Collapsed="true">
     <Position X="15" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAABAAAAABAAAA=</HashCode>
-      <FileName>GameObject.h</FileName>
+      <HashCode>QEAAAAAAAAAAAAAAAAAAAAIAAAAAAAAABAAAAABAAAA=</HashCode>
+      <FileName>Structs.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="SimpleVertex" Collapsed="true">
     <Position X="11.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAgAABAAAA=</HashCode>
-      <FileName>Structures.h</FileName>
+      <FileName>Structs.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="MeshData" Collapsed="true">
     <Position X="8.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAAAAAAAAAEAAAAQAAIAAAAAAAAAAAEAA=</HashCode>
-      <FileName>Structures.h</FileName>
+      <HashCode>AAAAggAAAAAAAAAAAAAAEAAAAQAAIAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Structs.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="`anonymous-namespace'::handle_closer" Collapsed="true">
@@ -126,13 +274,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>DDSTextureLoader.cpp</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="DirectX::DDS_ALPHA_MODE" Collapsed="true">
-    <Position X="11.5" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAACAAAAAQAAAQAAAAAAAAABA=</HashCode>
-      <FileName>DDSTextureLoader.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

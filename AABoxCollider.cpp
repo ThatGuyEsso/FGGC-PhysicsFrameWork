@@ -34,9 +34,20 @@ bool AABoxCollider::CollisionCheck(Collider* other)
 			CalculateVertices();//Update current vertex postions
 			return GJKIntersection(other, dirToOrigin);
 		case ColliderType::AABB:
-			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
-			CalculateVertices();//Update current vertex postions
-			return GJKIntersection(other, dirToOrigin);
+			CollisionData* data = SATBoxCollision(this, (AABoxCollider*)other);
+			if (data!=nullptr) {
+				bool isCollided = data->totalContacts > 0;
+				if (isCollided) {
+
+					DebugHelp().OutPutText("SAT Collision Detected");
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			return false;
+
 		
 	}
 

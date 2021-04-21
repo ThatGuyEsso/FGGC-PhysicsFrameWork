@@ -127,7 +127,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	
 
 
-	GameObject* gameObject = new GameObject("Floor", new Transform(Vector3D(0.0f, -0.3f, 0.0f),
+	GameObject* gameObject = new GameObject("Floor", new Transform(Vector3D(0.0f,0.5f, 0.0f),
 		Vector3D(XMConvertToRadians(90.0f), 0.0f), Vector3D(15.0f, 15.0f, 15.0f)));
 	gameObject->AddComponent(new Appearance(GetPlaneMesh(_pPlaneIndexBuffer, _pPlaneVertexBuffer), noSpecMaterial, _pGroundTextureRV));
 	gameObject->AddComponent(new Graphics());
@@ -159,6 +159,19 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		_gameObjects.push_back(gameObject);
 	
 	}
+	
+	gameObject = new GameObject("Moveable" + _gameObjects.size()-1);
+	gameObject->AddComponent(new Appearance(GetCubeMesh(_pIndexBuffer,_pVertexBuffer), shinyMaterial, _pTextureRV));
+	gameObject->AddComponent(new Graphics());
+	gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
+	gameObject->SetPosition(Vector3D(0.0f, 1.0f, 0.0f));
+	//gameObject->CalculateCentreOfMass(CubeVertices, 24);
+
+	gameObject->AddComponent(new RigidBody(gameObject->GetTransform(), Vector3D(), Vector3D(), false));
+	collider = new AABoxCollider(gameObject->GetTransform(),Vector3D(0.25f,0.25f,0.25f));
+	gameObject->AddComponent((Collider*)collider);
+	gameObject->GetComponent<RigidBody>()->SetInertiaTensorBox(0.5,0.5f,0.5f);
+	_gameObjects.push_back(gameObject);
 
 	return S_OK;
 }
@@ -762,7 +775,7 @@ void Application::Update()
 	if (_input->GetKey(VK_SPACE))
 	{
 		GetSelectedGameObject()->GetComponent<RigidBody>()
-			->ApplyForce(Vector3D(0.0f, 50000.0f, 0.0f) * deltaTime);
+			->ApplyForce(Vector3D(0.0f, 5000.0f, 0.0f) * deltaTime);
 
 	}
 
@@ -770,7 +783,7 @@ void Application::Update()
 
 	
 	if (_input->GetKey('C')) {
-		CycleBetweenObjectByType(std::string("Movable"));
+		CycleBetweenObjectByType(std::string("Moveable"));
 	}
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
