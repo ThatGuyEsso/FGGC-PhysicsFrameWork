@@ -35,10 +35,10 @@ void RigidBody::ApplyImpulse(Vector3D point, Vector3D force)
 	if (_bodyMode != BodyMode::Static) {
 		_currentVelocity *= _deltaTime;
 
-		Vector3D resultantToPoint = _transform->GetPosition() + point -force;
+	/*	Vector3D resultantToPoint = _transform->GetPosition() + point -force;
 
 
-		ApplyRotForce(resultantToPoint, point, _deltaTime);
+		ApplyRotForce(resultantToPoint, point, _deltaTime);*/
 	}
 
 }

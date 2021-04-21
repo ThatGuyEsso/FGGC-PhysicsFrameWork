@@ -172,14 +172,14 @@ bool SphereCollider::CollisionCheck(Collider* other)
 					if (rb) {
 						if (rb->GetBodyMode() == RigidBody::BodyMode::Static) {
 							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
-							ContactResolver* resolver = new ContactResolver(ownerRB, nullptr, _resititution, colliisonData->contacts->_contactNormal,
+							ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, colliisonData->contacts->_contactNormal,
 							colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
 							resolver->Resolve(ownerRB->_deltaTime);
 						}
 						else {
 							RigidBody* ownerRB = Component::_owner->GetComponent<RigidBody>();
 							ContactResolver* resolver = new ContactResolver(ownerRB, rb, _resititution, colliisonData->contacts->_contactNormal, 
-								colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
+							colliisonData->contacts->_contactPoint, colliisonData->contacts->penetrationDepth);
 							resolver->Resolve(ownerRB->_deltaTime);
 						}
 					}
