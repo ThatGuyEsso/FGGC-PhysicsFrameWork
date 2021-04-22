@@ -201,6 +201,22 @@ Vector3D AABoxCollider::GetAxis(int axis)
 	}
 }
 
+void AABoxCollider::DrawGUI()
+{
+	if (ImGui::BeginChild("AA Box Collider")) {
+		//Allow users to set position of object from gui 
+		float halfsize[3] = { _halfSize.x,_halfSize.y,_halfSize.z };
+		ImGui::InputFloat3("Half Size ", halfsize, "%.2f");
+		SetHalfSize(Vector3D(halfsize[0], halfsize[1], halfsize[2]));
+		float resitution = _resititution;
+		_resititution = ImGui::InputFloat("Resititution", &resitution);
+
+
+		
+	}
+	ImGui::EndChild();
+}
+
 void AABoxCollider::UpdateComponent(float deltaTime)
 {
 }

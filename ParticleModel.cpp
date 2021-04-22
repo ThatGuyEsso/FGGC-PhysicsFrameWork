@@ -124,6 +124,37 @@ Vector3D ParticleModel::ResolveImpulse(float thisMass, float otherMass, Vector3D
 
 }
 
+void ParticleModel::DrawGUI()
+{
+	if (ImGui::BeginChild("Particle Body")) {
+		//Allow users to set position of object from gui 
+		float Velocity[3] = { _currentVelocity.x,_currentVelocity.y,_currentVelocity.z };
+		ImGui::InputFloat3("Velocity ", Velocity, "%.2f");
+	
+		float acc[3] = { _acceleration.x,_acceleration.y,_acceleration.z };
+		ImGui::InputFloat3("Acceleration ", acc, "%.2f");
+	
+
+		//Allow users to set scale of object from gui 
+		float mass = _mass;
+		ImGui::InputFloat3("Mass ", &mass);
+		SetMass(_mass);
+
+
+		//Allow users to set scale of object from gui 
+		float drag = _dragCoEfficient;
+		_dragCoEfficient=ImGui::InputFloat3("Drag ", &drag);
+	
+
+		//Allow users to set scale of object from gui 
+		float density = _density;
+		_density=ImGui::InputFloat3("Density ", &density);
+	
+
+	}
+	ImGui::EndChild();
+}
+
 
 void ParticleModel::Update(float t) {
 

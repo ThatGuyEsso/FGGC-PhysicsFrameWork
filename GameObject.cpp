@@ -5,7 +5,7 @@ GameObject::GameObject(string type)
 	_parent = nullptr;
 	//Create a new instance of object transform if none is specified
 	_transform = new Transform();
-
+	AddComponent(_transform);
 
 	_type = type;
 	
@@ -21,12 +21,17 @@ GameObject::GameObject(string type, Transform* transform)
 	_type = type;
 
 	_centreOfMass = Vector3D();
-
+	AddComponent(_transform);
 }
 
 GameObject::~GameObject()
 {
 	_transform = nullptr;
+	if (!_components.empty())
+		for (Component* comp: _components) {
+			comp = nullptr;
+		}
+	_components.clear();
 }
 
 
@@ -64,6 +69,20 @@ void GameObject::Update(float t)
 
 
 
+
+void GameObject::DisplayGUI()
+{
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f));
+	//Display game object id
+	if (ImGui::Begin(_type.c_str())) {
+		
+		for (int i = 0; i < _components.size(); i++) {
+			_components[i]->DrawGUI();
+		}
+
+	}
+	ImGui::End();
+}
 
 void GameObject::CalculateCentreOfMass(SimpleVertex vertices[], int vertexCount)
 {

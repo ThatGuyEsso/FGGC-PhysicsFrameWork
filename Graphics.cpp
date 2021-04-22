@@ -10,6 +10,14 @@ void Graphics::UpdateComponent(float deltaTime)
 	
 }
 
+void Graphics::DrawGUI()
+{
+	if (ImGui::BeginChild("Graphics Renderer")) {
+	
+	}
+	ImGui::EndChild();
+}
+
 void Graphics::Draw(ID3D11DeviceContext* pImmediateContext)
 {
 	Appearance * appearance= _owner->GetComponent<Appearance>();

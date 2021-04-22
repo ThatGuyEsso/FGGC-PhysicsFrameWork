@@ -28,6 +28,14 @@ void Appearance::UpdateComponent(float deltaTime)
 	//Needed to interface with components but has no implementation here
 }
 
+void Appearance::DrawGUI()
+{
+	if (ImGui::BeginChild("Apperance")) {
+
+	}
+	ImGui::EndChild();
+}
+
 
 
 

@@ -29,7 +29,7 @@ public:
 	Material GetMaterial() {return _material; }
 	Geometry GetGeomentry()  { return _geometry; }
 	bool HasTexture()  { return _textureRV ? true : false; }
-
+	void DrawGUI();
 	//Geometry Getters
 	ID3D11Buffer** GetVertexBuffer() { return &_geometry.vertexBuffer; }
 	UINT* GetVertexStride()  { return &_geometry.vertexBufferStride; }

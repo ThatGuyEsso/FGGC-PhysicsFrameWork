@@ -1,8 +1,8 @@
 #pragma once
 #include "Vector3D.h"
 #include "Quaternion.h"
-
-class Transform {
+#include "Component.h"
+class Transform: public Component {
 
 public:
 	//Physical properties
@@ -21,7 +21,7 @@ public:
 	Vector3D GetPosition() const { return _position; }
 
 	void SetScale(Vector3D scale) { _scale = scale; }
-
+	void DrawGUI();
 
 	Vector3D GetScale() const { return _scale; }
 
@@ -37,5 +37,9 @@ public:
 
 	XMMATRIX QuarternionToMatrix(Quaternion quarternion);
 
-
+	//Component interface
+	GameObject* GetOwner()override { return _owner; }
+	void SetOwner(GameObject* newOwner) override { _owner = newOwner; };
+	void UpdateComponent(float deltaTime);
+	Component* GetClassType() { return this; }
 };

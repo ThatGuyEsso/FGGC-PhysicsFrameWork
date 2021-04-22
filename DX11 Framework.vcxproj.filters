@@ -54,6 +54,12 @@
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{2ab0962a-22e2-4b61-9f3f-2adfcc0e25a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vendor">
+      <UniqueIdentifier>{39b6dd9e-11eb-43d7-89e3-4ca69165ab8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\imgui">
+      <UniqueIdentifier>{376df85a-551d-4cf8-b689-5226655f35f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -137,6 +143,36 @@
     <ClInclude Include="ContactResolver.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\imgui\imconfig.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_dx11.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_win32.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_internal.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_textedit.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_truetype.h">
+      <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIManager.h">
+      <Filter>Headers\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectGUI.h">
+      <Filter>Headers\Utillity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -204,6 +240,30 @@
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="ContactResolver.cpp" />
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_dx11.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_win32.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

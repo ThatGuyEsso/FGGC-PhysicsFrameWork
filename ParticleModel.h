@@ -48,6 +48,7 @@ public:
 	virtual void ApplyImpulse(Vector3D force);
 	virtual void ApplySeparation(Vector3D Separation);
 	Vector3D ResolveImpulse(float thisMass, float otherMass, Vector3D thisVel, Vector3D otherVel, float restitution);
+	void DrawGUI();
 
 	//Compnonent Interface
 	GameObject* GetOwner() override { return _owner; }

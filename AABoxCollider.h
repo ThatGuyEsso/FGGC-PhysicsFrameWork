@@ -22,7 +22,7 @@ public:
 	Vector3D ClosesPointToPoint(Vector3D point);
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
 	virtual Vector3D GetAxis(int axis);
-	
+	void DrawGUI();
 	//Compnonent Interface
 	GameObject* GetOwner() override { return Component::_owner; }
 	void SetOwner(GameObject* newOwner)override { Component::_owner = newOwner; }

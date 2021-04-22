@@ -48,7 +48,7 @@ public:
 	Vector3D GetCentreOfMass();
 	void Update(float t);
 
-
+	void DisplayGUI();
 	void CalculateCentreOfMass(SimpleVertex vertices[],int vertexCount);
 
 	//Component References

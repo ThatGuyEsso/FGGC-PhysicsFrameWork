@@ -19,6 +19,7 @@
 #include "RigidBody.h"
 #include "ParticleModel.h"
 #include "Component.h"
+#include "GUIManager.h"
 /*
 //#include <SpriteFont.h>
 #include "CommonStates.h"
@@ -114,7 +115,7 @@ private:
 	MeshData objMeshData;
 
 	Light basicLight;
-
+	GUIManager* _guiManager;
 	vector<GameObject *> _gameObjects;
 
 	Camera * _camera = nullptr;
@@ -154,6 +155,7 @@ private:
 	void ToggleGravity();
 
 	void CycleBetweenObjectByType(string type);
+	void RenderGUI();
 public:
 	Application();
 	~Application();

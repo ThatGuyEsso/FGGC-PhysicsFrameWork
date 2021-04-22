@@ -379,6 +379,7 @@
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="DebugHelp.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KD_Tree.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -393,6 +394,13 @@
     <ClCompile Include="Staticbody.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="DX11 Framework.fx">
@@ -415,6 +423,8 @@
     <ClInclude Include="DebugHelp.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="ObjectGUI.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KD_Tree.h" />
     <ClInclude Include="OBJLoader.h" />
@@ -429,6 +439,14 @@
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
   </ItemGroup>
   <ItemGroup>

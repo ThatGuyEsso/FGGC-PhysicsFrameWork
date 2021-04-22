@@ -12,7 +12,7 @@ public:
 	bool AABBvsSphereCollision(SphereCollider* sphere, AABoxCollider* AABB);
 	void Reflection(CollisionData* contactData);
 	Vector3D Support(Collider* other, Vector3D direction);
-
+	void DrawGUI();
 	bool GJKIntersection(Collider* other, Vector3D initAxis);
 	void GenerateContacts(Collider* currtCollider, Collider* otherCollider, CollisionData* contactData);
 	Vector3D FurthestPoint(Vector3D dir);

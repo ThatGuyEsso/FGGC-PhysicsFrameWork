@@ -14,6 +14,6 @@ public:
 	void SetOwner(GameObject* newOwner)override { _owner = newOwner; }
 	Component* GetClassType() { return this; }
 	void UpdateComponent(float deltaTime);
-
+	void DrawGUI();
 	void Draw(ID3D11DeviceContext* pImmediateContext);
 };

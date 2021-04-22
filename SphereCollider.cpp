@@ -71,6 +71,20 @@ Vector3D SphereCollider::Support(Collider* other, Vector3D direction)
 	return supportPoint;
 }
 
+void SphereCollider::DrawGUI()
+{
+	if (ImGui::BeginChild("Sphere Collider")) {
+		//Allow users to set position of object from gui 
+		float radius = _radius;
+		ImGui::InputFloat("Radius", &radius);
+		SetRadius(radius);
+		float resitution = _resititution;
+		_resititution= ImGui::InputFloat("Resititution", &resitution);
+
+	}
+	ImGui::EndChild();
+}
+
 
 
 bool SphereCollider::GJKIntersection(Collider* other, Vector3D initAxis)

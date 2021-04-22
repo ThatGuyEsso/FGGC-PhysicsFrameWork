@@ -1,8 +1,14 @@
 #include "Application.h"
 #include "KD_Tree.h"
-
+//imgui message handler
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	//passes windows messages to imgui
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam)) {
+		return true;
+	}
+
 	PAINTSTRUCT ps;
 	HDC hdc;
 
@@ -77,7 +83,7 @@ Application::Application()
 	 _WindowHeight = 0;
 	 _WindowWidth = 0;
 
-	 _input->instance();
+
 }
 
 Application::~Application()
@@ -145,7 +151,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
-		GameObject* gameObject = new GameObject("Moveable" + i);
+		GameObject* gameObject = new GameObject("Sphere" + i);
 		gameObject->AddComponent(new Appearance(GetSphereMesh(_pd3dDevice), shinyMaterial, _pTextureRV));
 		gameObject->AddComponent(new Graphics());
 		gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
@@ -160,7 +166,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	
 	}
 	
-	gameObject = new GameObject("Moveable" + _gameObjects.size()-1);
+	gameObject = new GameObject("Cube" + _gameObjects.size()-1);
 	gameObject->AddComponent(new Appearance(GetCubeMesh(_pIndexBuffer,_pVertexBuffer), shinyMaterial, _pTextureRV));
 	gameObject->AddComponent(new Graphics());
 	gameObject->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
@@ -568,7 +574,9 @@ HRESULT Application::InitDevice()
 
 	cmdesc.FrontCounterClockwise = false;
 	hr = _pd3dDevice->CreateRasterizerState(&cmdesc, &CWcullMode);
-
+	_input->instance();
+	_guiManager = new GUIManager();
+	_guiManager->Init(_hWnd, _pd3dDevice, _pImmediateContext);
     return S_OK;
 }
 
@@ -618,6 +626,10 @@ void Application::Cleanup()
 			gameObject = nullptr;
 		}
 	}
+	_gameObjects.clear();
+	_input = nullptr;
+	_guiManager = nullptr;
+
 }
 
 
@@ -652,8 +664,24 @@ void Application::CycleBetweenObjectByType(string type)
 	DebugHelp().OutPutText(_gameObjects[_activeGameObjectIndex]->GetType().c_str());
 }
 
+void Application::RenderGUI()
+{
+	//Start new frame
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+	//call  GUI instances
+	GetSelectedGameObject()->DisplayGUI();
+
+	//render data from guis
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
 void Application::Update()
 {
+	_guiManager->IsGuiTyping();
 	_input->Update();
 	// Update our time
 	static float deltaTime = 0.0f;
@@ -785,6 +813,7 @@ void Application::Update()
 	if (_input->GetKey('C')) {
 		CycleBetweenObjectByType(std::string("Moveable"));
 	}
+
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
 
@@ -803,8 +832,10 @@ void Application::Update()
 	{
 		gameObject->Update(deltaTime);
 	}
+
 	//resets time since last frame
 	deltaTime -= FPS;
+
 
 	
 	KD_Tree* tree = new KD_Tree();
@@ -917,7 +948,7 @@ void Application::Draw()
 
 
 	}
-
+	RenderGUI();
     //
     // Present our back buffer to our front buffer
     //
