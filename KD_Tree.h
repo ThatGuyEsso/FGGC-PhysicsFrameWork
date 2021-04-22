@@ -14,8 +14,9 @@ public:
 		KD_Node* left, * right;
 		std::vector<GameObject*> objectSet;
 		int depth;
-		KD_Tree::KD_Node(int Depth) {
+		KD_Tree::KD_Node(int Depth,KD_Node* newParent) {
 			depth = Depth;
+			this->parent = parent;
 		}
 		bool IsLeaf() {
 			return left && right == nullptr;
@@ -27,11 +28,20 @@ public:
 					Appearance* app;
 
 					if (app = object->GetComponent<Appearance>()) {
+						app->SetMaterial(depth0Mat);
+					}
+				}
+			}
+			else if (depth == 1) {
+				for (GameObject* object : objectSet) {
+					Appearance* app;
+
+					if (app = object->GetComponent<Appearance>()) {
 						app->SetMaterial(depth1Mat);
 					}
 				}
 			}
-			if (depth == 1) {
+			else if (depth == 2) {
 				for (GameObject* object : objectSet) {
 					Appearance* app;
 
@@ -40,7 +50,7 @@ public:
 					}
 				}
 			}
-			if (depth == 2) {
+			else if (depth == 3) {
 				for (GameObject* object : objectSet) {
 					Appearance* app;
 
@@ -49,7 +59,34 @@ public:
 					}
 				}
 			}
+			else if (depth == 4) {
+				for (GameObject* object : objectSet) {
+					Appearance* app;
 
+					if (app = object->GetComponent<Appearance>()) {
+						app->SetMaterial(depth4Mat);
+					}
+				}
+			}
+			else if (depth == 5) {
+				for (GameObject* object : objectSet) {
+					Appearance* app;
+
+					if (app = object->GetComponent<Appearance>()) {
+						app->SetMaterial(depth5Mat);
+					}
+				}
+			}
+
+			else if (depth == 6) {
+				for (GameObject* object : objectSet) {
+					Appearance* app;
+
+					if (app = object->GetComponent<Appearance>()) {
+						app->SetMaterial(depth6Mat);
+					}
+				}
+			}
 			
 		}
 	};
@@ -64,7 +101,7 @@ public:
 public:
 	KD_Tree();
 	~KD_Tree();
-	void AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet, Axis axis, KD_Node* parent);
+	void AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet, Axis axis, KD_Node* currentNode);
 	std::vector<KD_Node*> GetLeaves() { return leaves; }
 
 private:
@@ -76,6 +113,6 @@ private:
 	KD_Node* _rootNode;
 
 	std::vector<KD_Node*> leaves;
-	int minObjectsToSplit = 4;
+	int minObjectsToSplit = 3;
 	int maxDepth=6;
 };

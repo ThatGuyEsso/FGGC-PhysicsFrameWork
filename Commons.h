@@ -81,14 +81,34 @@ static Material shinyMaterial = Material(XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f),
 static Material noSpecMaterial= Material(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f),
 	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f), 0.0f);
 
+//White
+static Material depth0Mat = Material(XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+//red
+static Material depth1Mat = Material(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+
+//Blue
+static Material depth2Mat = Material(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
 
 
-static Material depth1Mat = Material(XMFLOAT4(1.0f, 0.3f, 0.3f, 1.0f),
+//Green
+static Material depth3Mat = Material(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f),
 	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
-static Material depth2Mat = Material(XMFLOAT4(0.3f, 0.3f, 1.0f, 1.0f),
+
+//Yellow
+static Material depth4Mat = Material(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f),
 	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
-static Material depth3Mat = Material(XMFLOAT4(0.3f, 1.0f, 0.3f, 1.0f),
+
+//Purple
+static Material depth5Mat = Material(XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f),
 	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+
+//Black
+static Material depth6Mat = Material(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f),
+	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), 10.0f);
+
 
 
 static Geometry GetDonutMesh(ID3D11Device* _pd3dDevice) {

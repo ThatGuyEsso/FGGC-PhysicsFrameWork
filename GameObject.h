@@ -15,6 +15,7 @@ using namespace std;
 class GameObject
 {
 public:
+	GameObject()=default;
 	GameObject(string type);
 	GameObject(string type,Transform* transform);
 	~GameObject();

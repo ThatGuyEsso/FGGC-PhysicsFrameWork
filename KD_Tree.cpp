@@ -10,22 +10,23 @@ KD_Tree::~KD_Tree()
     if (!leaves.empty()) leaves.clear();
 }
 
-void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis axis, KD_Node* parent)
+void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis axis, KD_Node* currentNode)
 {
     if (!_rootNode) {
-        _rootNode = new KD_Node(0);
+        _rootNode = new KD_Node(0,nullptr);
         _rootNode->objectSet = gameObjectsInSet;
         _rootNode->point = GetMedianPositionFormSet(gameObjectsInSet);
+
         axis = Axis::X_axis;
-        _rootNode->ApplyDepthMat();
+      
         if (_rootNode->depth < maxDepth&& gameObjectsInSet.size()>=minObjectsToSplit) {
-            KD_Node* left = _rootNode->left = new KD_Node(_rootNode->depth++);
-            KD_Node* right = _rootNode->left = new KD_Node(_rootNode->depth++);
+            KD_Node* left = _rootNode->left = new KD_Node(_rootNode->depth + 1, _rootNode);
+            KD_Node* right = _rootNode->right = new KD_Node(_rootNode->depth+1, _rootNode);
        
             left->objectSet = GetObjectsInSplit(_rootNode->objectSet, false, axis, _rootNode->point.x);
-            left->ApplyDepthMat();
+          
             right->objectSet = GetObjectsInSplit(_rootNode->objectSet, true, axis, _rootNode->point.x);
-            right->ApplyDepthMat();
+         
             if (left->depth > maxDepth || left->objectSet.size() < minObjectsToSplit&&
                 right->depth > maxDepth || right->objectSet.size() < minObjectsToSplit) {
                 leaves.push_back(_rootNode);
@@ -44,84 +45,131 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
             }
         }
         else {
+            _rootNode->ApplyDepthMat();//Add section mat
             leaves.push_back(_rootNode);
         }
    
     }
     else {
-        if (parent == nullptr) {
+        //Check if the node is connected to tree and is valid
+        if (currentNode->parent == nullptr|| currentNode==nullptr) return;
+        
+        //If valid check if it is valid to split further
+        if (currentNode->depth >= maxDepth || gameObjectsInSet.size() < minObjectsToSplit) {
+ 
 
-         
+            leaves.push_back(currentNode);
+       
             return;
-        }
-        KD_Node* currentNode = new KD_Node(parent->depth++);
-
-        if (currentNode->depth > maxDepth || gameObjectsInSet.size() < minObjectsToSplit) {
-            leaves.push_back(parent);
-            return;
 
         }
+        //Create new node split 
         currentNode->point=(GetMedianPositionFormSet(gameObjectsInSet));
-            switch (axis)
-            {
-            case Axis::X_axis:
+        currentNode->ApplyDepthMat();
+        KD_Node* newLeft;
+        KD_Node* newRight;
+        switch (axis)
+        {
+        case Axis::X_axis:
 
-                parent->left = new KD_Node(currentNode->depth);
-                parent->left->point = currentNode->point;
-                parent->left->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.x);
-                parent->left->ApplyDepthMat();
-                AddNodeRecursive(parent->left->objectSet, Axis::Y_axis, parent->left);
-                if (parent->left->depth < maxDepth || parent->left->objectSet.size() >= minObjectsToSplit) {
+                //Create branches 
+            newLeft = currentNode->left = new KD_Node(currentNode->depth+1, currentNode);
+            newRight = currentNode->right = new KD_Node(currentNode->depth + 1, currentNode);
 
-                    AddNodeRecursive(parent->left->objectSet, Axis::Y_axis, parent->left);
-                }
-                parent->right = new KD_Node(currentNode->depth);
-                parent->right->point = currentNode->point;
-                parent->right->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.x);
-                parent->right->ApplyDepthMat();
-                if (parent->right->depth < maxDepth || parent->right->objectSet.size() >= minObjectsToSplit) {
-
-                    AddNodeRecursive(parent->right->objectSet, Axis::Y_axis, parent->right);
-                }
-                break;
-            case Axis::Y_axis:
-                parent->left = new KD_Node(currentNode->depth);
-                parent->left->point = currentNode->point;
-                parent->left->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.y);
-                parent->left->ApplyDepthMat();
-                if (parent->left->depth < maxDepth || parent->left->objectSet.size() >= minObjectsToSplit) {
-
-                    AddNodeRecursive(parent->left->objectSet, Axis::Z_axis, parent->left);
-                }
-                parent->right = new KD_Node(currentNode->depth);
-                parent->right->point = currentNode->point;
-                parent->right->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.y);
-                parent->right->ApplyDepthMat();
-                if (parent->right->depth < maxDepth || parent->right->objectSet.size() >= minObjectsToSplit) {
-
-                    AddNodeRecursive(parent->right->objectSet, Axis::Z_axis, parent->right);
-                }
-                break;
-            case Axis::Z_axis:
-                parent->left = new KD_Node(currentNode->depth);
-                parent->left->point = currentNode->point;
-                parent->left->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.z);
-                parent->left->ApplyDepthMat();
-                if (parent->left->depth < maxDepth || parent->left->objectSet.size() >= minObjectsToSplit) {
-
-                    AddNodeRecursive(parent->left->objectSet, Axis::X_axis, parent->left);
-                }
-                parent->right = new KD_Node(currentNode->depth);
-                parent->right->point = currentNode->point;
-                parent->right->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.z);
-                parent->right->ApplyDepthMat();
-                if (parent->right->depth < maxDepth || parent->right->objectSet.size() >= minObjectsToSplit) {
-
-                    AddNodeRecursive(parent->right->objectSet, Axis::X_axis, parent->right);
-                }
-                break;
-    
+            //Split to the left
+            newLeft->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.x);
+           
+            if (newLeft->depth < maxDepth || newLeft->objectSet.size() >= minObjectsToSplit) {
+                //If valid to split continue recursion
+                AddNodeRecursive(newLeft->objectSet, Axis::Y_axis, newLeft);
             }
+            else {
+
+                leaves.push_back(newLeft);
+            }
+
+            //Split to the right
+            newRight->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.x);
+            //Apply slit mat
+      
+            if (newRight->depth < maxDepth || newRight->objectSet.size() >= minObjectsToSplit) {
+
+                AddNodeRecursive(newRight->objectSet, Axis::Y_axis, newLeft);
+            }
+            else {
+ 
+                leaves.push_back(newRight);
+        
+            }
+        
+            break;
+        case Axis::Y_axis:
+
+            //Create branches 
+            newLeft = currentNode->left = new KD_Node(currentNode->depth + 1, currentNode);
+            newRight = currentNode->right = new KD_Node(currentNode->depth + 1, currentNode);
+
+            //Split to the left
+            newLeft->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.y);
+
+            if (newLeft->depth < maxDepth || newLeft->objectSet.size() >= minObjectsToSplit) {
+                //If valid to split continue recursion
+                AddNodeRecursive(newLeft->objectSet, Axis::Z_axis, newLeft);
+            }
+            else {
+         
+                leaves.push_back(newLeft);
+            }
+
+            //Split to the right
+            newRight->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.y);
+            //Apply slit mat
+            newRight->ApplyDepthMat();
+            if (newRight->depth < maxDepth || newRight->objectSet.size() >= minObjectsToSplit) {
+
+                AddNodeRecursive(newRight->objectSet, Axis::Z_axis, newLeft);
+            }
+            else
+            {
+            
+                leaves.push_back(newRight);
+            }
+
+            break;
+        case Axis::Z_axis:
+
+            //Create branches 
+            newLeft = currentNode->left = new KD_Node(currentNode->depth + 1, currentNode);
+            newRight = currentNode->right = new KD_Node(currentNode->depth + 1, currentNode);
+
+            //Split to the left
+            newLeft->objectSet = GetObjectsInSplit(gameObjectsInSet, false, axis, currentNode->point.z);
+     
+            if (newLeft->depth < maxDepth || newLeft->objectSet.size() >= minObjectsToSplit) {
+                //If valid to split continue recursion
+                AddNodeRecursive(newLeft->objectSet, Axis::X_axis, newLeft);
+            }
+            else {
+          
+                leaves.push_back(newLeft);
+            }
+
+            //Split to the right
+            newRight->objectSet = GetObjectsInSplit(gameObjectsInSet, true, axis, currentNode->point.z);
+            //Apply slit mat
+      
+            if (newRight->depth < maxDepth || newRight->objectSet.size() >= minObjectsToSplit) {
+
+                AddNodeRecursive(newRight->objectSet, Axis::X_axis, newLeft);
+            }
+            else {
+       
+                leaves.push_back(newRight);
+            }
+
+            break;
+            }
+        }
 
 
     }
@@ -147,7 +195,6 @@ void KD_Tree::AddNodeRecursive(std::vector<GameObject*> gameObjectsInSet,Axis ax
      //}
     
 
-}
 
 Vector3D KD_Tree::GetMedianPositionFormSet(std::vector<GameObject*> gameObjectsInSet)
 {
