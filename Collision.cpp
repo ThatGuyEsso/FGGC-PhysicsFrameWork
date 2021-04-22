@@ -2,7 +2,7 @@
 #include "SphereCollider.h"
 #include "AABoxCollider.h"
 #include "Collider.h"
-
+#include "DebugHelp.h"
 Collision::Collision()
 {
 
@@ -16,14 +16,20 @@ bool Collision::HandleSimplex(Vector3D dir, Collider* a, Collider* b)
 			//Simplex has 2 points look for the third
 			if (_simplex.size() == 2) {
 				LineCase(dir,a,b);
+				//DebugHelp().OutPutText("Get Third support point found during Line Case");
 			}
 			//Simplex has 3 points look for the 4th
 			else if (_simplex.size() == 3) {
 
 				if(!TriangleCase(dir,a,b)) return false;
+				//DebugHelp().OutPutText("Get Fourth support point found during Triangle Case");
 			}
 			else if (_simplex.size() == 4) {
-				return TetrahedronCase(dir,_simplex);
+				if (TetrahedronCase(dir, _simplex)) {
+					//DebugHelp().OutPutText("Point within simplex Collision");
+					return true;
+				}
+				return false;
 			}
 			else {
 				return false;
@@ -193,7 +199,7 @@ Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider
 		if(axis.square()<0.001) continue;
 
 		axis.normalization();
-		if (i == 8);
+	
 		float overlap = PenetrationOnAxis(currCollider, otherCollider, axis);
 		if (overlap < 0) return nullptr;
 	
@@ -205,7 +211,7 @@ Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider
 		
 	}
 	if (hasCollied) {
-
+		DebugHelp().OutPutText("Overlapped");
 		Vector3D toCentre = otherCollider->GetTransform()->GetPosition() - currCollider->GetTransform()->GetPosition();
 
 		Vector3D axis;
@@ -213,6 +219,7 @@ Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider
 			axis = GetBoxTestAxes(currCollider,otherCollider,bestCase);
 		//Face axis test
 		if (bestCase <= 5) {
+			DebugHelp().OutPutText("Face Case");
 			//Get face in contact
 			if (axis.dot_product(toCentre) > 0) axis *= -1.0f;
 			Vector3D vertex = otherCollider->GetHalfSize();
@@ -240,6 +247,7 @@ Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider
 		}
 		//Edge axis test
 		else if (bestCase > 5) {
+			DebugHelp().OutPutText("Edge Case");
 			Vector3D ptCurrEdge = currCollider->GetHalfSize();
 			Vector3D ptOtherEdge = otherCollider->GetHalfSize();
 			unsigned currAxisIndex = GetAxisIndexCurrent(bestCase);
@@ -264,6 +272,7 @@ Collision::CollisionData* Collision::SATBoxCollision(AABoxCollider* currCollider
 
 			ptCurrEdge = currCollider->GetTransform()->GetPosition() + ptCurrEdge;
 			ptOtherEdge = otherCollider->GetTransform()->GetPosition() + ptOtherEdge;
+			
 			//generate compile and return collision data
 			CollisionData* data = new CollisionData();
 			Contact* contact = data->contacts;

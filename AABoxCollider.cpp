@@ -148,7 +148,7 @@ bool AABoxCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 	Vector3D initSimplex = Support(other, initAxis).normalization();
 	//add startubg point to simplex
 	_simplex.push_back(initSimplex);
-
+	//DebugHelp().OutPutText("GJK Getting initial support point");
 	Vector3D dirToOrigin = (Vector3D() - _simplex[0]).normalization();
 
 
@@ -163,10 +163,10 @@ bool AABoxCollider::GJKIntersection(Collider* other, Vector3D initAxis)
 
 		_simplex.push_back(A);
 		bool isColliding= HandleSimplex(dirToOrigin,this,other);
-
+		//DebugHelp().OutPutText("Get second support point");
 		if (isColliding) {
 
-			DebugHelp().OutPutText("Cube Collided");
+			
 
 			return true;
 		}
@@ -203,7 +203,8 @@ Vector3D AABoxCollider::GetAxis(int axis)
 
 void AABoxCollider::DrawGUI()
 {
-	if (ImGui::BeginChild("AA Box Collider")) {
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f));
+	if (ImGui::Begin("AA Box Collider")) {
 		//Allow users to set position of object from gui 
 		float halfsize[3] = { _halfSize.x,_halfSize.y,_halfSize.z };
 		ImGui::InputFloat3("Half Size ", halfsize, "%.2f");
@@ -214,7 +215,7 @@ void AABoxCollider::DrawGUI()
 
 		
 	}
-	ImGui::EndChild();
+	ImGui::End();
 }
 
 void AABoxCollider::UpdateComponent(float deltaTime)

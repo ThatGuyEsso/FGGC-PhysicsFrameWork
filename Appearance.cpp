@@ -30,10 +30,11 @@ void Appearance::UpdateComponent(float deltaTime)
 
 void Appearance::DrawGUI()
 {
-	if (ImGui::BeginChild("Apperance")) {
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 10.0f));
+	if (ImGui::Begin("Apperance")) {
 
 	}
-	ImGui::EndChild();
+	ImGui::End();
 }
 
 

@@ -18,7 +18,8 @@ Transform::Transform(Vector3D position, Vector3D rotation, Vector3D scale)
 
 void Transform::DrawGUI()
 {//Display game object id
-	if (ImGui::BeginChild("Transform")) {
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f));
+	if (ImGui::Begin("Transform")) {
 		//Allow users to set position of object from gui 
 		float pos[3] = { _position.x,_position.y,_position.z };
 		ImGui::InputFloat3("Position ", pos, "%.2f");
@@ -33,7 +34,7 @@ void Transform::DrawGUI()
 		ImGui::InputFloat3("Scale ", scale, "%.2f");
 		SetScale(Vector3D(scale[0], scale[1], scale[2]));
 	}
-	ImGui::EndChild();
+	ImGui::End();
 }
 
 void Transform::SetRotation(Vector3D rotation)

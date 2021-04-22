@@ -33,7 +33,7 @@ void RigidBody::CalculateTorgue(Vector3D force, Vector3D contactPoint)
 void RigidBody::ApplyImpulse(Vector3D point, Vector3D force)
 {
 	if (_bodyMode != BodyMode::Static) {
-		_currentVelocity *= _deltaTime;
+		_currentVelocity = force*_deltaTime;
 
 	/*	Vector3D resultantToPoint = _transform->GetPosition() + point -force;
 

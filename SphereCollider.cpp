@@ -73,7 +73,8 @@ Vector3D SphereCollider::Support(Collider* other, Vector3D direction)
 
 void SphereCollider::DrawGUI()
 {
-	if (ImGui::BeginChild("Sphere Collider")) {
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f));
+	if (ImGui::Begin("Sphere Collider")) {
 		//Allow users to set position of object from gui 
 		float radius = _radius;
 		ImGui::InputFloat("Radius", &radius);
@@ -82,7 +83,7 @@ void SphereCollider::DrawGUI()
 		_resititution= ImGui::InputFloat("Resititution", &resitution);
 
 	}
-	ImGui::EndChild();
+	ImGui::End();
 }
 
 

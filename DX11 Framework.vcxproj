@@ -385,13 +385,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
-    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleModel.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
-    <ClCompile Include="Staticbody.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
@@ -428,9 +425,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KD_Tree.h" />
     <ClInclude Include="OBJLoader.h" />
-    <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleModel.h" />
-    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Quaternion.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="RigidBody.h" />
@@ -455,6 +450,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ComponentModel.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -101,7 +101,7 @@ void ParticleModel::StopObject()
 
 void ParticleModel::ApplyImpulse(Vector3D point, Vector3D force)
 {
-	_currentVelocity = force;
+	_currentVelocity = force*_deltaTime;
 }
 
 void ParticleModel::ApplyImpulse(Vector3D force)
@@ -126,7 +126,8 @@ Vector3D ParticleModel::ResolveImpulse(float thisMass, float otherMass, Vector3D
 
 void ParticleModel::DrawGUI()
 {
-	if (ImGui::BeginChild("Particle Body")) {
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f));
+	if (ImGui::Begin("Particle Body")) {
 		//Allow users to set position of object from gui 
 		float Velocity[3] = { _currentVelocity.x,_currentVelocity.y,_currentVelocity.z };
 		ImGui::InputFloat3("Velocity ", Velocity, "%.2f");
@@ -152,7 +153,7 @@ void ParticleModel::DrawGUI()
 	
 
 	}
-	ImGui::EndChild();
+	ImGui::End();
 }
 
 

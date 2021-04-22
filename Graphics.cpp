@@ -12,10 +12,11 @@ void Graphics::UpdateComponent(float deltaTime)
 
 void Graphics::DrawGUI()
 {
-	if (ImGui::BeginChild("Graphics Renderer")) {
+	ImGui::SetNextWindowSize(ImVec2(500.0f, 10.0f));
+	if (ImGui::Begin("Graphics Renderer")) {
 	
 	}
-	ImGui::EndChild();
+	ImGui::End();
 }
 
 void Graphics::Draw(ID3D11DeviceContext* pImmediateContext)
