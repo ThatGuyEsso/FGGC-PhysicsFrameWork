@@ -1,45 +1,19 @@
-﻿  KD_Tree.cpp
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(11,68): warning C4042: 'value': has bad storage class
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(12,66): warning C4042: 'value': has bad storage class
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\DebugHelp.h(15,2): warning C4091: 'static ': ignored on left of 'DebugHelp' when no variable is declared
+﻿  Collision.cpp
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\SphereCollider.h(5,30): warning C4584: 'SphereCollider': base-class 'Component' is already a base-class of 'Collider'
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\AABoxCollider.h(5,30): warning C4584: 'AABoxCollider': base-class 'Component' is already a base-class of 'Collider'
 C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.h(7): message : see declaration of 'Collider'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\RigidBody.h(6,25): warning C4584: 'RigidBody': base-class 'Component' is already a base-class of 'ParticleModel'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Component.h(5): message : see declaration of 'Component'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\ParticleModel.h(7): message : see declaration of 'ParticleModel'
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(17,39): warning C4100: 'newParent': unreferenced formal parameter
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(22,66): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(30,66): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(31,68): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(34,71): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(38,73): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(58,71): warning C4018: '<': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(82,72): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(95,74): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(115,72): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(128,74): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(148,72): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(161,74): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(207,44): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Commons.h(114,17): warning C4505: 'GetDonutMesh': unreferenced local function has been removed
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Commons.h(126,17): warning C4505: 'GetSphereMesh': unreferenced local function has been removed
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Commons.h(138,17): warning C4505: 'GetCubeMesh': unreferenced local function has been removed
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Commons.h(151,17): warning C4505: 'GetPlaneMesh': unreferenced local function has been removed
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(224): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(253): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(284): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(313): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(344): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.cpp(373): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(30): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(39): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(48): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(57): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(66): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(75): warning C4706: assignment within conditional expression
-C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\KD_Tree.h(85): warning C4706: assignment within conditional expression
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collider.h(7): message : see declaration of 'Collider'
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(38,35): warning C4100: 'dir': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(101,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(105,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(111,44): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(59,39): warning C4100: 'dir': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(120,42): warning C4100: 'dir': unreferenced formal parameter
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(196,14): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(294,8): warning C4189: 'test': local variable is initialized but not referenced
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(381): warning C4715: 'Collision::GetAxisIndexCurrent': not all control paths return a value
+C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Collision.cpp(397): warning C4715: 'Collision::GetAxisIndexOther': not all control paths return a value
   DX11 Framework.vcxproj -> C:\Users\e010103j\Documents\GitHub\FGGC-PhysicsFrameWork\Debug\DX11 Framework.exe

@@ -34,6 +34,7 @@ bool AABoxCollider::CollisionCheck(Collider* other)
 		case ColliderType::Sphere:
 			dirToOrigin = (other->GetTransform()->GetPosition() - _transform->GetPosition()).normalization();
 			CalculateVertices();//Update current vertex postions
+
 			if (GJKIntersection(other, dirToOrigin))
 			{
 				CollisionData* data = FindContactsInIntersection(this, other);
@@ -248,7 +249,7 @@ Vector3D AABoxCollider::FurthestPoint(Vector3D dir)
 Vector3D AABoxCollider::ClosesPointToPoint(Vector3D point)
 {
 	//Get Vector to point
-	Vector3D closesPoint = point - _transform->GetPosition();
+	Vector3D closesPoint = point- _transform->GetPosition();
 
 	//Clamp vector to bounds of cube
 

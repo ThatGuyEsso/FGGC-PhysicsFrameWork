@@ -169,8 +169,8 @@ Collision::CollisionData* Collision::FindContactsInIntersection(Collider* currCo
 
 			case ColliderType::AABB:
 				switch (otherCollider->GetColliderType())
-				{
-				case ColliderType::Sphere:
+				{				
+					case ColliderType::Sphere:
 					SphereVAABBIntersection((AABoxCollider*)currCollider, (SphereCollider*)otherCollider, colData);
 					break;
 				}
@@ -319,7 +319,7 @@ void Collision::SphereVAABBIntersection(AABoxCollider* box, SphereCollider* sphe
 	contact->_contactNormal = closestPoint - sphere->GetTransform()->GetPosition();
 	contact->_contactNormal.normalization();
 	contact->_contactPoint = closestPoint;
-	contact->penetrationDepth = sphere->GetRadius() - distance;
+	contact->penetrationDepth = sphere->GetRadius() - distance*distance;
 	data->totalContacts++;
 	
 }

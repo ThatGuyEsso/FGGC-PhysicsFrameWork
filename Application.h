@@ -34,7 +34,7 @@
 */
 
 using namespace DirectX;
-#define NUMBER_OF_CUBES 20
+#define NUMBER_OF_CUBES 2
 
 
 
